@@ -42,7 +42,7 @@ import functions.PlotFunctions as pf
 # #timeSeconds = timeSeconds-timeMinutes*60-timeHours*3600
 #
 # print('TOTAL TIME TAKEN: {} segundos'.format(timeSeconds))
-#
+
 # # =================== Run MEFISection with Concrete06 =========================================
 # # Remove existing model
 # ops.wipe()
