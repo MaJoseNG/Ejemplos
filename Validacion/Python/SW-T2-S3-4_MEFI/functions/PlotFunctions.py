@@ -27,7 +27,7 @@ def plotGlobalResponse(OutputDirName, AnalysisName):
     plt.xlim(-2, 2)
     
     plt.legend()
-    plt.title('Ejemplo SW-T2-S3-4 Pushover Cíclico MEFISection')
+    plt.title('Ejemplo SW-T2-S3-4 Pushover Cíclico')
     plt.xlabel('Desplazamiento (cm)')
     plt.ylabel('Reaccion Horizontal (kgf)')
     plt.grid(True)
