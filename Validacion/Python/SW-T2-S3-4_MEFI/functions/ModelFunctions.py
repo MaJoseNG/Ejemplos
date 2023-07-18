@@ -254,9 +254,8 @@ def materialsFSAM():
     rhoConcreteMaterial = 2500.0*(10**(-6))/magnitudGSelfWeightLoad
     
     nu = 0.35                                   # friction coefficient
-    #alfadow = 0.009                            # dowel action stiffness parameter
-    #alfadow = 0.05/2                            # dowel action stiffness parameter (GRAFICA-Main 1)
-    alfadow = 0.005
+    alfadow = 0.005                             # dowel action stiffness parameter
+    #alfadow = 0.0001                             # dowel action stiffness parameter
 
     ################# Wall: Confined border #################
     # Reinforcing ratios
