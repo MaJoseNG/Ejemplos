@@ -73,39 +73,39 @@ import functions.PlotFunctions as pf
 #
 # print('TOTAL TIME TAKEN: {} segundos'.format(timeSeconds))
 
-# # =================== Run MEFI with FSAM-Concrete02 =========================================
-# # Remove existing model
-# ops.wipe()
-#
-# # Turn on timer
-# startTime = time.time()
-#
-# # Build Model
-# mf.Nodes()
-# #mf.NodesFSAM()
-# mf.UniaxialMat_Steel02()
-# mf.UniaxialMat_Concrete02()
-# mf.materialsFSAM()
-# mf.areaElements_MEFI()
-#
-# rf.getRecorders('MEFI_Concrete02', 'MEFI_Concrete02')
-#
-# print('########## Model generated successfully ##########')
-#
-# # Run gravity analysis
-# af.gravityLoadAnalysis()
-# print('########## Gravity load applied successfully ##########')
-#
-# # Run displacement controlled analysis
-# af.displacementControlledAnalysis()
-#
-# finishTime = time.time()
-# timeSeconds = finishTime - startTime
-#
-# print('TOTAL TIME TAKEN: {} segundos'.format(timeSeconds))
-#
-# # =============================================================================
-#
+# =================== Run MEFI with FSAM-Concrete02 =========================================
+# Remove existing model
+ops.wipe()
+
+# Turn on timer
+startTime = time.time()
+
+# Build Model
+mf.Nodes()
+#mf.NodesFSAM()
+mf.UniaxialMat_Steel02()
+mf.UniaxialMat_Concrete02()
+mf.materialsFSAM()
+mf.areaElements_MEFI()
+
+rf.getRecorders('MEFI_Concrete02', 'MEFI_Concrete02')
+
+print('########## Model generated successfully ##########')
+
+# Run gravity analysis
+af.gravityLoadAnalysis()
+print('########## Gravity load applied successfully ##########')
+
+# Run displacement controlled analysis
+af.displacementControlledAnalysis()
+
+finishTime = time.time()
+timeSeconds = finishTime - startTime
+
+print('TOTAL TIME TAKEN: {} segundos'.format(timeSeconds))
+
+# =============================================================================
+
 # # Plot Analysis
 # # GLOBAL RESPONSE
 # LatLoadMEFISection02, NodeLateralDispMEFISection02 = pf.plotGlobalResponse('MEFISection_Concrete02', 'MEFISection_Concrete02')
@@ -158,25 +158,25 @@ import functions.PlotFunctions as pf
 # plt.show()
 
 # ==========================================================
-# Grafico TEST
-fileName = 'SW-T2-S3-4_MedicionesExperimentales.txt'
-Test = np.loadtxt(fileName, delimiter='     ')
-LatDisp_Test = Test[:, 1]/10
-LatLoad_Test = Test[:, 0]*102
-
-fig, ax = plt.subplots()
-ax.plot(LatDisp_Test,LatLoad_Test)
-plt.ylim(-1e5, 1e5)
-plt.xlim(-2, 2)
-
-plt.legend()
-plt.title('Test SW-T2-S3-4')
-plt.xlabel('Desplazamiento (cm)')
-plt.ylabel('Carga Lateral (kgf)')
-plt.grid(True)
-
-# Mostrar el gráfico
-plt.show()
+# # Grafico TEST
+# fileName = 'SW-T2-S3-4_MedicionesExperimentales.txt'
+# Test = np.loadtxt(fileName, delimiter='     ')
+# LatDisp_Test = Test[:, 1]/10
+# LatLoad_Test = Test[:, 0]*102
+#
+# fig, ax = plt.subplots()
+# ax.plot(LatDisp_Test,LatLoad_Test)
+# plt.ylim(-1e5, 1e5)
+# plt.xlim(-2, 2)
+#
+# plt.legend()
+# plt.title('Test SW-T2-S3-4')
+# plt.xlabel('Desplazamiento (cm)')
+# plt.ylabel('Carga Lateral (kgf)')
+# plt.grid(True)
+#
+# # Mostrar el gráfico
+# plt.show()
 
 
 
