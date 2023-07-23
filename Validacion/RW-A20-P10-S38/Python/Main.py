@@ -9,43 +9,7 @@ import functions.AnalysisFunctions as af
 import functions.PlotFunctions as pf
 
 
-# =================== RUN MEFI =========================================
-# Remove existing model
-ops.wipe()
-
-# Turn on timer
-startTime = time.time()
-
-# Build Model
-mf.Nodes()
-mf.materialsFSAM()
-mf.areaElements_MEFI()
-
-rf.getRecorders('MEFI', 'MEFI')
-
-print('########## Model generated successfully ##########')
-
-# Run gravity analysis
-af.gravityLoadAnalysis()
-
-print('########## Gravity load applied successfully ##########')
-
-# Run displacement controlled analysis
-af.displacementControlledAnalysis()
-
-finishTime = time.time()
-timeSeconds = finishTime - startTime
-timeMinutes = timeSeconds/60
-timeHours = timeSeconds/3600
-timeMinutes = timeMinutes-timeHours*60
-timeSeconds = timeSeconds-timeMinutes*60-timeHours*3600
-
-
-print('TOTAL TIME TAKEN {}:{}:{}'.format(timeHours, timeMinutes, timeSeconds))
-
-# =============================================================================
-
-# # =================== RUN MEFISECTION =========================================
+# # =================== RUN MEFI =========================================
 # # Remove existing model
 # ops.wipe()
 #
@@ -54,54 +18,71 @@ print('TOTAL TIME TAKEN {}:{}:{}'.format(timeHours, timeMinutes, timeSeconds))
 #
 # # Build Model
 # mf.Nodes()
-# mf.materialsRCLayerMembraneSection()
-# mf.areaElements_MEFISection()
+# mf.materialsFSAM()
+# mf.areaElements_MEFI()
 #
-# rf.getRecorders('MEFISection', 'MEFISection')
+# rf.getRecorders('MEFI', 'MEFI')
 #
-# print('Model generated successfully')
+# print('########## Model generated successfully ##########')
 #
 # # Run gravity analysis
 # af.gravityLoadAnalysis()
 #
-# print('Gravity load applied successfully')
+# print('########## Gravity load applied successfully ##########')
 #
 # # Run displacement controlled analysis
 # af.displacementControlledAnalysis()
 #
 # finishTime = time.time()
 # timeSeconds = finishTime - startTime
-# #timeMinutes = timeSeconds/60
-# #timeHours = timeSeconds/3600
-# #timeMinutes = timeMinutes-timeHours*60
-# #timeSeconds = timeSeconds-timeMinutes*60-timeHours*3600
-#
 #
 # print('TOTAL TIME TAKEN: {} segundos'.format(timeSeconds))
 #
-# ops.wipe()
-#
+# # =============================================================================
+
+# =================== RUN MEFISECTION =========================================
+# Remove existing model
+ops.wipe()
+
+# Turn on timer
+startTime = time.time()
+
+# Build Model
+mf.Nodes()
+mf.materialsRCLayerMembraneSection()
+mf.areaElements_MEFISection()
+
+rf.getRecorders('MEFISection', 'MEFISection')
+
+print('Model generated successfully')
+
+# Run gravity analysis
+af.gravityLoadAnalysis()
+
+print('Gravity load applied successfully')
+
+# Run displacement controlled analysis
+af.displacementControlledAnalysis()
+
+finishTime = time.time()
+timeSeconds = finishTime - startTime
+print('TOTAL TIME TAKEN: {} segundos'.format(timeSeconds))
+
 # =============================================================================
 
 # Plot Analysis
 # GLOBAL RESPONSE
 
-LatLoadMEFI, NodeLateralDispMEFI = pf.plotGlobalResponse('MEFI', 'MEFI')
-# LatLoadMEFISection, NodeLateralDispMEFISection = pf.plotGlobalResponse('MEFISection', 'MEFISection')
+# LatLoadMEFI, NodeLateralDispMEFI = pf.plotGlobalResponse('MEFI', 'MEFI')
+LatLoadMEFISection, NodeLateralDispMEFISection = pf.plotGlobalResponse('MEFISection', 'MEFISection')
 
 # LOCAL RESPONSE
-epsyy_panel_1MEFI, epsyy_panel_8MEFI, sigyy_panel_1MEFI, sigyy_panel_8MEFI = pf.plotLocalResponse('MEFI', 'MEFI')
+# epsyy_panel_1MEFI, epsyy_panel_8MEFI, sigyy_panel_1MEFI, sigyy_panel_8MEFI = pf.plotLocalResponse('MEFI', 'MEFI')
 # epsyy_panel_1MEFISection, epsyy_panel_8MEFISection, sigyy_panel_1MEFISection, sigyy_panel_8MEFISection = pf.plotLocalResponse('MEFISection', 'MEFISection')
 #
 # # =============================================================================
 #
 # # Comparacion de curvas: Respuesta Global
-# # LatLoadMEFI = Node1ReacMEFI[:,1] + Node2ReacMEFI[:,1]
-# # NodeLateralDispMEFI = NodeDispMEFI[:,1]
-#
-# # LatLoadMEFISection = Node1ReacMEFISection[:,1] + Node2ReacMEFISection[:,1]
-# # NodeLateralDispMEFISection = NodeDispMEFISection[:,1]
-#
 # fig, ax = plt.subplots()
 # plt.plot(NodeLateralDispMEFI, -LatLoadMEFI/1000, label='MEFI' , linewidth=1, linestyle='--')
 # plt.plot(NodeLateralDispMEFISection, -LatLoadMEFISection/1000, label='MEFISection' , linewidth=1)
