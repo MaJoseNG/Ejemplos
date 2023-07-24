@@ -29,6 +29,8 @@ if runMEFI == True:
 
     # Build Model
     mf.Nodes()
+    mf.UniaxialMat_Steel02()
+    mf.UniaxialMat_Concrete02()
     mf.materialsFSAM()
     mf.areaElements_MEFI()
     rf.getRecorders('MEFI', 'MEFI')
@@ -58,9 +60,41 @@ if runMEFSectionWithConcrete02 == True:
 
     # Build Model
     mf.Nodes()
+    mf.UniaxialMat_Steel02()
+    mf.UniaxialMat_Concrete02()
     mf.materialsRCLayerMembraneSection()
     mf.areaElements_MEFISection()
-    rf.getRecorders('MEFISection', 'MEFISection')
+    rf.getRecorders('MEFISection-Concrete02', 'MEFISection-Concrete02')
+    print('########## Model generated successfully ##########')
+
+    # Run gravity analysis
+    af.gravityLoadAnalysis()
+    print('########## Gravity load applied successfully ##########')
+
+    # Run displacement controlled analysis
+    af.displacementControlledAnalysis()
+
+    finishTime = time.time()
+    timeSeconds = finishTime - startTime
+    print('TOTAL TIME TAKEN: {} segundos'.format(timeSeconds))
+
+# =============================================================================
+# MEFISection with Concrete06
+# =============================================================================
+if runMEFISectionWithConcrete06 == True:
+    # Remove existing model
+    ops.wipe()
+
+    # Turn on timer
+    startTime = time.time()
+
+    # Build Model
+    mf.Nodes()
+    mf.UniaxialMat_Steel02()
+    mf.UniaxialMat_Concrete06()
+    mf.materialsRCLayerMembraneSection()
+    mf.areaElements_MEFISection()
+    rf.getRecorders('MEFISection-Concrete06', 'MEFISection-Concrete06')
     print('########## Model generated successfully ##########')
 
     # Run gravity analysis
@@ -80,7 +114,8 @@ if runMEFSectionWithConcrete02 == True:
 if runPlotAnalysis == True:
     # Global Response
     LatLoadMEFI, NodeLateralDispMEFI = pf.plotGlobalResponse('MEFI', 'MEFI')
-    LatLoadMEFISection, NodeLateralDispMEFISection = pf.plotGlobalResponse('MEFISection', 'MEFISection')
+    LatLoadMEFISection_Concrete02, NodeLateralDispMEFISection_Concrete02 = pf.plotGlobalResponse('MEFISection-Concrete02', 'MEFISection-Concrete02')
+    LatLoadMEFISection_Concrete06, NodeLateralDispMEFISection_Concrete06 = pf.plotGlobalResponse('MEFISection-Concrete06', 'MEFISection-Concrete06')
 
     # Local Response
     # epsyy_panel_1MEFI, epsyy_panel_8MEFI, sigyy_panel_1MEFI, sigyy_panel_8MEFI = pf.plotLocalResponse('MEFI', 'MEFI')
@@ -89,7 +124,8 @@ if runPlotAnalysis == True:
     # Comparacion de curvas: Respuesta Global
     fig, ax = plt.subplots()
     plt.plot(NodeLateralDispMEFI, -LatLoadMEFI/1000, label='MEFI' , linewidth=1, linestyle='--')
-    plt.plot(NodeLateralDispMEFISection, -LatLoadMEFISection/1000, label='MEFISection' , linewidth=1)
+    plt.plot(NodeLateralDispMEFISection_Concrete02, -LatLoadMEFISection_Concrete02/1000, label='MEFISection-Concrete02' , linewidth=1)
+    plt.plot(NodeLateralDispMEFISection_Concrete06, -LatLoadMEFISection_Concrete06/ 1000, label='MEFISection-Concrete06', linewidth=1)
 
     plt.ylim(-500, 500)
 

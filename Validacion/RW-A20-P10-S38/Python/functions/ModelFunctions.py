@@ -59,67 +59,89 @@ def Nodes():
     ops.equalDOF(17,18,1)
     ops.equalDOF(19,20,1)
 
-def materialsFSAM():
-    
+def UniaxialMat_Steel02():
     # Propierties steel material ----------------------------------------------------------
     # steel x
-    fyX = 469.93*MPa                   # fy
-    bx = 0.02                          # strain hardening
+    fyX = 469.93 * MPa  # fy
+    bx = 0.02  # strain hardening
 
     # steel Y web
-    fyYw = 409.71*MPa                  # fy
-    byw = 0.02                         # strain hardening
+    fyYw = 409.71 * MPa  # fy
+    byw = 0.02  # strain hardening
 
     # steel Y boundary
-    fyYb = 429.78*MPa                  # fy
-    byb = 0.01                         # strain hardening
+    fyYb = 429.78 * MPa  # fy
+    byb = 0.01  # strain hardening
 
     # steel misc
-    Esy = 200000.0*MPa                 # Young's modulus
-    Esx = Esy                          # Young's modulus
-    R0 = 20.0                          # initial value of curvature parameter
-    A1 = 0.925                         # curvature degradation parameter
-    A2 = 0.15                          # curvature degradation parameter
-    ey = 0.002                         # strain at the tension yielding of the steel
-    
+    Esy = 200000.0 * MPa  # Young's modulus
+    Esx = Esy  # Young's modulus
+    R0 = 20.0  # initial value of curvature parameter
+    A1 = 0.925  # curvature degradation parameter
+    A2 = 0.15  # curvature degradation parameter
+    ey = 0.002  # strain at the tension yielding of the steel
+
     # Build steel materials
     # uniaxialMaterial('Steel02', matTag, Fy, E0, b, *params, a1=a2*Fy/E0, a2=1.0, a3=a4*Fy/E0, a4=1.0, sigInit=0.0)
-    ops.uniaxialMaterial('Steel02', 1, fyX, Esx, bx, R0, A1, A2)    # steel X
+    ops.uniaxialMaterial('Steel02', 1, fyX, Esx, bx, R0, A1, A2)  # steel X
     ops.uniaxialMaterial('Steel02', 2, fyYw, Esy, byw, R0, A1, A2)  # steel Y web
     ops.uniaxialMaterial('Steel02', 3, fyYb, Esy, byb, R0, A1, A2)  # steel Y boundary
 
+def UniaxialMat_Concrete02():
     # Propierties concrete material -------------------------------------------------------
     # *************************************************************************
-    #fr = 0.0*fpc                       # concrete crushing strength 
-    #frc = 0.2*fpcc                     # concrete crushing strength 
-    #er = -0.037                        # concrete strain at crushing strength
-    #erc = -0.047                       # concrete strain at crushing strength
-    #lamb = 0.1                         # ratio between unloading slope and initial slope   
-    #Ets = 0.05*Ec                      # tension softening stiffness
-    #Etsc = 0.05*Ecc                    # tension softening stiffness
+    # fr = 0.0*fpc                       # concrete crushing strength
+    # frc = 0.2*fpcc                     # concrete crushing strength
+    # er = -0.037                        # concrete strain at crushing strength
+    # erc = -0.047                       # concrete strain at crushing strength
+    # lamb = 0.1                         # ratio between unloading slope and initial slope
+    # Ets = 0.05*Ec                      # tension softening stiffness
+    # Etsc = 0.05*Ecc                    # tension softening stiffness
 
     # Build de concrete materials
     #   uniaxialMaterial('Concrete02', matTag, fpc, epsc0, fpcu, epsU, lambda, ft, Ets)
-    #ops.uniaxialMaterial('Concrete02',   4,    fpc,  ec0,   fr,   er,   lamb,  ft, Ets)          # unconfined concrete
-    #ops.uniaxialMaterial('Concrete02',   5,   fpcc,  ec0c,  frc,  erc,  lamb,  ft, Etsc)     # confined concrete 
-    #**************************************************************************
+    # ops.uniaxialMaterial('Concrete02',   4,    fpc,  ec0,   fr,   er,   lamb,  ft, Ets)          # unconfined concrete
+    # ops.uniaxialMaterial('Concrete02',   5,   fpcc,  ec0c,  frc,  erc,  lamb,  ft, Etsc)     # confined concrete
+    # **************************************************************************
     # unconfined
-    fpc = -47.09*MPa                    # peak compressive stress
-    ec0 = -0.00232                      # strain at peak compressive stress
-    ft = 2.13*MPa                       # peak tensile stress
-    et = 0.00008                        # strain at peak tensile stress 
-    Ec = 34766.59*MPa                   # Young's modulus     
+    fpc = -47.09 * MPa  # peak compressive stress
+    ec0 = -0.00232  # strain at peak compressive stress
+    ft = 2.13 * MPa  # peak tensile stress
+    et = 0.00008  # strain at peak tensile stress
+    Ec = 34766.59 * MPa  # Young's modulus
 
     # confined
-    fpcc = -53.78*MPa                   # peak compressive stress
-    ec0c = -0.00397                     # strain at peak compressive stress
-    Ecc = 36542.37*MPa                  # Young's modulus
+    fpcc = -53.78 * MPa  # peak compressive stress
+    ec0c = -0.00397  # strain at peak compressive stress
+    Ecc = 36542.37 * MPa  # Young's modulus
 
     # Build concrete materials
     #   uniaxialMaterial('Concrete02', matTag, fpc, epsc0,  fpcu,    epsU, lambda, ft, Ets)
-    ops.uniaxialMaterial('Concrete02',   4,    fpc,  ec0,  0.0*fpc, -0.037, 0.1,   ft, 0.05*Ec)     # unconfined concrete
-    ops.uniaxialMaterial('Concrete02',   5,   fpcc,  ec0c, 0.2*fpc, -0.047, 0.1,   ft, 0.05*Ecc)    # confined concrete
-    
+    ops.uniaxialMaterial('Concrete02', 4, fpc, ec0, 0.0 * fpc, -0.037, 0.1, ft, 0.05 * Ec)  # unconfined concrete
+    ops.uniaxialMaterial('Concrete02', 5, fpcc, ec0c, 0.2 * fpc, -0.047, 0.1, ft, 0.05 * Ecc)  # confined concrete
+
+def UniaxialMat_Concrete06():
+    # unconfined
+    fpc = -47.09 * MPa  # peak compressive stress
+    ec0 = -0.00232  # strain at peak compressive stress
+    ft = 2.13 * MPa  # peak tensile stress
+    et = 0.00008  # strain at peak tensile stress
+    # confined
+    fpcc = -53.78 * MPa  # peak compressive stress
+    ec0c = -0.00397  # strain at peak compressive stress
+
+    n = 2.5
+    k = 0.75
+    AlphaC = 0.32
+    AlphaT = 0.08
+    B = 0.4
+
+    # Build concrete materials
+    #   uniaxialMaterial('Concrete06', matTag, fc, e0, n, k, alpha1, fcr, ecr, b, alpha2)
+    ops.uniaxialMaterial('Concrete06', 4, fpc, ec0, n, k, AlphaC, ft, et, B, AlphaT)  # unconfined concrete
+    ops.uniaxialMaterial('Concrete06', 5, fpcc, ec0c, n, k, AlphaC, ft, et, B, AlphaT)  # confined concrete
+
+def materialsFSAM():
     # Reinforcing ratios
     rouXw = 0.0027         # X web 
     rouXb = 0.0082         # X boundary 
@@ -136,66 +158,11 @@ def materialsFSAM():
     ops.nDMaterial('FSAM',   7  ,  0.0,   1,     3,      5,   rouXb, rouYb, nu, alfadow)           # Boundary (confined concrete)
 
 def materialsRCLayerMembraneSection():
-    
-    # Propierties steel material ----------------------------------------------------------
-    # steel x
-    fyX = 469.93*MPa                   # fy
-    bx = 0.02                          # strain hardening
 
-    # steel Y web
-    fyYw = 409.71*MPa                  # fy
-    byw = 0.02                         # strain hardening
+    ec0 = -0.00232  # strain at peak compressive stress
+    ec0c = -0.00397  # strain at peak compressive stress
+    et = 0.00008  # strain at peak tensile stress
 
-    # steel Y boundary
-    fyYb = 429.78*MPa                  # fy
-    byb = 0.01                         # strain hardening
-
-    # steel misc
-    Esy = 200000.0*MPa                 # Young's modulus
-    Esx = Esy                          # Young's modulus
-    R0 = 20.0                          # initial value of curvature parameter
-    A1 = 0.925                         # curvature degradation parameter
-    A2 = 0.15                          # curvature degradation parameter
-    ey = 0.002                         # strain at the tension yielding of the steel
-    
-    # Build steel materials
-    # uniaxialMaterial('Steel02', matTag, Fy, E0, b, *params, a1=a2*Fy/E0, a2=1.0, a3=a4*Fy/E0, a4=1.0, sigInit=0.0)
-    ops.uniaxialMaterial('Steel02', 1, fyX, Esx, bx, R0, A1, A2)    # steel X
-    ops.uniaxialMaterial('Steel02', 2, fyYw, Esy, byw, R0, A1, A2)  # steel Y web
-    ops.uniaxialMaterial('Steel02', 3, fyYb, Esy, byb, R0, A1, A2)  # steel Y boundary
-
-    # Propierties concrete material -------------------------------------------------------
-    # *************************************************************************
-    #fr = 0.0*fpc                       # concrete crushing strength 
-    #frc = 0.2*fpcc                     # concrete crushing strength 
-    #er = -0.037                        # concrete strain at crushing strength
-    #erc = -0.047                       # concrete strain at crushing strength
-    #lamb = 0.1                         # ratio between unloading slope and initial slope   
-    #Ets = 0.05*Ec                      # tension softening stiffness
-    #Etsc = 0.05*Ecc                    # tension softening stiffness
-
-    # Build de concrete materials
-    #   uniaxialMaterial('Concrete02', matTag, fpc, epsc0, fpcu, epsU, lambda, ft, Ets)
-    #ops.uniaxialMaterial('Concrete02',   4,    fpc,  ec0,   fr,   er,   lamb,  ft, Ets)          # unconfined concrete
-    #ops.uniaxialMaterial('Concrete02',   5,   fpcc,  ec0c,  frc,  erc,  lamb,  ft, Etsc)     # confined concrete 
-    #**************************************************************************
-    # unconfined
-    fpc = -47.09*MPa                    # peak compressive stress
-    ec0 = -0.00232                      # strain at peak compressive stress
-    ft = 2.13*MPa                       # peak tensile stress
-    et = 0.00008                        # strain at peak tensile stress 
-    Ec = 34766.59*MPa                   # Young's modulus     
-
-    # confined
-    fpcc = -53.78*MPa                   # peak compressive stress
-    ec0c = -0.00397                     # strain at peak compressive stress
-    Ecc = 36542.37*MPa                  # Young's modulus
-
-    # Build concrete materials
-    #   uniaxialMaterial('Concrete02', matTag, fpc, epsc0,  fpcu,    epsU, lambda, ft, Ets)
-    ops.uniaxialMaterial('Concrete02',   4,    fpc,  ec0,  0.0*fpc, -0.037, 0.1,   ft, 0.05*Ec)     # unconfined concrete
-    ops.uniaxialMaterial('Concrete02',   5,   fpcc,  ec0c, 0.2*fpc, -0.047, 0.1,   ft, 0.05*Ecc)    # confined concrete
-    
     # Reinforcing ratios
     rouXw = 0.0027         # X web 
     rouXb = 0.0082         # X boundary 
