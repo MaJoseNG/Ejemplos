@@ -8,73 +8,82 @@ import functions.RecordersFunctions as rf
 import functions.AnalysisFunctions as af
 import functions.PlotFunctions as pf
 
+# ======================================================================
+# Define variables
+# ======================================================================
+runMEFI = False
+runMEFSectionWithConcrete02 = True
+runMEFISectionWithConcrete06 = False
 
-# # =================== RUN MEFI =========================================
-# # Remove existing model
-# ops.wipe()
-#
-# # Turn on timer
-# startTime = time.time()
-#
-# # Build Model
-# mf.Nodes()
-# mf.materialsFSAM()
-# mf.areaElements_MEFI()
-#
-# rf.getRecorders('MEFI', 'MEFI')
-#
-# print('########## Model generated successfully ##########')
-#
-# # Run gravity analysis
-# af.gravityLoadAnalysis()
-#
-# print('########## Gravity load applied successfully ##########')
-#
-# # Run displacement controlled analysis
-# af.displacementControlledAnalysis()
-#
-# finishTime = time.time()
-# timeSeconds = finishTime - startTime
-#
-# print('TOTAL TIME TAKEN: {} segundos'.format(timeSeconds))
-#
-# # =============================================================================
-
-# =================== RUN MEFISECTION =========================================
+# ======================================================================
+# MEFI
+# ======================================================================
 # Remove existing model
 ops.wipe()
+if runMEFI == True:
+    # Turn on timer
+    startTime = time.time()
 
-# Turn on timer
-startTime = time.time()
+    # Build Model
+    mf.Nodes()
+    mf.materialsFSAM()
+    mf.areaElements_MEFI()
+    rf.getRecorders('MEFI', 'MEFI')
+    print('########## Model generated successfully ##########')
 
-# Build Model
-mf.Nodes()
-mf.materialsRCLayerMembraneSection()
-mf.areaElements_MEFISection()
+    # Run gravity analysis
+    af.gravityLoadAnalysis()
+    print('########## Gravity load applied successfully ##########')
 
-rf.getRecorders('MEFISection', 'MEFISection')
+    # Run displacement controlled analysis
+    af.displacementControlledAnalysis()
 
-print('Model generated successfully')
+    finishTime = time.time()
+    timeSeconds = finishTime - startTime
+    print('TOTAL TIME TAKEN: {} segundos'.format(timeSeconds))
 
-# Run gravity analysis
-af.gravityLoadAnalysis()
+    # Plot analysis
+    LatLoadMEFI, NodeLateralDispMEFI = pf.plotGlobalResponse('MEFI', 'MEFI')    # global response
+    epsyy_panel_1MEFI, epsyy_panel_8MEFI, sigyy_panel_1MEFI, sigyy_panel_8MEFI = pf.plotLocalResponse('MEFI', 'MEFI')   # local response
 
-print('Gravity load applied successfully')
+# =============================================================================
+# MEFISection with Concrete02
+# =============================================================================
+# Remove existing model
+ops.wipe()
+if runMEFSectionWithConcrete02 == True:
+    # Turn on timer
+    startTime = time.time()
 
-# Run displacement controlled analysis
-af.displacementControlledAnalysis()
+    # Build Model
+    mf.Nodes()
+    mf.materialsRCLayerMembraneSection()
+    mf.areaElements_MEFISection()
+    rf.getRecorders('MEFISection', 'MEFISection')
+    print('########## Model generated successfully ##########')
 
-finishTime = time.time()
-timeSeconds = finishTime - startTime
-print('TOTAL TIME TAKEN: {} segundos'.format(timeSeconds))
+    # Run gravity analysis
+    af.gravityLoadAnalysis()
+    print('########## Gravity load applied successfully ##########')
 
+    # Run displacement controlled analysis
+    af.displacementControlledAnalysis()
+
+    finishTime = time.time()
+    timeSeconds = finishTime - startTime
+    print('TOTAL TIME TAKEN: {} segundos'.format(timeSeconds))
+
+    # Plot Analysis
+    LatLoadMEFISection, NodeLateralDispMEFISection = pf.plotGlobalResponse('MEFISection', 'MEFISection')    # global response
+    epsyy_panel_1MEFISection, epsyy_panel_8MEFISection, sigyy_panel_1MEFISection, sigyy_panel_8MEFISection = \
+        pf.plotLocalResponse('MEFISection', 'MEFISection')      # local responde
 # =============================================================================
 
 # Plot Analysis
 # GLOBAL RESPONSE
 
 # LatLoadMEFI, NodeLateralDispMEFI = pf.plotGlobalResponse('MEFI', 'MEFI')
-LatLoadMEFISection, NodeLateralDispMEFISection = pf.plotGlobalResponse('MEFISection', 'MEFISection')
+# LatLoadMEFISection, NodeLateralDispMEFISection = pf.plotGlobalResponse('MEFISection', 'MEFISection')
 
 # LOCAL RESPONSE
 # epsyy_panel_1MEFI, epsyy_panel_8MEFI, sigyy_panel_1MEFI, sigyy_panel_8MEFI = pf.plotLocalResponse('MEFI', 'MEFI')
@@ -82,21 +91,21 @@ LatLoadMEFISection, NodeLateralDispMEFISection = pf.plotGlobalResponse('MEFISect
 #
 # # =============================================================================
 #
-# # Comparacion de curvas: Respuesta Global
-# fig, ax = plt.subplots()
-# plt.plot(NodeLateralDispMEFI, -LatLoadMEFI/1000, label='MEFI' , linewidth=1, linestyle='--')
-# plt.plot(NodeLateralDispMEFISection, -LatLoadMEFISection/1000, label='MEFISection' , linewidth=1)
-#
-# plt.ylim(-500, 500)
-#
-# plt.legend()
-# plt.title('Global Response Cyclic Pushover')
-# plt.xlabel('Lateral Displacement (mm)')
-# plt.ylabel('Lateral Load (kN)')
-# plt.grid(True)
-#
-# # Mostrar el gráfico
-# plt.show()
+# Comparacion de curvas: Respuesta Global
+fig, ax = plt.subplots()
+plt.plot(NodeLateralDispMEFI, -LatLoadMEFI/1000, label='MEFI' , linewidth=1, linestyle='--')
+plt.plot(NodeLateralDispMEFISection, -LatLoadMEFISection/1000, label='MEFISection' , linewidth=1)
+
+plt.ylim(-500, 500)
+
+plt.legend()
+plt.title('Global Response Cyclic Pushover')
+plt.xlabel('Lateral Displacement (mm)')
+plt.ylabel('Lateral Load (kN)')
+plt.grid(True)
+
+# Mostrar el gráfico
+plt.show()
 #
 # # Comparacion de curvas: Respuesta Local
 # fig, ax = plt.subplots()

@@ -166,7 +166,7 @@ def displacementControlledAnalysis():
     Fact = 2438.4*mm/100                                  # scale drift ratio by storey height for displacement cycles
     
     #ops.record()
-    print("Start Displacement controlled analysis")
+    print("########## Start Displacement controlled analysis ##########")
     
     for Dmax in iDmax:
         iDstep = GeneratePeaks(Dmax, Dincr, CycleType, Fact)           # displacement steps
@@ -182,35 +182,70 @@ def displacementControlledAnalysis():
                 # ----------- if convergence failure --------------------------
                 if ok != 0:
                     if ok != 0:
-                        print("Trying Newton with Current Tangent ...")
+                        print("Trying 2 times smaller timestep at step ", load_step)
+                        ops.integrator('DisplacementControl', IDctrlNode, IDctrlDOF, Dincr / 2)
+                        ok = ops.analyze(1)
+
+                    if ok != 0:
+                        print("Trying 4 times smaller timestep at step ", load_step)
+                        ops.integrator('DisplacementControl', IDctrlNode, IDctrlDOF, Dincr / 4)
+                        ok = ops.analyze(1)
+
+                    if ok != 0:
+                        print("Trying 20 times smaller timestep at step ", load_step)
+                        ops.integrator('DisplacementControl', IDctrlNode, IDctrlDOF, Dincr / 20)
+                        ok = ops.analyze(1)
+
+                    if ok != 0:
+                        print("Trying 160 times smaller timestep at step ", load_step)
+                        ops.integrator('DisplacementControl', IDctrlNode, IDctrlDOF, Dincr / 160)
+                        ok = ops.analyze(1)
+
+                    if ok != 0:
+                        print("Trying 1000 times smaller timestep at step ", load_step)
+                        ops.integrator('DisplacementControl', IDctrlNode, IDctrlDOF, Dincr / 1000)
+                        ok = ops.analyze(1)
+
+                    if ok != 0:
+                        print("Trying 10 times greater tolerance at step ", load_step)
+                        ops.test(TestType, Tol * 10, maxNumIter, 0)
+                        ok = ops.analyze(1)
+
+                    if ok != 0:
+                        print("Trying 100 times greater tolerance at step ", load_step)
+                        ops.test(TestType, Tol * 100, maxNumIter, 0)
+                        ok = ops.analyze(1)
+
+                    if ok != 0:
+                        print("Trying Newton with Current Tangent at load factor ", load_step)
                         ops.test('NormDispIncr', Tol, 1000, 0)
                         ops.algorithm('Newton')
                         ok = ops.analyze(1)
                         ops.test(TestType, Tol, maxNumIter, 0)
                         ops.algorithm(algorithmType)
-                    
+
                     if ok != 0:
-                        print("Trying Newton with Initial Tangent ...")
+                        print("Trying Newton with Initial Tangent at load factor ", load_step)
                         ops.test('NormDispIncr', 0.01, 2000, 0)
-                        ops.algorithm('Newton',False,True,False)
+                        ops.algorithm('Newton', False, True, False)
                         ok = ops.analyze(1)
                         ops.test(TestType, Tol, maxNumIter, 0)
                         ops.algorithm(algorithmType)
-                    
+
                     if ok != 0:
-                        print("Trying Modified Newton ...")
+                        print("Trying Modified Newton at load factor ", load_step)
                         ops.test('NormDispIncr', 0.01, 2000, 0)
                         ops.algorithm('ModifiedNewton')
                         ok = ops.analyze(1)
                         ops.test(TestType, Tol, maxNumIter, 0)
                         ops.algorithm(algorithmType)
-                    
+
                     if ok != 0:
-                        print("Trying Broyden ...")
+                        print("Trying Broyden at load factor ", load_step)
                         ops.algorithm('Broyden', 500)
                         ok = ops.analyze(1)
                         ops.algorithm(algorithmType)
-                    
+
                     if ok != 0:
                         print("PROBLEM")
                         return -1
@@ -220,9 +255,8 @@ def displacementControlledAnalysis():
                 # Print load step on the screen
                 print("Load Step: {}".format(load_step))
                 load_step = load_step + 1
-                
-    
+
     if ok != 0:
-        print("Analysis failed")
+        print("########## Analysis failed ##########")
     else:
-        print("Analysis completed successfully")
+        print("########## Analysis completed successfully ##########")
