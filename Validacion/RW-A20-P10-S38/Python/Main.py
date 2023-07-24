@@ -12,15 +12,18 @@ import functions.PlotFunctions as pf
 # Define variables
 # ======================================================================
 runMEFI = False
-runMEFSectionWithConcrete02 = True
+runMEFSectionWithConcrete02 = False
 runMEFISectionWithConcrete06 = False
+
+runPlotAnalysis = True
 
 # ======================================================================
 # MEFI
 # ======================================================================
-# Remove existing model
-ops.wipe()
 if runMEFI == True:
+    # Remove existing model
+    ops.wipe()
+
     # Turn on timer
     startTime = time.time()
 
@@ -42,16 +45,14 @@ if runMEFI == True:
     timeSeconds = finishTime - startTime
     print('TOTAL TIME TAKEN: {} segundos'.format(timeSeconds))
 
-    # Plot analysis
-    LatLoadMEFI, NodeLateralDispMEFI = pf.plotGlobalResponse('MEFI', 'MEFI')    # global response
-    epsyy_panel_1MEFI, epsyy_panel_8MEFI, sigyy_panel_1MEFI, sigyy_panel_8MEFI = pf.plotLocalResponse('MEFI', 'MEFI')   # local response
-
 # =============================================================================
 # MEFISection with Concrete02
 # =============================================================================
-# Remove existing model
-ops.wipe()
+
 if runMEFSectionWithConcrete02 == True:
+    # Remove existing model
+    ops.wipe()
+
     # Turn on timer
     startTime = time.time()
 
@@ -73,69 +74,63 @@ if runMEFSectionWithConcrete02 == True:
     timeSeconds = finishTime - startTime
     print('TOTAL TIME TAKEN: {} segundos'.format(timeSeconds))
 
-    # Plot Analysis
-    LatLoadMEFISection, NodeLateralDispMEFISection = pf.plotGlobalResponse('MEFISection', 'MEFISection')    # global response
-    epsyy_panel_1MEFISection, epsyy_panel_8MEFISection, sigyy_panel_1MEFISection, sigyy_panel_8MEFISection = \
-        pf.plotLocalResponse('MEFISection', 'MEFISection')      # local responde
 # =============================================================================
-
 # Plot Analysis
-# GLOBAL RESPONSE
+# =============================================================================
+if runPlotAnalysis == True:
+    # Global Response
+    LatLoadMEFI, NodeLateralDispMEFI = pf.plotGlobalResponse('MEFI', 'MEFI')
+    LatLoadMEFISection, NodeLateralDispMEFISection = pf.plotGlobalResponse('MEFISection', 'MEFISection')
 
-# LatLoadMEFI, NodeLateralDispMEFI = pf.plotGlobalResponse('MEFI', 'MEFI')
-# LatLoadMEFISection, NodeLateralDispMEFISection = pf.plotGlobalResponse('MEFISection', 'MEFISection')
+    # Local Response
+    # epsyy_panel_1MEFI, epsyy_panel_8MEFI, sigyy_panel_1MEFI, sigyy_panel_8MEFI = pf.plotLocalResponse('MEFI', 'MEFI')
+    # epsyy_panel_1MEFISection, epsyy_panel_8MEFISection, sigyy_panel_1MEFISection, sigyy_panel_8MEFISection = pf.plotLocalResponse('MEFISection', 'MEFISection')
+#
+    # Comparacion de curvas: Respuesta Global
+    fig, ax = plt.subplots()
+    plt.plot(NodeLateralDispMEFI, -LatLoadMEFI/1000, label='MEFI' , linewidth=1, linestyle='--')
+    plt.plot(NodeLateralDispMEFISection, -LatLoadMEFISection/1000, label='MEFISection' , linewidth=1)
 
-# LOCAL RESPONSE
-# epsyy_panel_1MEFI, epsyy_panel_8MEFI, sigyy_panel_1MEFI, sigyy_panel_8MEFI = pf.plotLocalResponse('MEFI', 'MEFI')
-# epsyy_panel_1MEFISection, epsyy_panel_8MEFISection, sigyy_panel_1MEFISection, sigyy_panel_8MEFISection = pf.plotLocalResponse('MEFISection', 'MEFISection')
-#
-# # =============================================================================
-#
-# Comparacion de curvas: Respuesta Global
-fig, ax = plt.subplots()
-plt.plot(NodeLateralDispMEFI, -LatLoadMEFI/1000, label='MEFI' , linewidth=1, linestyle='--')
-plt.plot(NodeLateralDispMEFISection, -LatLoadMEFISection/1000, label='MEFISection' , linewidth=1)
+    plt.ylim(-500, 500)
 
-plt.ylim(-500, 500)
+    plt.legend()
+    plt.title('Global Response Cyclic Pushover')
+    plt.xlabel('Lateral Displacement (mm)')
+    plt.ylabel('Lateral Load (kN)')
+    plt.grid(True)
 
-plt.legend()
-plt.title('Global Response Cyclic Pushover')
-plt.xlabel('Lateral Displacement (mm)')
-plt.ylabel('Lateral Load (kN)')
-plt.grid(True)
+    # Mostrar el gráfico
+    plt.show()
 
-# Mostrar el gráfico
-plt.show()
-#
-# # Comparacion de curvas: Respuesta Local
-# fig, ax = plt.subplots()
-# plt.plot(epsyy_panel_1MEFI, sigyy_panel_1MEFI*152.4, label='MEFI' , linewidth=1, linestyle='--')
-# plt.plot(epsyy_panel_1MEFISection, sigyy_panel_1MEFISection, label='MEFISection' , linewidth=1)
-#
-# plt.legend()
-# plt.title('1st panel resultant stress versus strain X-Y plane')
-# plt.xlabel('Strain, $\epsilon_y$')
-# plt.ylabel('Stress, $\sigma_y$ (MPa)')
-# plt.grid(True)
-#
-# # Mostrar el gráfico
-# plt.show()
-#
-#
-# fig, ax = plt.subplots()
-# plt.plot(epsyy_panel_8MEFI, sigyy_panel_8MEFI*152.4, label='MEFI' , linewidth=1, linestyle='--')
-# plt.plot(epsyy_panel_8MEFISection, sigyy_panel_8MEFISection, label='MEFISection' , linewidth=1)
-#
-# plt.legend()
-# plt.title('8th panel resultant stress versus strain X-Y plane')
-# plt.xlabel('Strain, $\epsilon_y$')
-# plt.ylabel('Stress, $\sigma_y$ (MPa)')
-# plt.grid(True)
-#
-# # Mostrar el gráfico
-# plt.show()
-#
-#
+    # # Comparacion de curvas: Respuesta Local
+    # fig, ax = plt.subplots()
+    # plt.plot(epsyy_panel_1MEFI, sigyy_panel_1MEFI*152.4, label='MEFI' , linewidth=1, linestyle='--')
+    # plt.plot(epsyy_panel_1MEFISection, sigyy_panel_1MEFISection, label='MEFISection' , linewidth=1)
+    #
+    # plt.legend()
+    # plt.title('1st panel resultant stress versus strain X-Y plane')
+    # plt.xlabel('Strain, $\epsilon_y$')
+    # plt.ylabel('Stress, $\sigma_y$ (MPa)')
+    # plt.grid(True)
+    #
+    # # Mostrar el gráfico
+    # plt.show()
+    #
+    #
+    # fig, ax = plt.subplots()
+    # plt.plot(epsyy_panel_8MEFI, sigyy_panel_8MEFI*152.4, label='MEFI' , linewidth=1, linestyle='--')
+    # plt.plot(epsyy_panel_8MEFISection, sigyy_panel_8MEFISection, label='MEFISection' , linewidth=1)
+    #
+    # plt.legend()
+    # plt.title('8th panel resultant stress versus strain X-Y plane')
+    # plt.xlabel('Strain, $\epsilon_y$')
+    # plt.ylabel('Stress, $\sigma_y$ (MPa)')
+    # plt.grid(True)
+    #
+    # # Mostrar el gráfico
+    # plt.show()
+    #
+    #
 
 
 
