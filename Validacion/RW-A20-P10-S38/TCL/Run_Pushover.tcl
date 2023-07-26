@@ -2,6 +2,8 @@
 # Displacement Controlled Analysis
 # Created by: Carlos Lopez O. (carlos.lopez.o@ug.uchile.cl)
 # Last Modification: 21/06/2022
+# Adapted by: Maria Jose Nunez G.
+#             07/2023
 # ----------------------------------------------------
 
 # Turn on timer

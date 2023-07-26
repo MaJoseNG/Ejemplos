@@ -11,11 +11,11 @@ import functions.PlotFunctions as pf
 # ======================================================================
 # Define variables
 # ======================================================================
-runMEFI = False
+runMEFI = True
 runMEFSectionWithConcrete02 = False
 runMEFISectionWithConcrete06 = False
 
-runPlotAnalysis = True
+runPlotAnalysis = False
 
 # ======================================================================
 # MEFI

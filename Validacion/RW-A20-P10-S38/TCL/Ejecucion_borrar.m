@@ -3,7 +3,7 @@ clc;clear all;
 %% ========================================================================
 % MEFI
 % =========================================================================
-% Respuesta Global Pushover monotonico 3.1% -------------------------------
+% Respuesta Global Pushover Cíclico ---------------------------------------
 % Import data
 datafolderMEFI = 'MEFI';
 
@@ -25,18 +25,7 @@ title('Ejemplo Pushover Cíclico MEFI')
 grid on
 grid minor
 
-% % Si las matrices no quedan del mismo tamaño
-% % LatLoad = Node1Reac(1:length(Node2Reac),2)+Node2Reac(:,2);    %[N]
-% % NodeLateralDisp = NodeDisp(:,2);            %[mm]
-% % 
-% % figure()
-% % plot(NodeLateralDisp(1:length(LatLoad)),-LatLoad/1000)
-% % xlabel('Lateral Displacement (mm)')
-% % ylabel('Lateral Load (kN)')
-% % grid on
-% % grid minor
-% 
-% % Respuesta Local Pushover monotonico 3.1% ********************************
+% % Respuesta Local Pushover Cíclico **************************************
 % Panel resultant stress vs strain X-Y plane ------------------------------
 % Import data
 % deformaciones paneles externos elemento 1 
@@ -227,25 +216,12 @@ grid minor
 
 
 %% ========================================================================
-% MEFISection
+% MEFISection - Concrete02
 %%=========================================================================
 % Respuesta Global Pushover cíclico
 % Import data
-%datafolderMEFISection = 'MEFISection_MonotonicPushOver_31_ramaSmearedSteel_v1';
-%datafolderMEFISection = 'MEFISection_MonotonicPushOver_31_ramaSmearedSteel_v2';
-%datafolderMEFISection = 'MEFISection_MonotonicPushOver_31_ramaSmearedSteel_v3';
-%datafolderMEFISection = 'MEFISection_MonotonicPushOver_31_ramaSmearedSteel_v4';
-%datafolderMEFISection = 'MEFISection_MonotonicPushOver_31_ramaSmearedSteel_v5';
-%datafolderMEFISection = 'MEFISection_MonotonicPushOver_31_ramaSmearedSteel_v6';
-%datafolderMEFISection = 'MEFISection_MonotonicPushOver_31_ramaSmearedSteel_v7';
-%datafolderMEFISection = 'MEFISection_MonotonicPushOver_31_ramaSmearedSteel_v8';
-%datafolderMEFISection = 'MEFISection_MonotonicPushOver_31_ramaSmearedSteel_v10';
-%datafolderMEFISection = 'MEFISection_MonotonicPushOver_31_ramaSmearedSteel_v11';
-%datafolderMEFISection = 'MEFISection_MonotonicPushOver_31_ramaSmearedSteel_v12';
-%datafolderMEFISection = 'MEFISection_MonotonicPushOver_31_ramaSmearedSteel_v14';
-%datafolderMEFISection = 'MEFISection_MonotonicPushOver_31_ramaTesting';
-%datafolderMEFISection = 'MEFISection_CyclicPushOver_ramaTesting_conElementRecorders';
-datafolderMEFISection = 'MEFISection';
+
+datafolderMEFISection = 'MEFISection-Concrete02';
 
 NodeDispMEFISection = importdata(fullfile(datafolderMEFISection,'NODE_DISP.out'));
 Node1ReacMEFISection = importdata(fullfile(datafolderMEFISection,'REACTIONS_1.out'));
@@ -260,20 +236,10 @@ plot(NodeLateralDispMEFISection,-LatLoadMEFISection/1000)
 xlabel('Lateral Displacement (mm)')
 ylabel('Lateral Load (kN)')
 title('Ejemplo Pushover Cíclico MEFISection ')
+legend('MEFISection - Concrete02')
 %ylim([-600 600])
 grid on
 grid minor
-
-% Si las matrices no quedan del mismo tamaño
-% LatLoad = Node1Reac(1:length(Node2Reac),2)+Node2Reac(:,2);    %[N]
-% NodeLateralDisp = NodeDisp(:,2);            %[mm]
-% 
-% figure()
-% plot(NodeLateralDisp(1:length(LatLoad)),-LatLoad/1000)
-% xlabel('Lateral Displacement (mm)')
-% ylabel('Lateral Load (kN)')
-% grid on
-% grid minor
 
 %% MEFISection : Respuesta Local Pushover cíclico
 %Deformaciones paneles externos elemento 1 
@@ -296,6 +262,7 @@ plot(epsyy_panel_1MEFISection,sigyy_panel_1MEFISection)
 title('MEFISection: 1st panel resultant stress versus strain X-Y plane')
 xlabel('Strain, \epsilon_y')
 ylabel('Stress, \sigma_y (MPa)')
+legend('MEFISection - Concrete02')
 %legend('drift = 3.1%')
 grid on
 grid minor
@@ -306,6 +273,7 @@ plot(epsyy_panel_8MEFISection,sigyy_panel_8MEFISection)
 title('MEFISection: 8th panel resultant stress versus strain X-Y plane')
 xlabel('Strain, \epsilon_y')
 ylabel('Stress, \sigma_y (MPa)')
+legend('MEFISection - Concrete02')
 %legend('drift = 3.1%')
 grid on
 grid minor
@@ -323,6 +291,7 @@ plot(epsxx_panel_1MEFISection,sigxx_panel_1MEFISection)
 title('MEFISection: 1st panel resultant stress versus strain X-Y plane')
 xlabel('Strain, \epsilon_x')
 ylabel('Stress, \sigma_x (MPa)')
+legend('MEFISection - Concrete02')
 %legend('drift = 3.1%')
 grid on
 grid minor
@@ -333,6 +302,7 @@ plot(epsxx_panel_8MEFISection,sigxx_panel_8MEFISection)
 title('MEFISection: 8th panel resultant stress versus strain X-Y plane')
 xlabel('Strain, \epsilon_x')
 ylabel('Stress, \sigma_x (MPa)')
+legend('MEFISection - Concrete02')
 %legend('drift = 3.1%')
 grid on
 grid minor
@@ -350,6 +320,7 @@ plot(epsxy_panel_1MEFISection,sigxy_panel_1MEFISection)
 title('MEFISection: 1st panel resultant stress versus strain X-Y plane')
 xlabel('Strain, \gamma_{xy}')
 ylabel('Stress, \tau_{xy} (MPa)')
+legend('MEFISection - Concrete02')
 %legend('drift = 3.1%')
 grid on
 grid minor
@@ -360,9 +331,135 @@ plot(epsxy_panel_8MEFISection,sigxy_panel_8MEFISection)
 title('MEFISection: 8th panel resultant stress versus strain X-Y plane')
 xlabel('Strain, \gamma_{xy}')
 ylabel('Stress, \tau_{xy} (MPa)')
+legend('MEFISection - Concrete02')
 %legend('drift = 3.1%')
 grid on
 grid minor
+
+%% ========================================================================
+% MEFISection - Concrete06
+%%=========================================================================
+% Respuesta Global Pushover cíclico
+% Import data
+
+datafolderMEFISection06 = 'MEFISection-Concrete06';
+
+NodeDispMEFISection06 = importdata(fullfile(datafolderMEFISection06,'NODE_DISP.out'));
+Node1ReacMEFISection06 = importdata(fullfile(datafolderMEFISection06,'REACTIONS_1.out'));
+Node2ReacMEFISection06 = importdata(fullfile(datafolderMEFISection06,'REACTIONS_2.out'));
+
+LatLoadMEFISection06 = Node1ReacMEFISection06(:,2)+Node2ReacMEFISection06(:,2);    %[N]
+NodeLateralDispMEFISection06 = NodeDispMEFISection06(:,2);            %[mm]
+
+% Grafico 
+figure()
+plot(NodeLateralDispMEFISection06,-LatLoadMEFISection06/1000)
+xlabel('Lateral Displacement (mm)')
+ylabel('Lateral Load (kN)')
+title('Ejemplo Pushover Cíclico MEFISection ')
+legend('MEFISection - Concrete06')
+%ylim([-600 600])
+grid on
+grid minor
+
+%% MEFISection : Respuesta Local Pushover cíclico
+%Deformaciones paneles externos elemento 1 
+eps_panel_1MEFISection06 = importdata(fullfile(datafolderMEFISection06,'MEFISection_panel_1_strain.out'));     
+eps_panel_8MEFISection06 = importdata(fullfile(datafolderMEFISection06,'MEFISection_panel_8_strain.out'));     
+%Tensiones paneles externos elemento 1
+sig_panel_1MEFISection06 = importdata(fullfile(datafolderMEFISection06,'MEFISection_panel_1_stress.out'));      
+sig_panel_8MEFISection06 = importdata(fullfile(datafolderMEFISection06,'MEFISection_panel_8_stress.out'));     
+
+% Se extraen las deformaciones en y
+epsyy_panel_1MEFISection06 = eps_panel_1MEFISection06(:,3);    
+epsyy_panel_8MEFISection06 = eps_panel_8MEFISection06(:,3);       
+% Se extraen las tensiones en y
+sigyy_panel_1MEFISection06 = sig_panel_1MEFISection06(:,3);      
+sigyy_panel_8MEFISection06 = sig_panel_8MEFISection06(:,3);       
+
+% Grafico tension-deformacion paneles 1
+figure()
+plot(epsyy_panel_1MEFISection06,sigyy_panel_1MEFISection06)
+title('MEFISection: 1st panel resultant stress versus strain X-Y plane')
+xlabel('Strain, \epsilon_y')
+ylabel('Stress, \sigma_y (MPa)')
+legend('MEFISection - Concrete06')
+%legend('drift = 3.1%')
+grid on
+grid minor
+
+% Grafico tension-deformacion paneles 8
+figure()
+plot(epsyy_panel_8MEFISection06,sigyy_panel_8MEFISection06)
+title('MEFISection: 8th panel resultant stress versus strain X-Y plane')
+xlabel('Strain, \epsilon_y')
+ylabel('Stress, \sigma_y (MPa)')
+legend('MEFISection - Concrete06')
+%legend('drift = 3.1%')
+grid on
+grid minor
+
+% Se extraen las deformaciones en x
+epsxx_panel_1MEFISection06 = eps_panel_1MEFISection06(:,2);    
+epsxx_panel_8MEFISection06 = eps_panel_8MEFISection06(:,2);       
+% Se extraen las tensiones en x
+sigxx_panel_1MEFISection06 = sig_panel_1MEFISection06(:,2);      
+sigxx_panel_8MEFISection06 = sig_panel_8MEFISection06(:,2);       
+
+% Grafico tension-deformacion paneles 1
+figure()
+plot(epsxx_panel_1MEFISection06,sigxx_panel_1MEFISection06)
+title('MEFISection: 1st panel resultant stress versus strain X-Y plane')
+xlabel('Strain, \epsilon_x')
+ylabel('Stress, \sigma_x (MPa)')
+legend('MEFISection - Concrete06')
+%legend('drift = 3.1%')
+grid on
+grid minor
+
+% Grafico tension-deformacion paneles 8
+figure()
+plot(epsxx_panel_8MEFISection06,sigxx_panel_8MEFISection06)
+title('MEFISection: 8th panel resultant stress versus strain X-Y plane')
+xlabel('Strain, \epsilon_x')
+ylabel('Stress, \sigma_x (MPa)')
+legend('MEFISection - Concrete06')
+%legend('drift = 3.1%')
+grid on
+grid minor
+
+% Se extraen las deformaciones en xy
+epsxy_panel_1MEFISection06 = eps_panel_1MEFISection06(:,4);    
+epsxy_panel_8MEFISection06 = eps_panel_8MEFISection06(:,4);       
+% Se extraen las tensiones en xy
+sigxy_panel_1MEFISection06 = sig_panel_1MEFISection06(:,4);      
+sigxy_panel_8MEFISection06 = sig_panel_8MEFISection06(:,4);       
+
+% Grafico tension-deformacion paneles 1
+figure()
+plot(epsxy_panel_1MEFISection06,sigxy_panel_1MEFISection06)
+title('MEFISection: 1st panel resultant stress versus strain X-Y plane')
+xlabel('Strain, \gamma_{xy}')
+ylabel('Stress, \tau_{xy} (MPa)')
+legend('MEFISection - Concrete06')
+%legend('drift = 3.1%')
+grid on
+grid minor
+
+% Grafico tension-deformacion paneles 8
+figure()
+plot(epsxy_panel_8MEFISection06,sigxy_panel_8MEFISection06)
+title('MEFISection: 8th panel resultant stress versus strain X-Y plane')
+xlabel('Strain, \gamma_{xy}')
+ylabel('Stress, \tau_{xy} (MPa)')
+legend('MEFISection - Concrete06')
+%legend('drift = 3.1%')
+grid on
+grid minor
+
+%% ========================================================================
+% GRAFICOS COMPARATIVOS
+%%=========================================================================
 %% Graficos comparativos MEFI vs MEFISection
 
 % RESPUESTA GLOBAL  
@@ -370,87 +467,88 @@ figure()
 hold on
 plot(NodeLateralDispMEFI,-LatLoadMEFI/1000,'--')
 plot(NodeLateralDispMEFISection,-LatLoadMEFISection/1000)
+plot(NodeLateralDispMEFISection06,-LatLoadMEFISection06/1000)
 xlabel('Lateral Displacement (mm)')
 ylabel('Lateral Load (kN)')
 %title('Ejemplo Pushover Monotonico MEFI Original TCL')
 title('Global Response Cyclic Pushover')
-legend('MEFI','MEFISection')
+legend('MEFI','MEFISection-Concrete02','MEFISection-Concrete06')
 %ylim([-600 600])
 grid on
 grid minor
 hold off
 
-% RESPUESTA LOCAL: Componente yy  
-figure()
-hold on
-plot(epsyy_panel_1MEFI,sigyy_panel_1MEFI*152.4,'--')
-plot(epsyy_panel_1MEFISection,sigyy_panel_1MEFISection)
-title('1st panel resultant stress versus strain X-Y plane')
-xlabel('Strain, \epsilon_y')
-ylabel('Stress, \sigma_y (MPa)')
-legend('MEFI', 'MEFISection')
-grid on
-grid minor
-hold off
-
-figure()
-hold on
-plot(epsyy_panel_8MEFI,sigyy_panel_8MEFI*152.4,'--')
-plot(epsyy_panel_8MEFISection,sigyy_panel_8MEFISection)
-title('8th panel resultant stress versus strain X-Y plane')
-xlabel('Strain, \epsilon_y')
-ylabel('Stress, \sigma_y (MPa)')
-legend('MEFI', 'MEFISection')
-grid on
-grid minor
-hold off
-
-% RESPUESTA LOCAL: Componente xx 
-figure()
-hold on
-plot(epsxx_panel_1MEFI,sigxx_panel_1MEFI*152.4,'--')
-plot(epsxx_panel_1MEFISection,sigxx_panel_1MEFISection)
-title('1st panel resultant stress versus strain X-Y plane')
-xlabel('Strain, \epsilon_x')
-ylabel('Stress, \sigma_x (MPa)')
-legend('MEFI', 'MEFISection')
-grid on
-grid minor
-hold off
-
-figure()
-hold on
-plot(epsxx_panel_8MEFI,sigxx_panel_8MEFI*152.4,'--')
-plot(epsxx_panel_8MEFISection,sigxx_panel_8MEFISection)
-title('8th panel resultant stress versus strain X-Y plane')
-xlabel('Strain, \epsilon_x')
-ylabel('Stress, \sigma_x (MPa)')
-legend('MEFI', 'MEFISection')
-grid on
-grid minor
-hold off
-
-% RESPUESTA LOCAL: Componente xy 
-figure()
-hold on
-plot(epsxy_panel_1MEFI,sigxy_panel_1MEFI*152.4,'--')
-plot(epsxy_panel_1MEFISection,sigxy_panel_1MEFISection)
-title('1st panel resultant stress versus strain X-Y plane')
-xlabel('Strain, \gamma_{xy}')
-ylabel('Stress, \tau_{xy} (MPa)')
-legend('MEFI', 'MEFISection')
-grid on
-grid minor
-hold off
-
-figure()
-hold on
-plot(epsxy_panel_8MEFI,sigxy_panel_8MEFI*152.4,'--')
-plot(epsxy_panel_8MEFISection,sigxy_panel_8MEFISection)
-title('8th panel resultant stress versus strain X-Y plane')
-xlabel('Strain, \gamma_{xy}')
-ylabel('Stress, \tau_{xy} (MPa)')
-legend('MEFI', 'MEFISection')
-grid on
-grid minor
-hold off
+% % RESPUESTA LOCAL: Componente yy  
+% figure()
+% hold on
+% plot(epsyy_panel_1MEFI,sigyy_panel_1MEFI*152.4,'--')
+% plot(epsyy_panel_1MEFISection,sigyy_panel_1MEFISection)
+% title('1st panel resultant stress versus strain X-Y plane')
+% xlabel('Strain, \epsilon_y')
+% ylabel('Stress, \sigma_y (MPa)')
+% legend('MEFI', 'MEFISection')
+% grid on
+% grid minor
+% hold off
+% 
+% figure()
+% hold on
+% plot(epsyy_panel_8MEFI,sigyy_panel_8MEFI*152.4,'--')
+% plot(epsyy_panel_8MEFISection,sigyy_panel_8MEFISection)
+% title('8th panel resultant stress versus strain X-Y plane')
+% xlabel('Strain, \epsilon_y')
+% ylabel('Stress, \sigma_y (MPa)')
+% legend('MEFI', 'MEFISection')
+% grid on
+% grid minor
+% hold off
+% 
+% % RESPUESTA LOCAL: Componente xx 
+% figure()
+% hold on
+% plot(epsxx_panel_1MEFI,sigxx_panel_1MEFI*152.4,'--')
+% plot(epsxx_panel_1MEFISection,sigxx_panel_1MEFISection)
+% title('1st panel resultant stress versus strain X-Y plane')
+% xlabel('Strain, \epsilon_x')
+% ylabel('Stress, \sigma_x (MPa)')
+% legend('MEFI', 'MEFISection')
+% grid on
+% grid minor
+% hold off
+% 
+% figure()
+% hold on
+% plot(epsxx_panel_8MEFI,sigxx_panel_8MEFI*152.4,'--')
+% plot(epsxx_panel_8MEFISection,sigxx_panel_8MEFISection)
+% title('8th panel resultant stress versus strain X-Y plane')
+% xlabel('Strain, \epsilon_x')
+% ylabel('Stress, \sigma_x (MPa)')
+% legend('MEFI', 'MEFISection')
+% grid on
+% grid minor
+% hold off
+% 
+% % RESPUESTA LOCAL: Componente xy 
+% figure()
+% hold on
+% plot(epsxy_panel_1MEFI,sigxy_panel_1MEFI*152.4,'--')
+% plot(epsxy_panel_1MEFISection,sigxy_panel_1MEFISection)
+% title('1st panel resultant stress versus strain X-Y plane')
+% xlabel('Strain, \gamma_{xy}')
+% ylabel('Stress, \tau_{xy} (MPa)')
+% legend('MEFI', 'MEFISection')
+% grid on
+% grid minor
+% hold off
+% 
+% figure()
+% hold on
+% plot(epsxy_panel_8MEFI,sigxy_panel_8MEFI*152.4,'--')
+% plot(epsxy_panel_8MEFISection,sigxy_panel_8MEFISection)
+% title('8th panel resultant stress versus strain X-Y plane')
+% xlabel('Strain, \gamma_{xy}')
+% ylabel('Stress, \tau_{xy} (MPa)')
+% legend('MEFI', 'MEFISection')
+% grid on
+% grid minor
+% hold off
