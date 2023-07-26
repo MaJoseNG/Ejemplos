@@ -216,7 +216,7 @@ def materialsRCLayerMembraneSection():
     rouYb = 0.0515               # Y boundary
     
     ops.nDMaterial('SmearedSteelDoubleLayerT2DMaterial01',20,2,3,rouXb,rouYb,OrientationEmbeddedSteel)
-    ops.nDMaterial('OrthotropicRotatingAngleConcreteT2DMaterial01',21,10,strainAtFcr,strainAtFc_conf,strainAtFy,rhoConcreteMaterial,'-damageCte1',damageConstantConf_1,'-damageCte2',damageConstantConf_2)
+    ops.nDMaterial('OrthotropicRotatingAngleConcreteT2DMaterial01',21,10,strainAtFcr,strainAtFc_conf,rhoConcreteMaterial,'-damageCte1',damageConstantConf_1,'-damageCte2',damageConstantConf_2)
     ops.section('ReinforcedConcreteLayerMembraneSection01',30,1,1,'-reinfSteel',20,'-conc',21,'-concThick',wallThickness)
 
     ################ Wall: Unconfined center ################
@@ -224,7 +224,7 @@ def materialsRCLayerMembraneSection():
     rouYw = 0.0068               # Y web
 
     ops.nDMaterial('SmearedSteelDoubleLayerT2DMaterial01',22,4,5,rouXw,rouYw,OrientationEmbeddedSteel)
-    ops.nDMaterial('OrthotropicRotatingAngleConcreteT2DMaterial01',23,11,strainAtFcr,strainAtFc,strainAtFy,rhoConcreteMaterial,'-damageCte1',damageConstantUnconf_1,'-damageCte2',damageConstantUnconf_2)
+    ops.nDMaterial('OrthotropicRotatingAngleConcreteT2DMaterial01',23,11,strainAtFcr,strainAtFc,rhoConcreteMaterial,'-damageCte1',damageConstantUnconf_1,'-damageCte2',damageConstantUnconf_2)
     ops.section('ReinforcedConcreteLayerMembraneSection01',31,1,1,'-reinfSteel',22,'-conc',23,'-concThick',wallThickness)
 
     ################# Beam: Border ##########################
@@ -234,7 +234,7 @@ def materialsRCLayerMembraneSection():
     rouYb = 0.0515*2               # Y boundary
     
     ops.nDMaterial('SmearedSteelDoubleLayerT2DMaterial01',24,6,7,rouXb,rouYb,OrientationEmbeddedSteel)
-    ops.nDMaterial('OrthotropicRotatingAngleConcreteT2DMaterial01',25,12,strainAtFcr,strainAtFc,strainAtFy,rhoConcreteMaterial,'-damageCte1',damageConstantUnconf_1,'-damageCte2',damageConstantUnconf_2)
+    ops.nDMaterial('OrthotropicRotatingAngleConcreteT2DMaterial01',25,12,strainAtFcr,strainAtFc,rhoConcreteMaterial,'-damageCte1',damageConstantUnconf_1,'-damageCte2',damageConstantUnconf_2)
     ops.section('ReinforcedConcreteLayerMembraneSection01',32,1,1,'-reinfSteel',24,'-conc',25,'-concThick',BeamThickness)
 
     ################# Beam: Center ##########################
@@ -242,7 +242,7 @@ def materialsRCLayerMembraneSection():
     rouYw = 0.0068*2               # Y web
 
     ops.nDMaterial('SmearedSteelDoubleLayerT2DMaterial01',26,8,9,rouXw,rouYw,OrientationEmbeddedSteel)
-    ops.nDMaterial('OrthotropicRotatingAngleConcreteT2DMaterial01',27,13,strainAtFcr,strainAtFc,strainAtFy,rhoConcreteMaterial,'-damageCte1',damageConstantUnconf_1,'-damageCte2',damageConstantUnconf_2)
+    ops.nDMaterial('OrthotropicRotatingAngleConcreteT2DMaterial01',27,13,strainAtFcr,strainAtFc,rhoConcreteMaterial,'-damageCte1',damageConstantUnconf_1,'-damageCte2',damageConstantUnconf_2)
     ops.section('ReinforcedConcreteLayerMembraneSection01',33,1,1,'-reinfSteel',26,'-conc',27,'-concThick',BeamThickness)
 
 
