@@ -11,11 +11,11 @@ import functions.PlotFunctions as pf
 # ======================================================================
 # Define variables
 # ======================================================================
-runMEFI = True
+runMEFI = False
 runMEFSectionWithConcrete02 = False
 runMEFISectionWithConcrete06 = False
 
-runPlotAnalysis = False
+runPlotAnalysis = True
 
 # ======================================================================
 # MEFI
@@ -165,14 +165,47 @@ if runPlotAnalysis == True:
     #
     # # Mostrar el gráfico
     # plt.show()
-    #
-    #
 
+    # COMPARACION: TEST VS MODELOS
+    LatDisp_Test = np.loadtxt('C:/Users/maryj/Documents/GitHub/Ejemplos/Validacion/RW-A20-P10-S38/Test/Spec#1_DTotal.txt')      # inches
+    LatLoad_Test = np.loadtxt('C:/Users/maryj/Documents/GitHub/Ejemplos/Validacion/RW-A20-P10-S38/Test/Spec#1_P.txt')           # kip
 
+    fig, ax = plt.subplots()
+    plt.plot(LatDisp_Test*25.4, LatLoad_Test*4.4482, label='Test', linewidth=1)
+    plt.plot(NodeLateralDispMEFI, -LatLoadMEFI / 1000, label='MEFI', linewidth=1, linestyle='--')
+    plt.ylim(-500, 500)
+    plt.legend()
+    plt.title('Global Response RW-A20-P10-S38')
+    plt.xlabel('Lateral Displacement (mm)')
+    plt.ylabel('Lateral Load (kN)')
+    plt.grid(True)
+    # Mostrar el gráfico
+    plt.show()
 
+    fig, ax = plt.subplots()
+    plt.plot(LatDisp_Test*25.4, LatLoad_Test*4.4482, label='Test', linewidth=1)
+    plt.plot(NodeLateralDispMEFISection_Concrete02, -LatLoadMEFISection_Concrete02 / 1000, label='MEFISection-Concrete02', linewidth=1, linestyle='--')
+    plt.ylim(-500, 500)
+    plt.legend()
+    plt.title('Global Response RW-A20-P10-S38')
+    plt.xlabel('Lateral Displacement (mm)')
+    plt.ylabel('Lateral Load (kN)')
+    plt.grid(True)
+    # Mostrar el gráfico
+    plt.show()
 
-
-
+    fig, ax = plt.subplots()
+    plt.plot(LatDisp_Test * 25.4, LatLoad_Test * 4.4482, label='Test', linewidth=1)
+    plt.plot(NodeLateralDispMEFISection_Concrete06, -LatLoadMEFISection_Concrete06 / 1000,
+             label='MEFISection-Concrete06', linewidth=1, linestyle='--')
+    plt.ylim(-500, 500)
+    plt.legend()
+    plt.title('Global Response RW-A20-P10-S38')
+    plt.xlabel('Lateral Displacement (mm)')
+    plt.ylabel('Lateral Load (kN)')
+    plt.grid(True)
+    # Mostrar el gráfico
+    plt.show()
 
 
 

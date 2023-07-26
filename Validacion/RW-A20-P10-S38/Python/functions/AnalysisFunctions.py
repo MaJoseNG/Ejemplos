@@ -140,7 +140,7 @@ def displacementControlledAnalysis():
     ops.load(20,*[PLateral,0,0])
 
     # Analysis generation -----------------------------------------------------
-    Tol = 1.e-3                            # Convergence Test: tolerance
+    Tol = 1.e-4                            # Convergence Test: tolerance
     maxNumIter = 1000                      # Convergence Test: maximum number of iterations that will be performed before "failure to converge" is returned
     printFlag = 0                          # Convergence Test: flag used to print information on convergence (optional)        # 1: print information on each step; 
     TestType = 'NormDispIncr'              # Convergence-test type
