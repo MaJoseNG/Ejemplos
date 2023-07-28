@@ -63,15 +63,15 @@ def UniaxialMat_Steel02():
     # Propierties steel material ----------------------------------------------------------
     # steel x
     fyX = 469.93 * MPa  # fy
-    bx = 0.02  # strain hardening
+    bx = 0.02/2  # strain hardening
 
     # steel Y web
     fyYw = 409.71 * MPa  # fy
-    byw = 0.02  # strain hardening
+    byw = 0.02/2  # strain hardening
 
     # steel Y boundary
     fyYb = 429.78 * MPa  # fy
-    byb = 0.01  # strain hardening
+    byb = 0.01/2  # strain hardening
 
     # steel misc
     Esy = 200000.0 * MPa  # Young's modulus
