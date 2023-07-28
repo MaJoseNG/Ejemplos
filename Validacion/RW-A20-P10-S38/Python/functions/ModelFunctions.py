@@ -194,16 +194,18 @@ def materialsRCLayerMembraneSection():
     #ops.section('ReinforcedConcreteLayerMembraneSection01', 11,       1,           2,      '-reinfSteel',        *[9],           '-conc',      *[6, 7],        '-concThick',   *[tnc, tc])      # Wall Boundary
     #ops.section('ReinforcedConcreteLayerMembraneSection01', 12,       1,           1,      '-reinfSteel',        *[8],           '-conc',      *[6],           '-concThick',   *[tb])           # Loading tranfer beam web
     #ops.section('ReinforcedConcreteLayerMembraneSection01', 13,       1,           2,      '-reinfSteel',        *[9],           '-conc',      *[6, 7],        '-concThick',   *[tncv, tcv])    # Loading tranfer beam boundary
-    
-    ops.section('ReinforcedConcreteLayerMembraneSection01', 10, 1, 1, '-reinfSteel', 8, '-conc', 6,    '-concThick', tw)           # Wall Web
-    ops.section('ReinforcedConcreteLayerMembraneSection01', 11, 1, 2, '-reinfSteel', 9, '-conc', 6, 7, '-concThick', tnc, tc)      # Wall Boundary
-    ops.section('ReinforcedConcreteLayerMembraneSection01', 12, 1, 1, '-reinfSteel', 8, '-conc', 6,    '-concThick', tb)           # Loading tranfer beam web
-    ops.section('ReinforcedConcreteLayerMembraneSection01', 13, 1, 2, '-reinfSteel', 9, '-conc', 6, 7, '-concThick', tncv, tcv)    # Loading tranfer beam boundary
+
+    # section('ReinforcedConcreteLayerMembraneSection01', secTag, nSteelLayer, nConcLayer, '-reinfSteel', {RSteelAtEachLayer}, '-conc', {concAtEachLayer}, '-concThick', {concThicknessAtEachLayer}, <'-epscr', epscr>, <'-epsc', epsc>)
+    ops.section('ReinforcedConcreteLayerMembraneSection01', 10, 1, 1, '-reinfSteel', 8, '-conc', 6,    '-concThick', tw,        '-epscr', 0.00008, '-epsc', -0.002)           # Wall Web
+    ops.section('ReinforcedConcreteLayerMembraneSection01', 11, 1, 2, '-reinfSteel', 9, '-conc', 6, 7, '-concThick', tnc, tc,   '-epscr', 0.00008, '-epsc', -0.002)      # Wall Boundary
+    ops.section('ReinforcedConcreteLayerMembraneSection01', 12, 1, 1, '-reinfSteel', 8, '-conc', 6,    '-concThick', tb,        '-epscr', 0.00008, '-epsc', -0.002)           # Loading tranfer beam web
+    ops.section('ReinforcedConcreteLayerMembraneSection01', 13, 1, 2, '-reinfSteel', 9, '-conc', 6, 7, '-concThick', tncv, tcv, '-epscr', 0.00008, '-epsc', -0.002)    # Loading tranfer beam boundary
 
 def RCSection_FSAM():
     tw = 152.4 * mm  # Wall thickness
-    tb = 304.8 * mm  # Loading tranfer beam thickness
+    tb = 304.8 * mm  # Loading transfer beam thickness
 
+    # section('ReinforcedConcreteLayerMembraneSection02', secTag, matTag, Thickness)
     ops.section('ReinforcedConcreteLayerMembraneSection02', 10, 6, tw)  # Wall Web
     ops.section('ReinforcedConcreteLayerMembraneSection02', 11, 7, tw)  # Wall Boundary
     ops.section('ReinforcedConcreteLayerMembraneSection02', 12, 6, tb)  # Loading tranfer beam web
@@ -218,6 +220,7 @@ def areaElements_MEFI():
     tb = 304.8*mm                      # Loading tranfer beam thickness
 
     # Build MEFI
+    # element('MEFI', eleTag, iNode, jNode, kNode, lNode, m, '-thick', *Thicknesses, '-width', *Widths, '-mat', *mat_Tags)
     ops.element('MEFI',1,1,2,4,3,m_fibers,'-thick',tw,tw,tw,tw,tw,tw,tw,tw,'-width',db,dw,dw,dw,dw,dw,dw,db,'-mat',7,6,6,6,6,6,6,7)
     ops.element('MEFI',2,3,4,6,5,m_fibers,'-thick',tw,tw,tw,tw,tw,tw,tw,tw,'-width',db,dw,dw,dw,dw,dw,dw,db,'-mat',7,6,6,6,6,6,6,7)
     ops.element('MEFI',3,5,6,8,7,m_fibers,'-thick',tw,tw,tw,tw,tw,tw,tw,tw,'-width',db,dw,dw,dw,dw,dw,dw,db,'-mat',7,6,6,6,6,6,6,7)
