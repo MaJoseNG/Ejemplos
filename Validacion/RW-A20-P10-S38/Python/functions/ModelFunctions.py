@@ -200,7 +200,15 @@ def materialsRCLayerMembraneSection():
     ops.section('ReinforcedConcreteLayerMembraneSection01', 12, 1, 1, '-reinfSteel', 8, '-conc', 6,    '-concThick', tb)           # Loading tranfer beam web
     ops.section('ReinforcedConcreteLayerMembraneSection01', 13, 1, 2, '-reinfSteel', 9, '-conc', 6, 7, '-concThick', tncv, tcv)    # Loading tranfer beam boundary
 
-    
+def RCSection_FSAM():
+    tw = 152.4 * mm  # Wall thickness
+    tb = 304.8 * mm  # Loading tranfer beam thickness
+
+    ops.section('ReinforcedConcreteLayerMembraneSection02', 10, 6, tw)  # Wall Web
+    ops.section('ReinforcedConcreteLayerMembraneSection02', 11, 7, tw)  # Wall Boundary
+    ops.section('ReinforcedConcreteLayerMembraneSection02', 12, 6, tb)  # Loading tranfer beam web
+    ops.section('ReinforcedConcreteLayerMembraneSection02', 13, 7, tb)  # Loading tranfer beam boundary
+
 def areaElements_MEFI():
     
     m_fibers = 8
