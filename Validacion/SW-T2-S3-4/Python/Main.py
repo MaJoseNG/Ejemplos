@@ -28,8 +28,8 @@ if runMEFI == True:
     startTime = time.time()
 
     # Build Model
-    mf.Nodes()
-    # mf.NodesFSAM()
+    #mf.Nodes()
+    mf.NodesFSAM()
     mf.UniaxialMat_Steel02()
     mf.UniaxialMat_Concrete02()
     mf.materialsFSAM()
@@ -120,56 +120,56 @@ if runMEFISectionWithConcrete06 == True:
 # =============================================================================
 if runPlotAnalysis == True:
     # GLOBAL RESPONSE
-    LatLoadMEFISection02, NodeLateralDispMEFISection02 = pf.plotGlobalResponse('MEFISection_Concrete02',
-                                                                               'MEFISection_Concrete02')
-    LatLoadMEFISection06, NodeLateralDispMEFISection06 = pf.plotGlobalResponse('MEFISection_Concrete06',
-                                                                               'MEFISection_Concrete06')
+    # LatLoadMEFISection02, NodeLateralDispMEFISection02 = pf.plotGlobalResponse('MEFISection_Concrete02',
+    #                                                                            'MEFISection_Concrete02')
+    # LatLoadMEFISection06, NodeLateralDispMEFISection06 = pf.plotGlobalResponse('MEFISection_Concrete06',
+    #                                                                            'MEFISection_Concrete06')
     LatLoadMEFI02, NodeLateralDispMEFI02 = pf.plotGlobalResponse('MEFI_Concrete02', 'MEFI_Concrete02')
 
-    # COMPARACION: TEST VS MODELOS
-    fileName = 'C:/Users/maryj/Documents/GitHub/Ejemplos/Validacion/SW-T2-S3-4/Test/SW-T2-S3-4_Test.txt'
-    Test = np.loadtxt(fileName, delimiter='\t')
-    LatDisp_Test = Test[:, 1]/10
-    LatLoad_Test = Test[:, 0]*102
-
-    fig, ax = plt.subplots()
-    plt.plot(LatDisp_Test,LatLoad_Test, label='Test', linewidth=1)
-    plt.plot(NodeLateralDispMEFI02, -LatLoadMEFI02, label='MEFI', linewidth=1, linestyle='--')
-    plt.ylim(-1e5, 1e5)
-    plt.xlim(-2, 2)
-    plt.legend()
-    plt.title('Global Response SW-T2-S3-4')
-    plt.xlabel('Lateral Displacement (cm)')
-    plt.ylabel('Lateral Load (kgf)')
-    plt.grid(True)
-    # Mostrar el gráfico
-    plt.show()
-
-    fig, ax = plt.subplots()
-    plt.plot(LatDisp_Test, LatLoad_Test, label='Test', linewidth=1)
-    plt.plot(NodeLateralDispMEFISection02, -LatLoadMEFISection02, label='MEFISection-Concrete02', linewidth=1, linestyle='--')
-    plt.ylim(-1e5, 1e5)
-    plt.xlim(-2, 2)
-    plt.legend()
-    plt.title('Global Response SW-T2-S3-4')
-    plt.xlabel('Lateral Displacement (cm)')
-    plt.ylabel('Lateral Load (kgf)')
-    plt.grid(True)
-    # Mostrar el gráfico
-    plt.show()
-
-    fig, ax = plt.subplots()
-    plt.plot(LatDisp_Test, LatLoad_Test, label='Test', linewidth=1)
-    plt.plot(NodeLateralDispMEFISection06, -LatLoadMEFISection06, label='MEFISection-Concrete06', linewidth=1, linestyle='--')
-    plt.ylim(-1e5, 1e5)
-    plt.xlim(-2, 2)
-    plt.legend()
-    plt.title('Global Response SW-T2-S3-4')
-    plt.xlabel('Lateral Displacement (cm)')
-    plt.ylabel('Lateral Load (kgf)')
-    plt.grid(True)
-    # Mostrar el gráfico
-    plt.show()
+    # # COMPARACION: TEST VS MODELOS
+    # fileName = 'C:/Users/maryj/Documents/GitHub/Ejemplos/Validacion/SW-T2-S3-4/Test/SW-T2-S3-4_Test.txt'
+    # Test = np.loadtxt(fileName, delimiter='\t')
+    # LatDisp_Test = Test[:, 1]/10
+    # LatLoad_Test = Test[:, 0]*102
+    #
+    # fig, ax = plt.subplots()
+    # plt.plot(LatDisp_Test,LatLoad_Test, label='Test', linewidth=1)
+    # plt.plot(NodeLateralDispMEFI02, -LatLoadMEFI02, label='MEFI', linewidth=1, linestyle='--')
+    # plt.ylim(-1e5, 1e5)
+    # plt.xlim(-2, 2)
+    # plt.legend()
+    # plt.title('Global Response SW-T2-S3-4')
+    # plt.xlabel('Lateral Displacement (cm)')
+    # plt.ylabel('Lateral Load (kgf)')
+    # plt.grid(True)
+    # # Mostrar el gráfico
+    # plt.show()
+    #
+    # fig, ax = plt.subplots()
+    # plt.plot(LatDisp_Test, LatLoad_Test, label='Test', linewidth=1)
+    # plt.plot(NodeLateralDispMEFISection02, -LatLoadMEFISection02, label='MEFISection-Concrete02', linewidth=1, linestyle='--')
+    # plt.ylim(-1e5, 1e5)
+    # plt.xlim(-2, 2)
+    # plt.legend()
+    # plt.title('Global Response SW-T2-S3-4')
+    # plt.xlabel('Lateral Displacement (cm)')
+    # plt.ylabel('Lateral Load (kgf)')
+    # plt.grid(True)
+    # # Mostrar el gráfico
+    # plt.show()
+    #
+    # fig, ax = plt.subplots()
+    # plt.plot(LatDisp_Test, LatLoad_Test, label='Test', linewidth=1)
+    # plt.plot(NodeLateralDispMEFISection06, -LatLoadMEFISection06, label='MEFISection-Concrete06', linewidth=1, linestyle='--')
+    # plt.ylim(-1e5, 1e5)
+    # plt.xlim(-2, 2)
+    # plt.legend()
+    # plt.title('Global Response SW-T2-S3-4')
+    # plt.xlabel('Lateral Displacement (cm)')
+    # plt.ylabel('Lateral Load (kgf)')
+    # plt.grid(True)
+    # # Mostrar el gráfico
+    # plt.show()
 
 # =============================================================================
 

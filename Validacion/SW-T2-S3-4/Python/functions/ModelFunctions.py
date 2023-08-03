@@ -109,6 +109,8 @@ def UniaxialMat_Steel02():
     Es  = 200000.0*10.2
     R0  = 20.0
     CR1 = 0.9
+    #CR1 = 0.925
+    #CR1 = 18.5
     CR2 = 0.15
     a1  = 0.0
     a2  = 1.0
@@ -138,7 +140,8 @@ def UniaxialMat_Concrete02():
     strainAtFc      = -0.0020
     E0 = 2 * Fc / strainAtFc
     Fcu         = 0.0*Fc
-    strainAtFcu = -0.0091
+    #strainAtFcu = -0.0091
+    strainAtFcu = -0.026
 
     # Concrete propierties: Tension
     Fcr             = 1.67*10.2         #[MPa]*10.2 = [kgf/cm2]
@@ -157,7 +160,7 @@ def UniaxialMat_Concrete06():
     Fc              = -29.0*10.2        #[MPa]*10.2 = [kgf/cm2]
     Fcr             = 1.67*10.2         #[MPa]*10.2 = [kgf/cm2]
     strainAtFcr     = 0.00008
-    strainAtFc      = -0.002
+    strainAtFc      = -0.0020
     strainAtFc_conf = -0.005
     
     # ======== Additional propierties for Concrete06 ========

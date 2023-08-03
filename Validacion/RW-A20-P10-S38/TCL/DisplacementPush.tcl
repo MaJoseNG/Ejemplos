@@ -12,7 +12,8 @@ set Tol 1.e-4;                          # Convergence Test: tolerance
 set maxNumIter 1000;                    # Convergence Test: maximum number of iterations that will be performed before "failure to converge" is returned
 set printFlag 0;                        # Convergence Test: flag used to print information on convergence (optional)        # 1: print information on each step; 
 set TestType NormDispIncr;              # Convergence-test type
-set algorithmType KrylovNewton;         # Algorithm type
+#set algorithmType KrylovNewton;         # Algorithm type
+set algorithmType Newton;               # Algorithm type
 
 constraints Transformation; 
 numberer RCM
