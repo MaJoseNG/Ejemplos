@@ -43,7 +43,7 @@ grid minor
 % =========================================================================
 % Respuesta Global Pushover Ciclico ---------------------------------------
 % Import data
-datafolderMEFISection = 'MEFISection_SW_T2_S3_4';
+datafolderMEFISection = 'MEFISection_SW_T2_S3_4_Concrete02';
 
 NodeDispMEFISection = importdata(fullfile(datafolderMEFISection,'NODE_DISP.out'));
 Node1ReacMEFISection = importdata(fullfile(datafolderMEFISection,'REACTIONS_1.out'));
@@ -68,4 +68,15 @@ grid minor
 %% ========================================================================
 % Comparacion: MEFI vs MEFISection
 % =========================================================================
-hold on
+% figure()
+% hold on
+% plot(NodeLateralDispMEFI,-LatLoadMEFI,'--')
+% plot(NodeLateralDispMEFISection,-LatLoadMEFISection)
+% xlabel('Desplazamiento (cm)')
+% ylabel('Reaccion Horizontal (kgf)')
+% title('Ejemplo SW-T2-S3-4 Pushover Cíclico')
+% legend('MEFI','MEFISection')
+% ylim([-1e5 1e5])
+% xlim([-2 2])
+% grid on
+% grid minor

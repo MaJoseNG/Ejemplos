@@ -8,7 +8,7 @@ loadConst -time 0.0
 source SW_S34_HorizontalLoad.tcl
 
 # ------------------------------
-set Tol 1.e-3;                          # Convergence Test: tolerance
+set Tol 1.e-4;                          # Convergence Test: tolerance
 set maxNumIter 1000;                    # Convergence Test: maximum number of iterations that will be performed before "failure to converge" is returned
 set printFlag 0;                        # Convergence Test: flag used to print information on convergence (optional)        # 1: print information on each step; 
 set TestType NormDispIncr;              # Convergence-test type
@@ -42,6 +42,41 @@ foreach Dmax $iDmax {
             if {$ok != 0} {
                 # if analysis fails, we try some other stuff
                 # performance is slower inside this loop    global maxNumIterStatic;# max no. of iterations performed before "failure to converge" is ret'd
+                if {$ok != 0} {
+                    puts "Trying 2 times smaller timestep .. "
+                    integrator DisplacementControl  $IDctrlNode $IDctrlDOF [expr $Dincr/2]
+                    set ok [analyze 1]
+                }
+                if {$ok != 0} {
+                    puts "Trying 4 times smaller timestep .. "
+                    integrator DisplacementControl  $IDctrlNode $IDctrlDOF [expr $Dincr/4]
+                    set ok [analyze 1]
+                }
+                if {$ok != 0} {
+                    puts "Trying 20 times smaller timestep .. "
+                    integrator DisplacementControl  $IDctrlNode $IDctrlDOF [expr $Dincr/20]
+                    set ok [analyze 1]
+                }
+                if {$ok != 0} {
+                    puts "Trying 160 times smaller timestep .. "
+                    integrator DisplacementControl  $IDctrlNode $IDctrlDOF [expr $Dincr/160]
+                    set ok [analyze 1]
+                }
+                if {$ok != 0} {
+                    puts "Trying 1000 times smaller timestep .. "
+                    integrator DisplacementControl  $IDctrlNode $IDctrlDOF [expr $Dincr/1000]
+                    set ok [analyze 1]
+                }
+                if {$ok != 0} {
+                    puts "Trying 10 times greater tolerance .. "
+                    test $TestType [expr $Tol*10] $maxNumIter 0
+                    set ok [analyze 1]
+                }
+                if {$ok != 0} {
+                    puts "Trying 100 times greater tolerance .. "
+                    test $TestType [expr $Tol*100] $maxNumIter 0
+                    set ok [analyze 1]
+                }
                 if {$ok != 0} {
                     puts "Trying Newton with Current Tangent .."
                     test NormDispIncr $Tol 1000 0

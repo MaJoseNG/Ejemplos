@@ -9,7 +9,9 @@
 set startTime [clock clicks -milliseconds]
 
 # Run gravity analysis and generate the model
-source Model_SWT2S34.tcl;
+#source Model_SWT2S34_RCLMS01_Conc06_Steel02.tcl;
+#source Model_SWT2S34_RCLMS01_Conc02_Steel02.tcl;
+source Model_SWT2S34_RCLMS02_FSAM_Conc02_Steel02.tcl;
 source SW_S34_StaticVerticalAnalysis.tcl;
 puts "Model generated and gravity load applied successfully"
 
@@ -22,13 +24,11 @@ set IDctrlNode 19;
 set IDctrlDOF 1;
 
 # vector of displacement-cycle peaks in terms of wall drift ratio (TOTAL displacements)
-set iDmax "0.04 0.08 0.13 0.16 0.24 0.32 0.47 0.47 0.47 0.63 0.63 0.63 0.79 0.79 0.79 0.95 0.95 0.95 1.11 1.11 1.11 1.26 1.26 1.26 1.42 1.42 1.42 1.58 1.58 1.58 1.89 1.89 1.89"; 
-set Dincr 0.02;                # Paso para Concrete02
-#set Dincr 0.008;                # Paso para Concrete06
+set iDmax "0.04 0.08 0.13 0.16 0.24 0.32 0.47 0.63 0.79 0.95 1.11 1.26 1.42 1.58 1.89"; 
+set Dincr 0.2;                 # Paso para Concrete02
 set Ncycles 1;                  # specify the number of cycles at each peak
-set CycleType Full;            # type of cyclic analysis: Full / Push / Half 
-#set CycleType Push;             # type of cyclic analysis: Full / Push / Half 
-set Fact [expr 95.0/100]; # scale drift ratio by storey height for displacement cycles
+set CycleType Full;             # type of cyclic analysis: Full / Push / Half 
+set Fact [expr 950.0/100];      # scale drift ratio by storey height for displacement cycles
 
 source LibGeneratePeaks.tcl
 source SW_S34_StaticHorizontalAnalysis.tcl
