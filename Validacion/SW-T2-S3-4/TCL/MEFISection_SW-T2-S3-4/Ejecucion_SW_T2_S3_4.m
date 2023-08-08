@@ -43,7 +43,7 @@ clc;clear all;
 % =========================================================================
 % Respuesta Global Pushover Ciclico ---------------------------------------
 % Import data
-datafolderMEFISection = 'MEFISection_SW-T2-S3-4_RCLMS02_Conc02_Steel02';
+datafolderMEFISection = 'MEFISection_SW-T2-S3-4_RCLMS01_Conc06_Steel02';
 
 NodeDispMEFISection = importdata(fullfile(datafolderMEFISection,'NODE_DISP.out'));
 Node1ReacMEFISection = importdata(fullfile(datafolderMEFISection,'REACTIONS_1.out'));
