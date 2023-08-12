@@ -25,9 +25,11 @@ set IDctrlDOF 1;
 
 # vector of displacement-cycle peaks in terms of wall drift ratio (TOTAL displacements)
 set iDmax "0.04 0.08 0.13 0.16 0.24 0.32 0.47 0.63 0.79 0.95 1.11 1.26 1.42 1.58 1.89"; 
+#set iDmax "1.89";
 set Dincr 0.2;                 # Paso para Concrete02
 set Ncycles 1;                  # specify the number of cycles at each peak
 set CycleType Full;             # type of cyclic analysis: Full / Push / Half 
+#set CycleType Push;             # type of cyclic analysis: Full / Push / Half 
 set Fact [expr 950.0/100];      # scale drift ratio by storey height for displacement cycles
 
 source LibGeneratePeaks.tcl

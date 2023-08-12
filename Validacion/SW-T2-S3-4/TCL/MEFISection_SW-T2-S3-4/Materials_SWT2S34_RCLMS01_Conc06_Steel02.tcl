@@ -42,12 +42,12 @@ set strainAtFcr 0.00008;
 set AlphaC 0.32;
 set AlphaT 0.08;
 set K 0.75;
-set R 2.5;
+set n 2.5;
 set BB 0.6;                 # o 0.4
 
 #uniaxialMaterial Concrete06 $matTag  $fc    $e0      $n $k $alpha1 $fcr     $ecr     $b  $alpha2
-uniaxialMaterial Concrete06    10     [expr $K*$Fc]  $strainAtFc_conf  $R $K $AlphaC $Fcr $strainAtFcr $BB $AlphaT;      #concrete boundary
-uniaxialMaterial Concrete06    11     [expr $K*$Fc]  $strainAtFc       $R $K $AlphaC $Fcr $strainAtFcr $BB $AlphaT;      #concrete web
+uniaxialMaterial Concrete06    10     [expr $K*$Fc]  $strainAtFc_conf  $n $K $AlphaC $Fcr $strainAtFcr $BB $AlphaT;      #concrete boundary
+uniaxialMaterial Concrete06    11     [expr $K*$Fc]  $strainAtFc       $n $K $AlphaC $Fcr $strainAtFcr $BB $AlphaT;      #concrete web
 # -----------------------------------------
 # Define and build concrete nD material
 # -----------------------------------------

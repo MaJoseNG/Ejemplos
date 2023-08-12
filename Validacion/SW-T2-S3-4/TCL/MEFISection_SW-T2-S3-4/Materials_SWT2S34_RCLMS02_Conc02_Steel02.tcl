@@ -8,15 +8,15 @@ set Fy_b  473.0;                            # [MPa]
 
 set Es 200000.0;                            # [MPa]
 set OrientationEmbeddedSteel 0.0;
-set R0  20.0;                      
-set CR1 0.925;                      
+set R0  18.0;                      
+set CR1 0.9;                      
 set CR2 0.15;          
 set b   0.008;
           
 #uniaxialMaterial Steel02 $matTag $Fy $E $b $R0 $cR1 $cR2 <$a1 $a2 $a3 $a4 $sigInit>
 uniaxialMaterial Steel02 2 $Fy_hw $Es $b $R0 $CR1 $CR2;   # steel X
 uniaxialMaterial Steel02 3 $Fy_vw $Es $b $R0 $CR1 $CR2;   # steel Y web
-uniaxialMaterial Steel02 4 $Fy_b  $Es $b $R0 $CR1 $CR2;   # steel Y boundary
+uniaxialMaterial Steel02 4 $Fy_b  $Es $b $R0 $CR1 $CR2;   # steel X/Y boundary
 
 # -----------------------------------------
 # Define and build concrete uniaxial material
@@ -33,7 +33,7 @@ set strainAtFcu -0.041;
 set lambda 0.1;
 
 # uniaxialMaterial Concrete02 $matTag $fpc    $epsc0     $fpcu    $epsU     $lambda $ft  $Ets
-uniaxialMaterial Concrete02     10     $Fc  $strainAtFc  $Fcu  $strainAtFcu $lambda $Fcr $Et;      
+uniaxialMaterial Concrete02     11     $Fc  $strainAtFc  $Fcu  $strainAtFcu $lambda $Fcr $Et;      
 # -----------------------------------------
 # Define FSAM nDMaterial
 # -----------------------------------------
@@ -45,8 +45,11 @@ set rouYw 0.0068;               # Y web
 set nu 0.35;                    # friction coefficient
 set alfadow 0.0001;             # dowel action stiffness parameter
 
-nDMaterial FSAM 6  0.0  2   3   10  $rouXw $rouYw  $nu  $alfadow; # Web 
-nDMaterial FSAM 7  0.0  2   4   10  $rouXb $rouYb  $nu  $alfadow; # Boundary 
+set magnitudGSelfWeightLoad 9800.0;            # [mm/s^2]
+set rhoConcreteMaterial [expr 2500.0*(10**(-9))/$magnitudGSelfWeightLoad];
+
+nDMaterial FSAM 6  $rhoConcreteMaterial  2   3   11  $rouXw $rouYw  $nu  $alfadow; # Web 
+nDMaterial FSAM 7  $rhoConcreteMaterial  4   4   11  $rouXb $rouYb  $nu  $alfadow; # Boundary 
 
 # ----------------------------------------------------------------------------------------
 # Define ReinforcedConcreteLayerMembraneSection01 section
