@@ -11,7 +11,7 @@ set OrientationEmbeddedSteel 0.0;
 set R0  18.0;                      
 set CR1 0.9;                      
 set CR2 0.15;          
-set b   0.012;
+set b   0.008;
           
 #uniaxialMaterial Steel02 $matTag $Fy $E $b $R0 $cR1 $cR2 <$a1 $a2 $a3 $a4 $sigInit>
 uniaxialMaterial Steel02 2 $Fy_hw $Es $b $R0 $CR1 $CR2;   # steel X
@@ -41,7 +41,7 @@ set strainAtFcr 0.00008;
 
 set E0 29000;                            # [MPa]
 set Et [expr 0.05*$E0];                  # [MPa]
-set Fcu [expr 0.005*$Fc];                  # [MPa]
+set Fcu [expr 0.05*$Fc];                  # [MPa]
 set strainAtFcu -0.041;
 #set strainAtFcu -0.082;
 set lambda 0.1;
@@ -55,8 +55,8 @@ uniaxialMaterial Concrete02    11     $Fc  $strainAtFc        $Fcu  $strainAtFcu
 set magnitudGSelfWeightLoad 9800.0;            # [mm/s^2]
 set rhoConcreteMaterial [expr 2500.0*(10**(-9))/$magnitudGSelfWeightLoad];
 
-set damageConstant_1 0.15;
-set damageConstant_2 0.5;
+set damageConstant_1 0.175;
+set damageConstant_2 0.51;
 
 # nDMaterial OrthotropicRotatingAngleConcreteT2DMaterial01 $matTag $conc     $ecr          $ec       $rho <-damageCte1 $DamageCte1> <-damageCte1 $DamageCte1>
 #nDMaterial OrthotropicRotatingAngleConcreteT2DMaterial01      21     10   $strainAtFcr  $strainAtFc_conf  $rhoConcreteMaterial -damageCte1 $damageConstant_1 -damageCte2 $damageConstant_2;   # Unconfined concrete

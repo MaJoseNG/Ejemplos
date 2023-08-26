@@ -7,20 +7,21 @@ loadConst -time 0.0
 
 source SW_S34_HorizontalLoad.tcl
 
-# ------------------------------
+## ------------------------------
 set Tol 1.e-4;                          # Convergence Test: tolerance
 set maxNumIter 1000;                    # Convergence Test: maximum number of iterations that will be performed before "failure to converge" is returned
 set printFlag 0;                        # Convergence Test: flag used to print information on convergence (optional)        # 1: print information on each step; 
 set TestType NormDispIncr;              # Convergence-test type
 set algorithmType KrylovNewton;         # Algorithm type
-
+#
 constraints Transformation; 
 numberer RCM
 system BandGeneral
 test $TestType $Tol $maxNumIter $printFlag
 algorithm $algorithmType;       
 analysis Static
-
+# =========================================================================================================================================================
+# FORMA N°1
 set fmt1 "%s Cyclic analysis: CtrlNode %.3i, dof %.1i, Disp=%.4f %s";   # format for screen/file output of DONE/PROBLEM analysis
 
 foreach Dmax $iDmax {
@@ -134,3 +135,73 @@ if {$ok != 0 } {
 } else {
     puts [format $fmt1 "DONE"  $IDctrlNode $IDctrlDOF [nodeDisp $IDctrlNode $IDctrlDOF] $LunitTXT]
 }
+
+#=============================================================================================================================
+# FORMA N°2
+#foreach Dmax $iDmax {
+#    for {set i 1} {$i <= $Ncycles} {incr i 1} {
+#        integrator DisplacementControl  $IDctrlNode $IDctrlDOF $Dincr
+#        while {[nodeDisp $IDctrlNode $IDctrlDOF] < $Dmax}{
+#            set ok [analyze 1]
+#            #print load step on the screen
+#            puts "Load Step: [expr $load_step]"
+#            set load_step [expr $load_step+1]
+#            if {$ok != 0}{
+#                puts "Trying 2 times smaller timestep .. "
+#                integrator DisplacementControl  $IDctrlNode $IDctrlDOF [expr $Dincr/2]
+#                set ok [analyze 1];
+#            }
+#            if {$ok != 0} {
+#                puts "Trying 4 times smaller timestep .. "
+#                integrator DisplacementControl  $IDctrlNode $IDctrlDOF [expr $Dincr/4]
+#                set ok [analyze 1]
+#            }
+#            if {$ok != 0} {
+#                puts "Trying 20 times smaller timestep .. "
+#                integrator DisplacementControl  $IDctrlNode $IDctrlDOF [expr $Dincr/20]
+#                set ok [analyze 1]
+#            }
+#            if {$ok != 0}{
+#                set putout [format $fmt1 "PROBLEM" $IDctrlNode $IDctrlDOF [nodeDisp $IDctrlNode $IDctrlDOF] $LunitTXT]
+#                puts $putout
+#                return -1
+#            }    
+#        } # end while
+#        
+#        # Negative cycle
+#        integrator DisplacementControl  $IDctrlNode $IDctrlDOF [expr -$Dincr]
+#        while {nodeDisp $IDctrlNode $IDctrlDOF > [expr -$Dmax]}{
+#            #sfsdf
+#            set ok [analyze 1]
+#            #print load step on the screen
+#            puts "Load Step: [expr $load_step]"
+#            set load_step [expr $load_step+1]
+#            if {$ok != 0}{
+#                puts "Trying 2 times smaller timestep .. "
+#                integrator DisplacementControl  $IDctrlNode $IDctrlDOF [expr $Dincr/2]
+#                set ok [analyze 1]
+#            }
+#            if {$ok != 0} {
+#                puts "Trying 4 times smaller timestep .. "
+#                integrator DisplacementControl  $IDctrlNode $IDctrlDOF [expr $Dincr/4]
+#                set ok [analyze 1]
+#            }
+#            if {$ok != 0} {
+#                puts "Trying 20 times smaller timestep .. "
+#                integrator DisplacementControl  $IDctrlNode $IDctrlDOF [expr $Dincr/20]
+#                set ok [analyze 1]
+#            }
+#            if {$ok != 0}{
+#                set putout [format $fmt1 "PROBLEM" $IDctrlNode $IDctrlDOF [nodeDisp $IDctrlNode $IDctrlDOF] $LunitTXT]
+#                puts $putout
+#                return -1
+#            }
+#        } # end while
+#    }
+#}
+#
+#if {$ok != 0 } {
+#    puts [format $fmt1 "PROBLEM" $IDctrlNode $IDctrlDOF [nodeDisp $IDctrlNode $IDctrlDOF] $LunitTXT]
+#} else {
+#    puts [format $fmt1 "DONE"  $IDctrlNode $IDctrlDOF [nodeDisp $IDctrlNode $IDctrlDOF] $LunitTXT]
+#}

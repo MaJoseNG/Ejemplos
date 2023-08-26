@@ -120,11 +120,10 @@ if runMEFISectionWithConcrete06 == True:
 # =============================================================================
 if runPlotAnalysis == True:
     # GLOBAL RESPONSE
-    # LatLoadMEFISection02, NodeLateralDispMEFISection02 = pf.plotGlobalResponse('MEFISection_Concrete02',
-    #                                                                            'MEFISection_Concrete02')
+    LatLoadMEFISection02, NodeLateralDispMEFISection02 = pf.plotGlobalResponse('MEFISection_Concrete02', 'MEFISection_Concrete02')
     # LatLoadMEFISection06, NodeLateralDispMEFISection06 = pf.plotGlobalResponse('MEFISection_Concrete06',
     #                                                                            'MEFISection_Concrete06')
-    LatLoadMEFI02, NodeLateralDispMEFI02 = pf.plotGlobalResponse('MEFI_Concrete02', 'MEFI_Concrete02')
+    # LatLoadMEFI02, NodeLateralDispMEFI02 = pf.plotGlobalResponse('MEFI_Concrete02', 'MEFI_Concrete02')
 
     # # COMPARACION: TEST VS MODELOS
     # fileName = 'C:/Users/maryj/Documents/GitHub/Ejemplos/Validacion/SW-T2-S3-4/Test/SW-T2-S3-4_Test.txt'

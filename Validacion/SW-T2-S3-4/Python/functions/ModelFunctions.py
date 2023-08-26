@@ -108,9 +108,7 @@ def UniaxialMat_Steel02():
 
     Es  = 200000.0*10.2
     R0  = 20.0
-    CR1 = 0.9
-    #CR1 = 0.925
-    #CR1 = 18.5
+    CR1 = 0.925
     CR2 = 0.15
     a1  = 0.0
     a2  = 1.0
@@ -139,9 +137,8 @@ def UniaxialMat_Concrete02():
     Fc              = -29.0*10.2        #[MPa]*10.2 = [kgf/cm2]
     strainAtFc      = -0.0020
     E0 = 2 * Fc / strainAtFc
-    Fcu         = 0.0*Fc
-    #strainAtFcu = -0.0091
-    strainAtFcu = -0.026
+    Fcu         = 0.05*Fc
+    strainAtFcu = -0.041
 
     # Concrete propierties: Tension
     Fcr             = 1.67*10.2         #[MPa]*10.2 = [kgf/cm2]
@@ -150,10 +147,10 @@ def UniaxialMat_Concrete02():
     lamb        = 0.1
     # =======================================================
     
-    ops.uniaxialMaterial('Concrete02', 10, Fc, strainAtFc, Fcu, strainAtFcu, lamb, Fcr, Et)  # Wall: Confined border
-    ops.uniaxialMaterial('Concrete02', 11, Fc, strainAtFc, Fcu, strainAtFcu, lamb, Fcr, Et)            # Wall: Unconfined center
-    ops.uniaxialMaterial('Concrete02', 12, Fc, strainAtFc, Fcu, strainAtFcu, lamb, Fcr, Et)            # Beam: Border
-    ops.uniaxialMaterial('Concrete02', 13, Fc, strainAtFc, Fcu, strainAtFcu, lamb, Fcr, Et)            # Beam: Center
+    ops.uniaxialMaterial('Concrete02', 10, 0.75*Fc, strainAtFc, Fcu, strainAtFcu, lamb, Fcr, Et)  # Wall: Confined border
+    ops.uniaxialMaterial('Concrete02', 11, 0.75*Fc, strainAtFc, Fcu, strainAtFcu, lamb, Fcr, Et)            # Wall: Unconfined center
+    ops.uniaxialMaterial('Concrete02', 12, 0.75*Fc, strainAtFc, Fcu, strainAtFcu, lamb, Fcr, Et)            # Beam: Border
+    ops.uniaxialMaterial('Concrete02', 13, 0.75*Fc, strainAtFc, Fcu, strainAtFcu, lamb, Fcr, Et)            # Beam: Center
 
 def UniaxialMat_Concrete06():
     # Concrete propierties

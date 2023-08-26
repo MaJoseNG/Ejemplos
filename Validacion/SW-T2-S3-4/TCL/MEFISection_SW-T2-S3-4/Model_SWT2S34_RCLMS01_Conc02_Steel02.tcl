@@ -6,9 +6,9 @@ source LibUnits.tcl
 # --------------------------------------------------------
 # Start of model generation (Units: N, mm)
 # --------------------------------------------------------
-#set dataDir MEFISection_SW-T2-S3-4_RCLMS01_Conc02_Steel02
+set dataDir MEFISection_SW-T2-S3-4_RCLMS01_Conc02_Steel02_NUEVO
 #set dataDir MEFISection_SW-T2-S3-4_RCLMS01_Conc02_Steel02_Monotonico_1_89
-set dataDir MEFISection_SW-T2-S3-4_RCLMS01_Conc02_Steel02_ecu_0041
+#set dataDir MEFISection_SW-T2-S3-4_RCLMS01_Conc02_Steel02_ecu_003
 #set dataDir MEFISection_SW-T2-S3-4_RCLMS01_Conc02_Steel02_Monotonico_1_89_ecu_0041
 file mkdir $dataDir;
 
