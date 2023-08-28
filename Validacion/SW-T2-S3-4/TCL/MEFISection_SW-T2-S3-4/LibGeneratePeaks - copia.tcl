@@ -11,7 +11,7 @@ foreach Dmax {0.375 0.75 1.125 1.5 2.25 3 4.5 6 7.5 9 10.5 12 13.5 15 18} {
 #set Dmax 0.375
     set resto [expr fmod($Dmax, $Dincr)]
     puts "El resto de la division $Dmax entre $Dincr es: $resto"
-    set resto [format "%.*f" 4 $resto]
+    #set resto [format "%.*f" 4 $resto]
     puts "El resto de la division es: $resto"
     set n 0
 
