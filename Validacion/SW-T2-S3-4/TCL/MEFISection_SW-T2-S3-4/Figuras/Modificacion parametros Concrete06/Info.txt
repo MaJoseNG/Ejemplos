@@ -1,0 +1,5 @@
+Con factores de daño:
+alpha1 = 0.175
+alpha2 = 0.5
+
+Figuras con boundary element con strainAtFc_conf = -0.005

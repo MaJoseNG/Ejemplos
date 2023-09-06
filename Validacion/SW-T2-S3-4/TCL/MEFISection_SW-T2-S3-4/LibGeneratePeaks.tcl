@@ -22,6 +22,16 @@ proc GeneratePeaks {Dmax {DincrStatic 0.01} {CycleType "Full"} {Fact 1} } {;    
 
     set Dmax [expr $Dmax*$Fact];    # scale value
 
+    # ================== INICIO MODIFICACION ==================
+    set DincrStatic 0.15
+    
+    set r [expr fmod($Dmax,$DincrStatic)]
+    while {$r > 1e-4} {
+        set DincrStatic [expr $DincrStatic/2]
+        set r [expr fmod($Dmax,$DincrStatic)]
+    }
+    # ==================  FIN MODIFICACION  ===================
+    
     if {$Dmax<0} {;  # avoid the divide by zero
 
         set dx [expr -$DincrStatic]
@@ -32,13 +42,6 @@ proc GeneratePeaks {Dmax {DincrStatic 0.01} {CycleType "Full"} {Fact 1} } {;    
 
     }
 
-    # ================== INICIO MODIFICACION ==================
-    set r [expr fmod($Dmax,$DincrStatic)]
-    while {$r > 1e-4} {
-        set DincrStatic [expr $DincrStatic/2]
-        set r [expr fmod($Dmax,$DincrStatic)]
-    }
-    # ==================  FIN MODIFICACION  ===================
     set NstepsPeak [expr int(abs($Dmax)/$DincrStatic)]
 
     for {set i 1} {$i <= $NstepsPeak} {incr i 1} {;     # zero to one

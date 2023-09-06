@@ -28,7 +28,7 @@ set strainAtFcr 0.00008;
 
 set E0 29000;                            # [MPa]
 set Et [expr 0.05*$E0];                  # [MPa]
-set Fcu [expr 0.0*$Fc];                  # [MPa]
+set Fcu [expr 0.05*$Fc];                  # [MPa]
 set strainAtFcu -0.041;
 set lambda 0.1;
 

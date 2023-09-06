@@ -6,7 +6,7 @@ source LibUnits.tcl
 # --------------------------------------------------------
 # Start of model generation (Units: N, mm)
 # --------------------------------------------------------
-set dataDir MEFISection_SW-T2-S3-4_RCLMS02_Conc02_Steel02
+set dataDir MEFISection_SW-T2-S3-4_RCLMS02_Conc02_Steel02_NUEVO
 
 file mkdir $dataDir;
 
@@ -26,8 +26,8 @@ source Materials_SWT2S34_RCLMS02_Conc02_Steel02.tcl
 # ------------------------------
 #  Define elements
 # ------------------------------
-source Area_Elements_SWT2S34.tcl
-#source Area_Elements_SWT2S34_5_fibers.tcl
+#source Area_Elements_SWT2S34.tcl
+source Area_Elements_SWT2S34_5_fibers.tcl
 
 # ------------------------------
 #  Define recorders

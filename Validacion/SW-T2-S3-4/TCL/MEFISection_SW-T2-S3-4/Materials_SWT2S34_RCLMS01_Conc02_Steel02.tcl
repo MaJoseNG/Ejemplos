@@ -56,7 +56,7 @@ set magnitudGSelfWeightLoad 9800.0;            # [mm/s^2]
 set rhoConcreteMaterial [expr 2500.0*(10**(-9))/$magnitudGSelfWeightLoad];
 
 set damageConstant_1 0.175;
-set damageConstant_2 0.51;
+set damageConstant_2 0.5;
 
 # nDMaterial OrthotropicRotatingAngleConcreteT2DMaterial01 $matTag $conc     $ecr          $ec       $rho <-damageCte1 $DamageCte1> <-damageCte1 $DamageCte1>
 #nDMaterial OrthotropicRotatingAngleConcreteT2DMaterial01      21     10   $strainAtFcr  $strainAtFc_conf  $rhoConcreteMaterial -damageCte1 $damageConstant_1 -damageCte2 $damageConstant_2;   # Unconfined concrete
