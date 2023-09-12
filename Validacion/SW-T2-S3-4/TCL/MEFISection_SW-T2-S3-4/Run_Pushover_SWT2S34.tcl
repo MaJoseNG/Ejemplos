@@ -9,8 +9,8 @@
 set startTime [clock clicks -milliseconds]
 
 # Run gravity analysis and generate the model
-source Model_SWT2S34_RCLMS01_Conc06_Steel02.tcl;
-#source Model_SWT2S34_RCLMS01_Conc02_Steel02.tcl;
+#source Model_SWT2S34_RCLMS01_Conc06_Steel02.tcl;
+source Model_SWT2S34_RCLMS01_Conc02_Steel02.tcl;
 #source Model_SWT2S34_RCLMS02_FSAM_Conc02_Steel02.tcl;
 source SW_S34_StaticVerticalAnalysis.tcl;
 puts "Model generated and gravity load applied successfully"
