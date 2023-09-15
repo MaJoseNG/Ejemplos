@@ -183,17 +183,40 @@ datafolder = 'MEFISection_SW-T2-S3-4_RCLMS01_Conc02_Steel02_NUEVO_recordersHeigh
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Iniacializacion de estructura para almacenamiento de variables
-panel_strain = struc();
+panel_strain = struct();
 for i = 1:10
     for j = 1:4
-        nombre = ['eps_', num2str(i), num2str(j)];
-        valor = sprintf('importdata(fullfile(datafolder,"MEFISection_panel_strain%d%d.out"))',i,j);
+        % Se importa la informacion
+        nombre = ['epsE' num2str(i) 'P' num2str(j)];
+        file = ['MEFISection_panel_strain' num2str(i) num2str(j) '.out'];
+        valor = importdata(fullfile(datafolder,file));
         panel_strain.(nombre) = valor;
     end
 end
 
+% Se extraen las deformaciones en x
+for i = 1:10
+    for j = 1:4
+        HorizStrain = ['eps_xx_E' num2str(i) 'P' num2str(j)];
+        strains = ['epsE' num2str(i) 'P' num2str(j)];
+        valor = panel_strain.strains(:,2);
+        panel_strain.(HorizStrain) = valor;
+    end
+end
 
-%%%%%%%%%%%%%%%%%%%%%%%%%
+epsEP = fieldnames(panel_strain);
+for i = 1:numel(epsEP)
+    strains = panel_strain.(epsEP{i});
+    eps_xx(:,i) = strains(:,2);
+end
+
+
+
+
+
+
+
+%% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 for j = 1:4
     Ele = 1;
@@ -202,21 +225,16 @@ for j = 1:4
 end
 
 
-
-%% Ayuda Jose
+% Ayuda Jose
 path = 'C:\repos\Ejemplos\Validacion\SW-T2-S3-4\TCL\MEFISection_SW-T2-S3-4\MEFISection_SW-T2-S3-4_RCLMS01_Conc02_Steel02_NUEVO_recordersHeightvsHorStrain_v2';
 
 FolCon = dir(path);
 
 % Hmod =  dir('C:\Users\joseb\OneDrive - Universidad de Chile\PHD 2023\Paper-NLSR\WCEE\Output');
- 
-
 cd([path])
 for i=8:47  
-        
         g(i-7).strain = importdata([FolCon(i).name]);
-        g(i-7).data = [FolCon(i).name];
-       
+        g(i-7).data = [FolCon(i).name];    
 end
 
 
