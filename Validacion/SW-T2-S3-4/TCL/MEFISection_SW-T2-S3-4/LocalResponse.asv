@@ -2,35 +2,35 @@ datafolder = 'MEFISection_SW-T2-S3-4_RCLMS01_Conc02_Steel02_NUEVO_recordersHeigh
 % Node4Disp = importdata(fullfile(datafolder,'NODE_DISPx_4.out'));
 % Node5Disp = importdata(fullfile(datafolder,'NODE_DISPx_5.out'));
 % Node6Disp = importdata(fullfile(datafolder,'NODE_DISPx_6.out'));
-% NodeCtrlDisp = importdata(fullfile(datafolder,'NODE_DISP.out'));        % Control node
+NodeCtrlDisp = importdata(fullfile(datafolder,'NODE_DISP.out'));        % Control node
 % 
 % Node4DispX = Node4Disp(:,2);
 % Node5DispX = Node5Disp(:,2);
 % Node6DispX = Node6Disp(:,2);
-% NodeCtrlDispX = NodeCtrlDisp(:,2);             
+NodeCtrlDispX = NodeCtrlDisp(:,2);             
 % 
 % % Suma de desplazamientos por nivel y calculo de deformaciones por nivel
 % NodeDispX_1erNivel = Node4DispX + Node5DispX + Node6DispX;
 % Lw = 1500;       %[mm] 
 % NodeStrainX_1erNivel = NodeDispX_1erNivel/Lw;
 % 
-% % Identificacion de load steps correspondientes a 3er ciclo de cada drift
-% % de interes
-% figure()
-% plot(NodeCtrlDispX)
-% grid on
-% grid minor
-% xlabel('Load Step')
-% ylabel('Lateral Displacement (mm)')
-% 
-% PosDisp = [0.375 0.75 1.125 1.5 2.25 3 4.5 6 7.5];
-% NegDisp = -PosDisp;
-% %LoadStepsMatrix = zeros(9,3);
-% 
-% for i = 1:length(PosDisp)
-%     LoadStepsMatrixPosCycle(i,:) = find(NodeCtrlDispX == PosDisp(i),3);
-%     LoadStepsMatrixNegCycle(i,:) = find(NodeCtrlDispX == NegDisp(i),3);
-% end
+% Identificacion de load steps correspondientes a 3er ciclo de cada drift
+% de interes
+figure()
+plot(NodeCtrlDispX)
+grid on
+grid minor
+xlabel('Load Step')
+ylabel('Lateral Displacement (mm)')
+
+PosDisp = [0.375 0.75 1.125 1.5 2.25 3 4.5 6 7.5];
+NegDisp = -PosDisp;
+%LoadStepsMatrix = zeros(9,3);
+
+for i = 1:length(PosDisp)
+    LoadStepsMatrixPosCycle(i,:) = find(NodeCtrlDispX == PosDisp(i),3);
+    LoadStepsMatrixNegCycle(i,:) = find(NodeCtrlDispX == NegDisp(i),3);
+end
 % 
 % %find(NodeCtrlDispX == -0.75,3)
 % for i = 1:length(PosDisp)
@@ -149,43 +149,14 @@ datafolder = 'MEFISection_SW-T2-S3-4_RCLMS01_Conc02_Steel02_NUEVO_recordersHeigh
     %% ====================================================================
     % FORMA N°2
     % =====================================================================
-    % Se importa la informacion
-    eps_P1E1 = importdata(fullfile(datafolder,'MEFISection_panel_1_ele_1_strain.out'));
-    eps_P2E1 = importdata(fullfile(datafolder,'MEFISection_panel_2_ele_1_strain.out'));
-    eps_P3E1 = importdata(fullfile(datafolder,'MEFISection_panel_3_ele_1_strain.out'));
-    eps_P4E1 = importdata(fullfile(datafolder,'MEFISection_panel_4_ele_1_strain.out'));
-    
-    eps_P1E2 = importdata(fullfile(datafolder,'MEFISection_panel_1_ele_2_strain.out'));
-    eps_P2E2 = importdata(fullfile(datafolder,'MEFISection_panel_2_ele_2_strain.out'));
-    eps_P3E2 = importdata(fullfile(datafolder,'MEFISection_panel_3_ele_2_strain.out'));
-    eps_P4E2 = importdata(fullfile(datafolder,'MEFISection_panel_4_ele_2_strain.out'));
-    
-    % Se extraen las deformaciones en x
-    eps_xx_P1E1 = eps_P1E1(:,2);
-    eps_xx_P2E1 = eps_P2E1(:,2);
-    eps_xx_P3E1 = eps_P3E1(:,2);
-    eps_xx_P4E1 = eps_P4E1(:,2);
-    
-    eps_xx_P1E2 = eps_P1E2(:,2);
-    eps_xx_P2E2 = eps_P2E2(:,2);
-    eps_xx_P3E2 = eps_P3E2(:,2);
-    eps_xx_P4E2 = eps_P4E2(:,2);
-    
-    eps_xx = eps_xx_P1E1+eps_xx_P2E1+eps_xx_P3E1+eps_xx_P4E1+...
-        eps_xx_P1E2+eps_xx_P2E2+eps_xx_P3E2+eps_xx_P4E2;
-    
-    for i = 1:length(PosDisp)
-        eps_xx_PosCycle(1,i) = eps_xx(LoadStepsMatrixPosCycle(i,3));
-        eps_xx_NegCycle(1,i) = eps_xx(LoadStepsMatrixNegCycle(i,3));
-    end
     
 %end
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Iniacializacion de estructura para almacenamiento de variables
 panel_strain = struct();
-for i = 1:10
-    for j = 1:4
+for i = 1:10        % 10 elementos
+    for j = 1:4     % 4 paneles
         % Se importa la informacion
         nombre = ['epsE' num2str(i) 'P' num2str(j)];
         file = ['MEFISection_panel_strain' num2str(i) num2str(j) '.out'];
@@ -195,48 +166,142 @@ for i = 1:10
 end
 
 % Se extraen las deformaciones en x
-for i = 1:10
-    for j = 1:4
-        HorizStrain = ['eps_xx_E' num2str(i) 'P' num2str(j)];
-        strains = ['epsE' num2str(i) 'P' num2str(j)];
-        valor = panel_strain.strains(:,2);
-        panel_strain.(HorizStrain) = valor;
-    end
-end
-
 epsEP = fieldnames(panel_strain);
 for i = 1:numel(epsEP)
     strains = panel_strain.(epsEP{i});
     eps_xx(:,i) = strains(:,2);
 end
 
+% Se suman(?) las deformaciones horizontales por piso
+nSteps = size(eps_xx, 1);
+nLevels = 5;
 
-
-
-
-
-
-%% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-for j = 1:4
-    Ele = 1;
-    file = ['MEFISection_panel_strain' num2str(Ele) num2str(j) '.out'];
-    panel_strain_Em(:,j*4-3:j*4) = importdata(fullfile(datafolder,file));
+for i = 1:nSteps
+    for j = 1:nLevels
+        %eps_xx_height(j,i) = sum(eps_xx(i,j*8-7:j*8)); 
+        %eps_xx_height(j,i) = mean(eps_xx(i,j*8-7:j*8));
+        eps_xx_height(j,i) = max(eps_xx(i,j*8-7:j*8));
+    end
 end
 
-
-% Ayuda Jose
-path = 'C:\repos\Ejemplos\Validacion\SW-T2-S3-4\TCL\MEFISection_SW-T2-S3-4\MEFISection_SW-T2-S3-4_RCLMS01_Conc02_Steel02_NUEVO_recordersHeightvsHorStrain_v2';
-
-FolCon = dir(path);
-
-% Hmod =  dir('C:\Users\joseb\OneDrive - Universidad de Chile\PHD 2023\Paper-NLSR\WCEE\Output');
-cd([path])
-for i=8:47  
-        g(i-7).strain = importdata([FolCon(i).name]);
-        g(i-7).data = [FolCon(i).name];    
+% Se extraen las deformaciones horizontales alcanzadas en aquellos
+% loadsteps asociados a los diferentes drifts (+)
+for i = 1:length(PosDisp)
+    eps_xx_height_PosCycle(:,i) = eps_xx_height(:,LoadStepsMatrixPosCycle(i,1)); % Se identifican los LoadSteps para cada drift para el ciclo 1
+end
+% Se extraen las deformaciones horizontales alcanzadas en aquellos
+% loadsteps asociados a los diferentes drifts (-)
+for i = 1:length(PosDisp)
+    eps_xx_height_NegCycle(:,i) = eps_xx_height(:,LoadStepsMatrixNegCycle(i,1)); % Se identifican los LoadSteps para cada drift para el ciclo 1
 end
 
+height = 75:150:675;
+Hw = 750; %[mm]
+
+figure()
+for i = 1:length(PosDisp)
+    drift = PosDisp(i)/Hw*100;
+    plot(eps_xx_height_PosCycle(:,i),height,'--*','DisplayName',[num2str(drift), '%'])
+    hold on
+end
+legend('Location', 'NorthEast')
+title('Local Response: Model - Positive Cycle')
+xlabel('Horizontal Strain')
+ylabel('Height(mm)')
+hold off
+
+figure()
+for i = 1:length(PosDisp)
+    drift = PosDisp(i)/Hw*100;
+    plot(eps_xx_height_NegCycle(:,i),height,'--*','DisplayName',[num2str(drift), '%'])
+    hold on
+end
+legend('Location', 'NorthEast')
+title('Local Response: Model - Negative Cycle')
+xlabel('Horizontal Strain')
+ylabel('Height(mm)')
+hold off
 
 
+% Test --------------------------------------------------------------------
+filename = 'Documentacion SW-T2-S3-4.xlsx';
+sheet = 'Resp local exp y analitica ';
+xlRange_PosCycle = 'C32:K36';
+xlRange_NegCycle = 'L32:T36';
+xlRange_Height = 'B32:B36';
 
+RespLocalTest_PosCycle = xlsread(filename,sheet,xlRange_PosCycle);
+RespLocalTest_NegCycle = xlsread(filename,sheet,xlRange_NegCycle);
+RespLocalTest_Height = xlsread(filename,sheet,xlRange_Height);
+
+figure()
+for i = 1:length(PosDisp)
+    plot(RespLocalTest_PosCycle(:,i),RespLocalTest_Height,'-*')
+    hold on
+end
+title('Local Response: Test - Positive Cycle')
+xlabel('Horizontal Strain')
+ylabel('Height (mm)')
+legend('0.05%','0.10%','0.15%','0.20%', '0.30%', '0.40%', '0.60%', '0.80%', '1%')
+xlim([-1e-4 0.005])
+ylim([0 800])
+xticks([0 0.001 0.002 0.003 0.004 0.005]);
+yticks([0 100 200 300 400 500 600 700 800]);
+xticklabels({'0', ' ', '0.002', ' ', '0.004', ' '});
+%yticklabels({'0', ' ', '200', ' ', '400', ' ', '600', ' ', '800'});
+hold off
+
+figure()
+for i = 1:length(PosDisp)
+    plot(RespLocalTest_NegCycle(:,i),RespLocalTest_Height,'-*')
+    hold on
+end
+title('Local Response: Test - Negative Cycle')
+xlabel('Horizontal Strain')
+ylabel('Height (mm)')
+legend('0.05%','0.10%','0.15%','0.20%', '0.30%', '0.40%', '0.60%', '0.80%', '1%')
+xlim([-1e-4 0.005])
+ylim([0 800])
+xticks([0 0.001 0.002 0.003 0.004 0.005]);
+yticks([0 100 200 300 400 500 600 700 800]);
+xticklabels({'0', ' ', '0.002', ' ', '0.004', ' '});
+%yticklabels({'0', ' ', '200', ' ', '400', ' ', '600', ' ', '800'});
+hold off
+
+% Comparacion: Modelo vs Test ---------------------------------------------
+markers = {'o','+','*','x','s','d','^','p','h'};
+colors = {'b','g','r','k','c','m'};
+
+figure()
+hold on
+for i = 1:length(PosDisp)
+    drift = PosDisp(i)/Hw*100;
+    plot(eps_xx_height_PosCycle(:,i),height,'Marker',getprop(markers,i),'color',getprop(colors,i),'linestyle','--', 'DisplayName',['Model - ', num2str(drift), '%'])
+    plot(RespLocalTest_PosCycle(:,i),RespLocalTest_Height,'Marker',getprop(markers,i),'color',getprop(colors,i),'linestyle','-', 'DisplayName',['Test - ', num2str(drift), '%'])
+end
+legend('Location', 'NorthEast')
+title('Local Response: Test vs Model - Positive Cycle')
+xlabel('Horizontal Strain')
+ylabel('Height (mm)')
+%legend('0.05%','0.10%','0.15%','0.20%', '0.30%', '0.40%', '0.60%', '0.80%', '1%')
+xlim([-1e-4 0.005])
+ylim([0 800])
+xticks([0 0.001 0.002 0.003 0.004 0.005]);
+yticks([0 100 200 300 400 500 600 700 800]);
+xticklabels({'0', ' ', '0.002', ' ', '0.004', ' '});
+
+figure()
+hold on
+for i = 1:length(PosDisp)
+    plot(eps_xx_height_NegCycle(:,i),height,'Marker',getprop(markers,i),'color',getprop(colors,i),'linestyle','--', 'DisplayName',['Model - ', num2str(drift), '%'])
+    plot(RespLocalTest_NegCycle(:,i),RespLocalTest_Height,'Marker',getprop(markers,i),'color',getprop(colors,i),'linestyle','-', 'DisplayName',['Test - ', num2str(drift), '%'])
+end
+title('Local Response: Test vs Model - Negative Cycle')
+xlabel('Horizontal Strain')
+ylabel('Height (mm)')
+%legend('0.05%','0.10%','0.15%','0.20%', '0.30%', '0.40%', '0.60%', '0.80%', '1%')
+xlim([-1e-4 0.005])
+ylim([0 800])
+xticks([0 0.001 0.002 0.003 0.004 0.005]);
+yticks([0 100 200 300 400 500 600 700 800]);
+xticklabels({'0', ' ', '0.002', ' ', '0.004', ' '});
