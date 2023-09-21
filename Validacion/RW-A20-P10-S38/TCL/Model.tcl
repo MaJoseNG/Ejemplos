@@ -7,8 +7,8 @@ source LibUnits.tcl
 # Start of model generation
 # --------------------------------------------------------
 #set dataDir MEFI
-#set dataDir MEFISection-Concrete02
-set dataDir MEFISection-Concrete06
+set dataDir MEFISection-Concrete02
+#set dataDir MEFISection-Concrete06
 
 file mkdir $dataDir;# Create ModelBuilder for 3D element (with three-dimensions and 6 DOF/node)
 model BasicBuilder -ndm 2 -ndf 3;

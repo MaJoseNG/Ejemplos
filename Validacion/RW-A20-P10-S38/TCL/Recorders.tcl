@@ -5,6 +5,11 @@ recorder Node -file $dataDir/REACTIONS_1.out -time -node 1 -dof 1 2 3 reaction
 recorder Node -file $dataDir/REACTIONS_2.out -time -node 2 -dof 1 2 3 reaction
 recorder Node -file $dataDir/NODE_DISP.out -time -node 17 -dof 1 2 3 disp
 
+# For local response
+for {set i 3} {$i <= 18} {incr i} {
+    recorder Node -file $dataDir/NODE_DISPx_$i.out -time -node $i -dof 1 disp
+}
+
 # AREA ELEMENT Recorders:
 # ----------------------------------------------------------------
 # Creado por MJN
@@ -30,3 +35,11 @@ recorder Element -file $dataDir/MEFISection_panel_1_strain.out -time -ele 1 RCPa
 recorder Element -file $dataDir/MEFISection_panel_1_stress.out -time -ele 1 RCPanel 1 panel_stress
 recorder Element -file $dataDir/MEFISection_panel_8_strain.out -time -ele 1 RCPanel 8 panel_strain
 recorder Element -file $dataDir/MEFISection_panel_8_stress.out -time -ele 1 RCPanel 8 panel_stress
+
+# For local response
+for {set i 1} {$i <= 8} {incr i} {
+    for {set j 1} {$j <= 8} {incr j} {
+    recorder Element -file $dataDir/MEFISection_panel_strain$i$j.out -time -ele $i RCPanel $j panel_strain
+    }
+}
+
