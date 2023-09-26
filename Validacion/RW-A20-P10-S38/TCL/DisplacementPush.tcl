@@ -12,8 +12,8 @@ set Tol 1.e-4;                          # Convergence Test: tolerance
 set maxNumIter 1000;                    # Convergence Test: maximum number of iterations that will be performed before "failure to converge" is returned
 set printFlag 0;                        # Convergence Test: flag used to print information on convergence (optional)        # 1: print information on each step; 
 set TestType NormDispIncr;              # Convergence-test type
-#set algorithmType KrylovNewton;         # Algorithm type
-set algorithmType Newton;               # Algorithm type
+set algorithmType KrylovNewton;         # Algorithm type
+#set algorithmType Newton;               # Algorithm type
 
 constraints Transformation; 
 numberer RCM
@@ -21,6 +21,10 @@ system BandGeneral
 test $TestType $Tol $maxNumIter $printFlag
 algorithm $algorithmType;       
 analysis Static
+
+#################################################
+
+#################################################
 
 
 set fmt1 "%s Cyclic analysis: CtrlNode %.3i, dof %.1i, Disp=%.4f %s";   # format for screen/file output of DONE/PROBLEM analysis
@@ -44,6 +48,7 @@ foreach Dmax $iDmax {
             if {$ok != 0} {
                 # if analysis fails, we try some other stuff
                 # performance is slower inside this loop    global maxNumIterStatic;# max no. of iterations performed before "failure to converge" is ret'd
+                ####### FORMA N°1 #######################
                 #if {$ok != 0} {
                 #    puts "Trying 2 times smaller timestep .. "
                 #    integrator DisplacementControl  $IDctrlNode $IDctrlDOF [expr $Dincr/2]
@@ -79,6 +84,7 @@ foreach Dmax $iDmax {
                 #    test $TestType [expr $Tol*100] $maxNumIter 0
                 #    set ok [analyze 1]
                 #}
+                ####### FORMA N°2 #######################
                 if {$ok != 0} {
                     puts "Trying Newton with Current Tangent .."
                     test NormDispIncr $Tol 1000 0
@@ -110,6 +116,9 @@ foreach Dmax $iDmax {
                     set ok [analyze 1 ]
                     algorithm $algorithmType
                 }
+                ######### FORMA N°3 #####################################
+                
+                ######### FIN FORMA N°3 ################################
                 if {$ok != 0} {
                     set putout [format $fmt1 "PROBLEM" $IDctrlNode $IDctrlDOF [nodeDisp $IDctrlNode $IDctrlDOF] $LunitTXT]
                     puts $putout
