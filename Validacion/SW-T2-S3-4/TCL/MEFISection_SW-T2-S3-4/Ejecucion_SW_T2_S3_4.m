@@ -2,8 +2,8 @@
 %% ========================================================================
 % Global Response
 % =========================================================================
-%directoryTest = % PC Civil
-directoryTest = 'C:\Users\maryj\Documents\GitHub\Ejemplos\Validacion\SW-T2-S3-4\Test\SW-T2-S3-4_Test.txt'; %Note
+directoryTest = 'C:\repos\Ejemplos\Validacion\SW-T2-S3-4\Test\SW-T2-S3-4_Test.txt';          % PC Civil
+%directoryTest = 'C:\Users\maryj\Documents\GitHub\Ejemplos\Validacion\SW-T2-S3-4\Test\SW-T2-S3-4_Test.txt'; %Note
 
 datafolder_RCLMS01C02S02 = 'MEFISection_SW-T2-S3-4_RCLMS01_Conc02_Steel02_NUEVO_recordersHeightvsHorStrain_v2';
 %datafolder_RCLMS01C06S02 = 'MEFISection_SW-T2-S3-4_RCLMS01_Conc06_Steel02_NUEVO_n=2.5_k=0.75_original';
@@ -17,8 +17,6 @@ modelname = 'RCLMS01C02S02';
 % Local Response
 % =========================================================================
 LocalResponse_SW_T2_S3_4(datafolder_RCLMS01C02S02)
-
-
 
 
 % %% Calculo de deformaciones principales y evaluacion del factor de daño

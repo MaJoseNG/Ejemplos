@@ -348,6 +348,47 @@ ylabel('Height (mm)')
 grid on 
 box on
 
+% Comparacion: Modelo Nodos vs Modelo paneles -----------------------------
+
+figure()    % Ciclo Positivo
+hold on
+for i = 1:length(PosDisp)
+    drift = [0.28 0.38 0.56 0.75 1.1 1.5 2.3 3.1];
+    plot(-NodeHorStrain_PosCycle(:,i),Height,'Marker',getprop(markers,i),'color',getprop(colors,i),'linestyle','-', 'DisplayName',['Model (Nodes) - ', num2str(drift(i)), '%'])
+    plot(eps_xx_height_PosCycle(:,i),height,'Marker',getprop(markers,i),'color',getprop(colors,i),'linestyle','--', 'DisplayName',['Model (Panels) - ', num2str(drift(i)), '%'])
+end
+legend('Location', 'NorthEast')
+title('Local Response RW-A20-P10-S38 Model: Nodes vs Panels - Positive Cycle')
+xlabel('Horizontal Strain')
+ylabel('Height (mm)')
+%legend('0.05%','0.10%','0.15%','0.20%', '0.30%', '0.40%', '0.60%', '0.80%', '1%')
+% xlim([-1e-4 0.005])
+% ylim([0 800])
+% xticks([0 0.001 0.002 0.003 0.004 0.005]);
+% yticks([0 100 200 300 400 500 600 700 800]);
+% xticklabels({'0', ' ', '0.002', ' ', '0.004', ' '});
+box on
+grid on
+
+figure()    % Ciclo Negativo
+hold on
+for i = 1:length(PosDisp)
+    drift = [0.28 0.38 0.56 0.75 1.1 1.5 2.3 3.1];
+    plot(-NodeHorStrain_NegCycle(:,i),Height,'Marker',getprop(markers,i),'color',getprop(colors,i),'linestyle','-', 'DisplayName',['Model (Nodes) - ', num2str(drift(i)), '%'])
+    plot(eps_xx_height_NegCycle(:,i),height,'Marker',getprop(markers,i),'color',getprop(colors,i),'linestyle','--', 'DisplayName',['Model (Panels) - ', num2str(drift(i)), '%'])
+end
+legend('Location', 'NorthEast')
+title('Local Response RW-A20-P10-S38 Model: Nodes vs Panels - Negative Cycle')
+xlabel('Horizontal Strain')
+ylabel('Height (mm)')
+% xlim([-1e-4 0.005])
+% ylim([0 800])
+% xticks([0 0.001 0.002 0.003 0.004 0.005]);
+% yticks([0 100 200 300 400 500 600 700 800]);
+% xticklabels({'0', ' ', '0.002', ' ', '0.004', ' '});
+box on
+grid on
+
 
 % Tm = 1.35;
 % FontSize = 12;

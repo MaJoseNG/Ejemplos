@@ -238,8 +238,8 @@ nLevels = 5;
 for i = 1:nSteps
     for j = 1:nLevels
         %eps_xx_height(j,i) = sum(eps_xx(i,j*8-7:j*8)); 
-        %eps_xx_height(j,i) = mean(eps_xx(i,j*8-7:j*8));
-        eps_xx_height(j,i) = max(eps_xx(i,j*8-7:j*8));
+        eps_xx_height(j,i) = mean(eps_xx(i,j*8-7:j*8));
+        %eps_xx_height(j,i) = max(eps_xx(i,j*8-7:j*8));
     end
 end
 
@@ -343,6 +343,53 @@ yticks([0 100 200 300 400 500 600 700 800]);
 xticklabels({'0', ' ', '0.002', ' ', '0.004', ' '});
 grid on 
 box on
+
+% Comparacion: Modelo Nodos vs Modelo paneles -----------------------------
+
+figure()    % Ciclo Positivo
+hold on
+for i = 1:length(PosDisp)
+    drift = PosDisp(i)/Hw*100;
+    plot(-NodeHorStrain_PosCycle(:,i),Height,'Marker',getprop(markers,i),'color',getprop(colors,i),'linestyle','-', 'DisplayName',['Model (Nodes) - ', num2str(drift), '%'])
+    plot(eps_xx_height_PosCycle(:,i),height,'Marker',getprop(markers,i),'color',getprop(colors,i),'linestyle','--', 'DisplayName',['Model (Panels) - ', num2str(drift), '%'])
+end
+legend('Location', 'NorthEast')
+title('Local Response SW-T2-S3-4 Model: Nodes vs Panels - Positive Cycle')
+xlabel('Horizontal Strain')
+ylabel('Height (mm)')
+%legend('0.05%','0.10%','0.15%','0.20%', '0.30%', '0.40%', '0.60%', '0.80%', '1%')
+xlim([-1e-4 0.005])
+ylim([0 800])
+xticks([0 0.001 0.002 0.003 0.004 0.005]);
+yticks([0 100 200 300 400 500 600 700 800]);
+xticklabels({'0', ' ', '0.002', ' ', '0.004', ' '});
+box on
+grid on
+
+figure()    % Ciclo Negativo
+hold on
+for i = 1:length(PosDisp)
+    drift = PosDisp(i)/Hw*100;
+    plot(-NodeHorStrain_NegCycle(:,i),Height,'Marker',getprop(markers,i),'color',getprop(colors,i),'linestyle','-', 'DisplayName',['Model (Nodes) - ', num2str(drift), '%'])
+    plot(eps_xx_height_NegCycle(:,i),height,'Marker',getprop(markers,i),'color',getprop(colors,i),'linestyle','--', 'DisplayName',['Model (Panels) - ', num2str(drift), '%'])
+end
+legend('Location', 'NorthEast')
+title('Local Response SW-T2-S3-4 Model: Nodes vs Panels - Negative Cycle')
+xlabel('Horizontal Strain')
+ylabel('Height (mm)')
+xlim([-1e-4 0.005])
+ylim([0 800])
+xticks([0 0.001 0.002 0.003 0.004 0.005]);
+yticks([0 100 200 300 400 500 600 700 800]);
+xticklabels({'0', ' ', '0.002', ' ', '0.004', ' '});
+box on
+grid on
+
+
+
+
+
+
 
 
 % Tm = 1.35;
