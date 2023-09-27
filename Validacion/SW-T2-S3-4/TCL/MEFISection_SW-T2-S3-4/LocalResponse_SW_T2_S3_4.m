@@ -1,4 +1,5 @@
-datafolder = 'MEFISection_SW-T2-S3-4_RCLMS01_Conc02_Steel02_NUEVO_recordersHeightvsHorStrain_v2';
+function LocalResponse_SW_T2_S3_4(datafolder)
+%datafolder = 'MEFISection_SW-T2-S3-4_RCLMS01_Conc02_Steel02_NUEVO_recordersHeightvsHorStrain_v2';
 
 NodeCtrlDisp = importdata(fullfile(datafolder,'NODE_DISP.out'));        % Control node
 NodeCtrlDispX = NodeCtrlDisp(:,2);             
@@ -43,7 +44,7 @@ for i = 1:length(PosDisp)
     hold on
 end
 legend('Location', 'NorthEast')
-title('Local Response: Test - Positive Cycle')
+title('Local Response SW-T2-S3-4: Test - Positive Cycle')
 xlabel('Horizontal Strain')
 ylabel('Height (mm)')
 legend('0.05%','0.10%','0.15%','0.20%', '0.30%', '0.40%', '0.60%', '0.80%', '1%')
@@ -64,7 +65,7 @@ for i = 1:length(PosDisp)
     hold on
 end
 legend('Location', 'NorthEast')
-title('Local Response: Test - Negative Cycle')
+title('Local Response SW-T2-S3-4: Test - Negative Cycle')
 xlabel('Horizontal Strain')
 ylabel('Height (mm)')
 legend('0.05%','0.10%','0.15%','0.20%', '0.30%', '0.40%', '0.60%', '0.80%', '1%')
@@ -128,7 +129,7 @@ for i = 1:length(PosDisp)
     hold on
 end
 legend('Location', 'NorthEast')
-title('Local Response (Nodes): Model - Positive Cycle')
+title('Local Response SW-T2-S3-4 (Nodes): Model - Positive Cycle')
 xlabel('Horizontal Strain')
 ylabel('Height(mm)')
 xlim([-1e-4 0.005])
@@ -148,7 +149,7 @@ for i = 1:length(PosDisp)
     hold on
 end
 legend('Location', 'NorthEast')
-title('Local Response (Nodes): Model - Negative Cycle')
+title('Local Response SW-T2-S3-4 (Nodes): Model - Negative Cycle')
 xlabel('Horizontal Strain')
 ylabel('Height(mm)')
 xlim([-1e-4 0.005])
@@ -177,7 +178,7 @@ for i = 1:length(PosDisp)
     plot(RespLocalTest_PosCycle(:,i),RespLocalTest_Height,'Marker',getprop(markers,i),'color',getprop(colors,i),'linestyle','-', 'DisplayName',['Test - ', num2str(drift), '%'])
 end
 legend('Location', 'NorthEast')
-title('Local Response (Nodes): Test vs Model - Positive Cycle')
+title('Local Response SW-T2-S3-4 (Nodes): Test vs Model - Positive Cycle')
 xlabel('Horizontal Strain')
 ylabel('Height (mm)')
 %legend('0.05%','0.10%','0.15%','0.20%', '0.30%', '0.40%', '0.60%', '0.80%', '1%')
@@ -197,7 +198,7 @@ for i = 1:length(PosDisp)
     plot(RespLocalTest_NegCycle(:,i),RespLocalTest_Height,'Marker',getprop(markers,i),'color',getprop(colors,i),'linestyle','-', 'DisplayName',['Test - ', num2str(drift), '%'])
 end
 legend('Location', 'NorthEast')
-title('Local Response (Nodes): Test vs Model - Negative Cycle')
+title('Local Response SW-T2-S3-4 (Nodes): Test vs Model - Negative Cycle')
 xlabel('Horizontal Strain')
 ylabel('Height (mm)')
 xlim([-1e-4 0.005])
@@ -263,7 +264,7 @@ for i = 1:length(PosDisp)
     hold on
 end
 legend('Location', 'NorthEast')
-title('Local Response: Model - Positive Cycle')
+title('Local Response SW-T2-S3-4: Model - Positive Cycle')
 xlabel('Horizontal Strain')
 ylabel('Height(mm)')
 xlim([-1e-4 0.005])
@@ -283,7 +284,7 @@ for i = 1:length(PosDisp)
     hold on
 end
 legend('Location', 'NorthEast')
-title('Local Response: Model - Negative Cycle')
+title('Local Response SW-T2-S3-4: Model - Negative Cycle')
 xlabel('Horizontal Strain')
 ylabel('Height(mm)')
 xlim([-1e-4 0.005])
@@ -312,7 +313,7 @@ for i = 1:length(PosDisp)
     plot(RespLocalTest_PosCycle(:,i),RespLocalTest_Height,'Marker',getprop(markers,i),'color',getprop(colors,i),'linestyle','-', 'DisplayName',['Test - ', num2str(drift), '%'])
 end
 legend('Location', 'NorthEast')
-title('Local Response: Test vs Model - Positive Cycle')
+title('Local Response SW-T2-S3-4: Test vs Model - Positive Cycle')
 xlabel('Horizontal Strain')
 ylabel('Height (mm)')
 %legend('0.05%','0.10%','0.15%','0.20%', '0.30%', '0.40%', '0.60%', '0.80%', '1%')
@@ -332,7 +333,7 @@ for i = 1:length(PosDisp)
     plot(RespLocalTest_NegCycle(:,i),RespLocalTest_Height,'Marker',getprop(markers,i),'color',getprop(colors,i),'linestyle','-', 'DisplayName',['Test - ', num2str(drift), '%'])
 end
 legend('Location', 'NorthEast')
-title('Local Response: Test vs Model - Negative Cycle')
+title('Local Response SW-T2-S3-4: Test vs Model - Negative Cycle')
 xlabel('Horizontal Strain')
 ylabel('Height (mm)')
 xlim([-1e-4 0.005])
@@ -351,3 +352,4 @@ box on
 % set(gca,'LabelFontSizeMultiplier',Tm)
 % set(gca,'TitleFontSizeMultiplier',Tm)
 % set(gca,'Linewidth',1.5)
+end

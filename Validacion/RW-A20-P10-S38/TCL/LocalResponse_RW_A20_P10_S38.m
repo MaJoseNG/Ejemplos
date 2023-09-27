@@ -39,15 +39,16 @@ RespLocalTest_Height = xlsread(filename,sheet,xlRange_Height);
 
 figure()
 for i = 1:length(PosDisp)
-    drift = PosDisp(i)/Hw*100;
-    plot(RespLocalTest_PosCycle(:,i),RespLocalTest_Height,'-*','DisplayName',[num2str(drift), '%'])
+    %drift = PosDisp(i)/Hw*100;
+    %plot(RespLocalTest_PosCycle(:,i),RespLocalTest_Height,'-*','DisplayName',[num2str(drift), '%'])
+    plot(RespLocalTest_PosCycle(:,i),RespLocalTest_Height,'-*')
     hold on
 end
 legend('Location', 'NorthEast')
 title('Local Response RW-A20-P10-S38: Test - Positive Cycle')
 xlabel('Horizontal Strain')
 ylabel('Height (mm)')
-%legend('0.05%','0.10%','0.15%','0.20%', '0.30%', '0.40%', '0.60%', '0.80%', '1%')
+legend('0.28%','0.38%','0.56%','0.75%', '1.1%', '1.5%', '2.3%', '3.1%')
 %xlim([-1e-4 0.005])
 %ylim([0 800])
 %xticks([0 0.001 0.002 0.003 0.004 0.005]);
@@ -60,15 +61,16 @@ hold off
 
 figure()
 for i = 1:length(PosDisp)
-    drift = PosDisp(i)/Hw*100;
-    plot(RespLocalTest_NegCycle(:,i),RespLocalTest_Height,'-*','DisplayName',[num2str(drift), '%'])
+    %drift = PosDisp(i)/Hw*100;
+    %plot(RespLocalTest_NegCycle(:,i),RespLocalTest_Height,'-*','DisplayName',[num2str(drift), '%'])
+    plot(RespLocalTest_NegCycle(:,i),RespLocalTest_Height,'-*')
     hold on
 end
 legend('Location', 'NorthEast')
 title('Local Response RW-A20-P10-S38: Test - Negative Cycle')
 xlabel('Horizontal Strain')
 ylabel('Height (mm)')
-%legend('0.05%','0.10%','0.15%','0.20%', '0.30%', '0.40%', '0.60%', '0.80%', '1%')
+legend('0.28%','0.38%','0.56%','0.75%', '1.1%', '1.5%', '2.3%', '3.1%')
 %xlim([-1e-4 0.005])
 %ylim([0 800])
 %xticks([0 0.001 0.002 0.003 0.004 0.005]);
@@ -124,14 +126,16 @@ Height = [315.69 631.37 947.06 1262.74 1578.43 1894.11 2209.8 2438.4];
 
 figure()
 for i = 1:length(PosDisp)
-    drift = PosDisp(i)/Hw*100;
-    plot(-NodeHorStrain_PosCycle(:,i),Height,'--*','DisplayName',[num2str(drift), '%'])
+    %drift = PosDisp(i)/Hw*100;
+    %plot(-NodeHorStrain_PosCycle(:,i),Height,'--*','DisplayName',[num2str(drift), '%'])
+     plot(-NodeHorStrain_PosCycle(:,i),Height,'--*')
     hold on
 end
 legend('Location', 'NorthEast')
 title('Local Response RW-A20-P10-S38 (Nodes): Model - Positive Cycle')
 xlabel('Horizontal Strain')
 ylabel('Height(mm)')
+legend('0.28%','0.38%','0.56%','0.75%', '1.1%', '1.5%', '2.3%', '3.1%')
 %xlim([-1e-4 0.005])
 %ylim([0 800])
 %xticks([0 0.001 0.002 0.003 0.004 0.005]);
@@ -144,14 +148,16 @@ hold off
 
 figure()
 for i = 1:length(PosDisp)
-    drift = PosDisp(i)/Hw*100;
-    plot(-NodeHorStrain_NegCycle(:,i),Height,'--*','DisplayName',[num2str(drift), '%'])
+    %drift = PosDisp(i)/Hw*100;
+    %plot(-NodeHorStrain_NegCycle(:,i),Height,'--*','DisplayName',[num2str(drift), '%'])
+    plot(-NodeHorStrain_NegCycle(:,i),Height,'--*')
     hold on
 end
 legend('Location', 'NorthEast')
 title('Local Response RW-A20-P10-S38 (Nodes): Model - Negative Cycle')
 xlabel('Horizontal Strain')
 ylabel('Height(mm)')
+legend('0.28%','0.38%','0.56%','0.75%', '1.1%', '1.5%', '2.3%', '3.1%')
 %xlim([-1e-4 0.005])
 %ylim([0 800])
 %xticks([0 0.001 0.002 0.003 0.004 0.005]);
@@ -173,15 +179,14 @@ getprop = @(options, idx)getFirst(circshift(options,-idx+1));
 figure()    % Ciclo Positivo
 hold on
 for i = 1:length(PosDisp)
-    drift = PosDisp(i)/Hw*100;
-    plot(-NodeHorStrain_PosCycle(:,i),Height,'Marker',getprop(markers,i),'color',getprop(colors,i),'linestyle','--', 'DisplayName',['Model - ', num2str(drift), '%'])
-    plot(RespLocalTest_PosCycle(:,i),RespLocalTest_Height,'Marker',getprop(markers,i),'color',getprop(colors,i),'linestyle','-', 'DisplayName',['Test - ', num2str(drift), '%'])
+    drift = [0.28 0.38 0.56 0.75 1.1 1.5 2.3 3.1];
+    plot(-NodeHorStrain_PosCycle(:,i),Height,'Marker',getprop(markers,i),'color',getprop(colors,i),'linestyle','--', 'DisplayName',['Model - ', num2str(drift(i)), '%'])
+    plot(RespLocalTest_PosCycle(:,i),RespLocalTest_Height,'Marker',getprop(markers,i),'color',getprop(colors,i),'linestyle','-', 'DisplayName',['Test - ', num2str(drift(i)), '%'])
 end
 legend('Location', 'NorthEast')
 title('Local Response RW-A20-P10-S38 (Nodes): Test vs Model - Positive Cycle')
 xlabel('Horizontal Strain')
 ylabel('Height (mm)')
-%legend('0.05%','0.10%','0.15%','0.20%', '0.30%', '0.40%', '0.60%', '0.80%', '1%')
 %xlim([-1e-4 0.005])
 %ylim([0 800])
 %xticks([0 0.001 0.002 0.003 0.004 0.005]);
@@ -193,9 +198,9 @@ grid on
 figure()    % Ciclo Negativo
 hold on
 for i = 1:length(PosDisp)
-    drift = PosDisp(i)/Hw*100;
-    plot(-NodeHorStrain_NegCycle(:,i),Height,'Marker',getprop(markers,i),'color',getprop(colors,i),'linestyle','--', 'DisplayName',['Model - ', num2str(drift), '%'])
-    plot(RespLocalTest_NegCycle(:,i),RespLocalTest_Height,'Marker',getprop(markers,i),'color',getprop(colors,i),'linestyle','-', 'DisplayName',['Test - ', num2str(drift), '%'])
+    drift = [0.28 0.38 0.56 0.75 1.1 1.5 2.3 3.1];
+    plot(-NodeHorStrain_NegCycle(:,i),Height,'Marker',getprop(markers,i),'color',getprop(colors,i),'linestyle','--', 'DisplayName',['Model - ', num2str(drift(i)), '%'])
+    plot(RespLocalTest_NegCycle(:,i),RespLocalTest_Height,'Marker',getprop(markers,i),'color',getprop(colors,i),'linestyle','-', 'DisplayName',['Test - ', num2str(drift(i)), '%'])
 end
 legend('Location', 'NorthEast')
 title('Local Response RW-A20-P10-S38 (Nodes): Test vs Model - Negative Cycle')
@@ -258,8 +263,8 @@ height = [157.85 473.53 789.22 1104.90 1420.59 1736.27 2051.96 2324.10];
 
 figure()
 for i = 1:length(PosDisp)
-    drift = PosDisp(i)/Hw*100;
-    plot(eps_xx_height_PosCycle(:,i),height,'--*','DisplayName',[num2str(drift), '%'])
+    drift = [0.28 0.38 0.56 0.75 1.1 1.5 2.3 3.1];
+    plot(eps_xx_height_PosCycle(:,i),height,'--*','DisplayName',[num2str(drift(i)), '%'])
     hold on
 end
 legend('Location', 'NorthEast')
@@ -278,8 +283,8 @@ hold off
 
 figure()
 for i = 1:length(PosDisp)
-    drift = PosDisp(i)/Hw*100;
-    plot(eps_xx_height_NegCycle(:,i),height,'--*','DisplayName',[num2str(drift), '%'])
+    drift = [0.28 0.38 0.56 0.75 1.1 1.5 2.3 3.1];
+    plot(eps_xx_height_NegCycle(:,i),height,'--*','DisplayName',[num2str(drift(i)), '%'])
     hold on
 end
 legend('Location', 'NorthEast')
@@ -307,9 +312,9 @@ getprop = @(options, idx)getFirst(circshift(options,-idx+1));
 figure()    % Ciclo Positivo
 hold on
 for i = 1:length(PosDisp)
-    drift = PosDisp(i)/Hw*100;
-    plot(eps_xx_height_PosCycle(:,i),height,'Marker',getprop(markers,i),'color',getprop(colors,i),'linestyle','--', 'DisplayName',['Model - ', num2str(drift), '%'])
-    plot(RespLocalTest_PosCycle(:,i),RespLocalTest_Height,'Marker',getprop(markers,i),'color',getprop(colors,i),'linestyle','-', 'DisplayName',['Test - ', num2str(drift), '%'])
+    drift = [0.28 0.38 0.56 0.75 1.1 1.5 2.3 3.1];
+    plot(eps_xx_height_PosCycle(:,i),height,'Marker',getprop(markers,i),'color',getprop(colors,i),'linestyle','--', 'DisplayName',['Model - ', num2str(drift(i)), '%'])
+    plot(RespLocalTest_PosCycle(:,i),RespLocalTest_Height,'Marker',getprop(markers,i),'color',getprop(colors,i),'linestyle','-', 'DisplayName',['Test - ', num2str(drift(i)), '%'])
 end
 legend('Location', 'NorthEast')
 title('Local Response RW-A20-P10-S38: Test vs Model - Positive Cycle')
@@ -327,9 +332,9 @@ grid on
 figure()    % Ciclo Negativo
 hold on
 for i = 1:length(PosDisp)
-    drift = PosDisp(i)/Hw*100;
-    plot(eps_xx_height_NegCycle(:,i),height,'Marker',getprop(markers,i),'color',getprop(colors,i),'linestyle','--', 'DisplayName',['Model - ', num2str(drift), '%'])
-    plot(RespLocalTest_NegCycle(:,i),RespLocalTest_Height,'Marker',getprop(markers,i),'color',getprop(colors,i),'linestyle','-', 'DisplayName',['Test - ', num2str(drift), '%'])
+    drift = [0.28 0.38 0.56 0.75 1.1 1.5 2.3 3.1];
+    plot(eps_xx_height_NegCycle(:,i),height,'Marker',getprop(markers,i),'color',getprop(colors,i),'linestyle','--', 'DisplayName',['Model - ', num2str(drift(i)), '%'])
+    plot(RespLocalTest_NegCycle(:,i),RespLocalTest_Height,'Marker',getprop(markers,i),'color',getprop(colors,i),'linestyle','-', 'DisplayName',['Test - ', num2str(drift(i)), '%'])
 end
 legend('Location', 'NorthEast')
 title('Local Response RW-A20-P10-S38: Test vs Model - Negative Cycle')
