@@ -29,11 +29,11 @@ analysis Static
 
 set fmt1 "%s Cyclic analysis: CtrlNode %.3i, dof %.1i, Disp=%.4f %s";   # format for screen/file output of DONE/PROBLEM analysis
 
-foreach Dmax $iDmax {
+foreach Dmax $iDmax cycles $Ncycles {
 
     set iDstep [GeneratePeaks $Dmax $Dincr $CycleType $Fact];   # this proc is defined above
 
-    for {set i 1} {$i <= $Ncycles} {incr i 1} {
+    for {set i 1} {$i <= $cycles} {incr i 1} {
         
         set zeroD 0
         set D0 0.0 

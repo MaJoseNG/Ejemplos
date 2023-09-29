@@ -44,20 +44,20 @@ set Ecc [expr 36542.37*$MPa];                        # Young's modulus
 
 # ===================================== CONCRETE02 =======================================
 # Build concrete materials
-uniaxialMaterial Concrete02 4 $fpc $ec0 [expr 0.0*$fpc] -0.037 0.1 $ft [expr 0.05*$Ec]; # unconfined concrete
-uniaxialMaterial Concrete02 5 $fpcc $ec0c [expr 0.2*$fpc] -0.047 0.1 $ft [expr 0.05*$Ecc]; # confined concrete
+#uniaxialMaterial Concrete02 4 $fpc $ec0 [expr 0.0*$fpc] -0.037 0.1 $ft [expr 0.05*$Ec]; # unconfined concrete
+#uniaxialMaterial Concrete02 5 $fpcc $ec0c [expr 0.2*$fpc] -0.047 0.1 $ft [expr 0.05*$Ecc]; # confined concrete
 # ================================== FIN CONCRETE02 ======================================
 
 # ===================================== CONCRETE06 =======================================
-#set n 2.5;
-#set k 0.75;
-#set AlphaC 0.32;
-#set AlphaT 0.08;
-#set B 0.4;
-## Build concrete materials
-##uniaxialMaterial Concrete06 $matTag $fc $e0 $n $k $alpha1 $fcr $ecr $b $alpha2
-#uniaxialMaterial Concrete06 4 $fpc  $ec0  $n $k $AlphaC $ft $et $B $AlphaT; # unconfined concrete
-#uniaxialMaterial Concrete06 5 $fpcc $ec0c $n $k $AlphaC $ft $et $B $AlphaT; # confined concrete
+set n 2.5;
+set k 0.8;
+set AlphaC 0.32;
+set AlphaT 0.08;
+set B 0.4;
+# Build concrete materials
+#uniaxialMaterial Concrete06 $matTag $fc $e0 $n $k $alpha1 $fcr $ecr $b $alpha2
+uniaxialMaterial Concrete06 4 $fpc  $ec0  $n $k $AlphaC $ft $et $B $AlphaT; # unconfined concrete
+uniaxialMaterial Concrete06 5 $fpcc $ec0c $n $k $AlphaC $ft $et $B $AlphaT; # confined concrete
 # ================================== FIN CONCRETE06 ======================================
 
 # ----------------------------------------------------------------------------------------
@@ -89,12 +89,15 @@ set er [expr -0.037];                                # concrete strain at crushi
 set erc [expr -0.047];                               # concrete strain at crushing strength
 set strainAtFtu [expr 0.00008];                      # concrete strain at tension cracking
 set strainAtFy [expr 0.002];                         # strain at the tension yielding of the steel
+
+set damageConstant_1 0.175;
+set damageConstant_2 0.5;
 # ----------------------------------------------------------------------------------------
 # Define OrthotropicRotatingAngleConcreteT2DMaterial01 nDMaterial
 # ----------------------------------------------------------------------------------------
-# nDMaterial OrthotropicRotatingAngleConcreteT2DMaterial01 $matTag $conc     $ecr       $ec   $rho
-nDMaterial OrthotropicRotatingAngleConcreteT2DMaterial01      6       4   $strainAtFtu  $ec0   0.0;   # unconfined concrete
-nDMaterial OrthotropicRotatingAngleConcreteT2DMaterial01      7       5   $strainAtFtu  $ec0c  0.0;   # confined concrete
+# nDMaterial OrthotropicRotatingAngleConcreteT2DMaterial01 $matTag $conc     $ecr       $ec   $rho <-damageCte1 $DamageCte1> <-damageCte2 $DamageCte2>
+nDMaterial OrthotropicRotatingAngleConcreteT2DMaterial01      6       4   $strainAtFtu  $ec0   0.0 -damageCte1 $damageConstant_1 -damageCte2 $damageConstant_2;   # unconfined concrete
+nDMaterial OrthotropicRotatingAngleConcreteT2DMaterial01      7       5   $strainAtFtu  $ec0c  0.0 -damageCte1 $damageConstant_1 -damageCte2 $damageConstant_2;   # confined concrete
 # ----------------------------------------------------------------------------------------
 # Define SmearedSteelDoubleLayerT2DMaterial01 nDMaterial
 # ----------------------------------------------------------------------------------------
@@ -111,9 +114,9 @@ set tc   [expr 71.4*$mm];     # confined concrete wall layer thickness
 set tncv [expr 233.4*$mm];    # unconfined concrete loading tranfer beam layer thickness
 set tcv  [expr 71.4*$mm];     # confined concrete loading tranfer bream layer thickness
 
-#section ReinforcedConcreteLayerMembraneSection01 $secTag $nSteelLayer $nConcLayer $ecr $ec -reinfSteel{RSteelAtEachLayer} –conc{concAtEachLayer} -concThick{concThicknessesAtEachLayer}
-section ReinforcedConcreteLayerMembraneSection01 10 1 1 -reinfSteel 8   -conc 6   -concThick $tw;          # Wall Web
-section ReinforcedConcreteLayerMembraneSection01 11 1 2 -reinfSteel 9   -conc 6 7 -concThick $tnc $tc;     # Wall Boundary
-section ReinforcedConcreteLayerMembraneSection01 12 1 1 -reinfSteel 8   -conc 6   -concThick $tb;          # Loading tranfer beam web
-section ReinforcedConcreteLayerMembraneSection01 13 1 2 -reinfSteel 9   -conc 6 7 -concThick $tncv $tcv;   # Loading tranfer beam boundary   
+#section ReinforcedConcreteLayerMembraneSection01 $secTag $nSteelLayer $nConcLayer -reinfSteel{RSteelAtEachLayer} –conc{concAtEachLayer} -concThick{concThicknessesAtEachLayer} <-epscr $ecr> <-epsc $ec>
+section ReinforcedConcreteLayerMembraneSection01 10 1 1 -reinfSteel 8   -conc 6   -concThick $tw        -epscr $strainAtFtu -epsc $ec0;          # Wall Web
+section ReinforcedConcreteLayerMembraneSection01 11 1 2 -reinfSteel 9   -conc 6 7 -concThick $tnc $tc   -epscr $strainAtFtu -epsc $ec0c;     # Wall Boundary
+section ReinforcedConcreteLayerMembraneSection01 12 1 1 -reinfSteel 8   -conc 6   -concThick $tb        -epscr $strainAtFtu -epsc $ec0;          # Loading tranfer beam web
+section ReinforcedConcreteLayerMembraneSection01 13 1 2 -reinfSteel 9   -conc 6 7 -concThick $tncv $tcv -epscr $strainAtFtu -epsc $ec0c;   # Loading tranfer beam boundary   
 # ================================== FIN NUEVAS CLASES =====================================
