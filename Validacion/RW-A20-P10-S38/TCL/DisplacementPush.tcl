@@ -9,6 +9,7 @@ source LATERAL_Load_Pattern.tcl
 
 # ------------------------------
 set Tol 1.e-4;                          # Convergence Test: tolerance
+#set Tol 1.e-3;                          # Convergence Test: tolerance
 set maxNumIter 1000;                    # Convergence Test: maximum number of iterations that will be performed before "failure to converge" is returned
 set printFlag 0;                        # Convergence Test: flag used to print information on convergence (optional)        # 1: print information on each step; 
 set TestType NormDispIncr;              # Convergence-test type
@@ -23,7 +24,27 @@ algorithm $algorithmType;
 analysis Static
 
 #################################################
-
+## Define procedure for convergence control (recursive bisection)
+#proc analyzeStep {DispInc {epsilon 1e-4}} {
+#    # Perform analysis step
+#    integrator DisplacementControl  $IDctrlNode $IDctrlDOF [expr $DispInc]
+#    set ok [analyze 1]
+#    # Handle non-convergence
+#    if {$ok != 0} {
+#        # Base case
+#        if {$DispInc < 2*$epsilon} {
+#            return $ok
+#        }
+#        # Bisect analysis step and recurse
+#        set DispInc [expr {$DispInc/2.0}]
+#        integrator DisplacementControl  $IDctrlNode $IDctrlDOF [expr $DispInc]
+#        set ok [analyzeStep $DispInc $epsilon]
+#        if {$ok == 0} {
+#            set ok [analyzeStep $DispInc $epsilon]
+#        }
+#    }
+#    return $ok
+#}
 #################################################
 
 
@@ -49,75 +70,120 @@ foreach Dmax $iDmax cycles $Ncycles {
                 # if analysis fails, we try some other stuff
                 # performance is slower inside this loop    global maxNumIterStatic;# max no. of iterations performed before "failure to converge" is ret'd
                 ####### FORMA N°1 #######################
-                #if {$ok != 0} {
-                #    puts "Trying 2 times smaller timestep .. "
-                #    integrator DisplacementControl  $IDctrlNode $IDctrlDOF [expr $Dincr/2]
-                #    set ok [analyze 1]
-                #}
-                #if {$ok != 0} {
-                #    puts "Trying 4 times smaller timestep .. "
-                #    integrator DisplacementControl  $IDctrlNode $IDctrlDOF [expr $Dincr/4]
-                #    set ok [analyze 1]
-                #}
-                #if {$ok != 0} {
-                #    puts "Trying 20 times smaller timestep .. "
-                #    integrator DisplacementControl  $IDctrlNode $IDctrlDOF [expr $Dincr/20]
-                #    set ok [analyze 1]
-                #}
-                #if {$ok != 0} {
-                #    puts "Trying 160 times smaller timestep .. "
-                #    integrator DisplacementControl  $IDctrlNode $IDctrlDOF [expr $Dincr/160]
-                #    set ok [analyze 1]
-                #}
-                #if {$ok != 0} {
-                #    puts "Trying 1000 times smaller timestep .. "
-                #    integrator DisplacementControl  $IDctrlNode $IDctrlDOF [expr $Dincr/1000]
-                #    set ok [analyze 1]
-                #}
-                #if {$ok != 0} {
-                #    puts "Trying 10 times greater tolerance .. "
-                #    test $TestType [expr $Tol*10] $maxNumIter 0
-                #    set ok [analyze 1]
-                #}
-                #if {$ok != 0} {
-                #    puts "Trying 100 times greater tolerance .. "
-                #    test $TestType [expr $Tol*100] $maxNumIter 0
-                #    set ok [analyze 1]
-                #}
+                if {$ok != 0} {
+                    puts "Trying 2 times smaller timestep .. "
+                    integrator DisplacementControl  $IDctrlNode $IDctrlDOF [expr $Dincr/2]
+                    set ok [analyze 1]
+                }
+                if {$ok != 0} {
+                    puts "Trying 4 times smaller timestep .. "
+                    integrator DisplacementControl  $IDctrlNode $IDctrlDOF [expr $Dincr/4]
+                    set ok [analyze 1]
+                }
+                if {$ok != 0} {
+                    puts "Trying 20 times smaller timestep .. "
+                    integrator DisplacementControl  $IDctrlNode $IDctrlDOF [expr $Dincr/20]
+                    set ok [analyze 1]
+                }
+                if {$ok != 0} {
+                    puts "Trying 160 times smaller timestep .. "
+                    integrator DisplacementControl  $IDctrlNode $IDctrlDOF [expr $Dincr/160]
+                    set ok [analyze 1]
+                }
+                if {$ok != 0} {
+                    puts "Trying 1000 times smaller timestep .. "
+                    integrator DisplacementControl  $IDctrlNode $IDctrlDOF [expr $Dincr/1000]
+                    set ok [analyze 1]
+                }
+                if {$ok != 0} {
+                    puts "Trying 10 times greater tolerance .. "
+                    test $TestType [expr $Tol*10] $maxNumIter 0
+                    set ok [analyze 1]
+                }
+                if {$ok != 0} {
+                    puts "Trying 100 times greater tolerance .. "
+                    test $TestType [expr $Tol*100] $maxNumIter 0
+                    set ok [analyze 1]
+                }
                 ####### FORMA N°2 #######################
-                if {$ok != 0} {
-                    puts "Trying Newton with Current Tangent .."
-                    test NormDispIncr $Tol 1000 0
-                    algorithm Newton
-                    set ok [analyze 1]
-                    test $TestType $Tol $maxNumIter 0
-                    algorithm $algorithmType
-                }
-                if {$ok != 0} {
-                    puts "Trying Newton with Initial Tangent .."
-                    test NormDispIncr 0.01 2000 0
-                    algorithm Newton -initial
-                    set reSolution [expr $reSolution + 1]
-                    set ok [analyze 1]
-                    test $TestType $Tol $maxNumIter 0
-                    algorithm $algorithmType 
-                }
-                if {$ok != 0} {
-                    puts "Trying Modified Newton .."
-                    test NormDispIncr 0.01 2000 0
-                    algorithm ModifiedNewton
-                    set ok [analyze 1]
-                    test $TestType $Tol $maxNumIter 0
-                    algorithm $algorithmType 
-                }
-                if {$ok != 0} {
-                    puts "Trying Broyden .."
-                    algorithm Broyden 500
-                    set ok [analyze 1 ]
-                    algorithm $algorithmType
-                }
+                #if {$ok != 0} {
+                #    puts "Trying Newton with Current Tangent .."
+                #    test NormDispIncr $Tol 1000 0
+                #    algorithm Newton
+                #    set ok [analyze 1]
+                #    test $TestType $Tol $maxNumIter 0
+                #    algorithm $algorithmType
+                #}
+                #if {$ok != 0} {
+                #    puts "Trying Newton with Initial Tangent .."
+                #    test NormDispIncr 0.01 2000 0
+                #    algorithm Newton -initial
+                #    set reSolution [expr $reSolution + 1]
+                #    set ok [analyze 1]
+                #    test $TestType $Tol $maxNumIter 0
+                #    algorithm $algorithmType 
+                #}
+                #if {$ok != 0} {
+                #    puts "Trying Modified Newton .."
+                #    test NormDispIncr 0.01 2000 0
+                #    algorithm ModifiedNewton
+                #    set ok [analyze 1]
+                #    test $TestType $Tol $maxNumIter 0
+                #    algorithm $algorithmType 
+                #}
+                #if {$ok != 0} {
+                #    puts "Trying Broyden .."
+                #    algorithm Broyden 500
+                #    set ok [analyze 1 ]
+                #    algorithm $algorithmType
+                #}
                 ######### FORMA N°3 #####################################
-                
+                #if {$ok != 0} {
+                #    set Dincr_1 [expr $Dincr/20]
+                #    set D0_1 $D0
+                #    set D1_1 $D1
+                #    while {$D0_1 < $D1_1} {
+                #        integrator DisplacementControl  $IDctrlNode $IDctrlDOF $Dincr_1
+                #        set ok [analyze 1]
+                #        if {$ok == 0} {
+                #            set D0_1 [expr $D0_1 + $Dincr_1]
+                #            puts "D0_1 = $D0_1"
+                #        } else {
+                #            break
+                #        }
+                #    }
+                #}
+                #if {$ok != 0} {
+                #    puts "Trying Newton with Current Tangent .."
+                #    test NormDispIncr $Tol 1000 0
+                #    algorithm Newton
+                #    set ok [analyze 1]
+                #    test $TestType $Tol $maxNumIter 0
+                #    algorithm $algorithmType
+                #}
+                #if {$ok != 0} {
+                #    puts "Trying Newton with Initial Tangent .."
+                #    test NormDispIncr 0.01 2000 0
+                #    algorithm Newton -initial
+                #    set reSolution [expr $reSolution + 1]
+                #    set ok [analyze 1]
+                #    test $TestType $Tol $maxNumIter 0
+                #    algorithm $algorithmType 
+                #}
+                #if {$ok != 0} {
+                #    puts "Trying Modified Newton .."
+                #    test NormDispIncr 0.01 2000 0
+                #    algorithm ModifiedNewton
+                #    set ok [analyze 1]
+                #    test $TestType $Tol $maxNumIter 0
+                #    algorithm $algorithmType 
+                #}
+                #if {$ok != 0} {
+                #    puts "Trying Broyden .."
+                #    algorithm Broyden 500
+                #    set ok [analyze 1 ]
+                #    algorithm $algorithmType
+                #}
                 ######### FIN FORMA N°3 ################################
                 if {$ok != 0} {
                     set putout [format $fmt1 "PROBLEM" $IDctrlNode $IDctrlDOF [nodeDisp $IDctrlNode $IDctrlDOF] $LunitTXT]

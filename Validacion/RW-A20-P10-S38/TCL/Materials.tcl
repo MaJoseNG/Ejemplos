@@ -50,7 +50,7 @@ set Ecc [expr 36542.37*$MPa];                        # Young's modulus
 
 # ===================================== CONCRETE06 =======================================
 set n 2.5;
-set k 0.8;
+set k 0.75;
 set AlphaC 0.32;
 set AlphaT 0.08;
 set B 0.4;
