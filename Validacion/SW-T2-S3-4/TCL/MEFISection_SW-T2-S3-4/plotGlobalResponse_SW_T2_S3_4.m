@@ -223,7 +223,7 @@
     ylabel('Lateral Load (kN)')
     xlim([-8 8])
     ylim([-1000 1000])
-    legend('Us_Xcorrected','Us_resta')
+    legend('Us corrected','Us resta')
     title('Global Response SW-T2-S3-4: Model')
     grid on
     box on
@@ -268,19 +268,19 @@
     box on
     hold off
     
-    figure()
-    hold on
-    plot(DShear_Test(1:18249),LatLoad_Test(1:18249),'-k', 'DisplayName', 'Test')
-    plot(Us_resta(1:1725),-LatLoad(1:1725)/1000,'--r','DisplayName', model_name)
-    xlabel('Lateral Shear Displacement (mm)')
-    ylabel('Lateral Load (kN)')
-    xlim([-8 8])
-    ylim([-1000 1000])
-    title('Global Response SW-T2-S3-4: Test vs Model')
-    legend('Location', 'NorthWest')
-    grid on
-    box on
-    hold off
+%     figure()
+%     hold on
+%     plot(DShear_Test(1:18249),LatLoad_Test(1:18249),'-k', 'DisplayName', 'Test')
+%     plot(Us_resta(1:1725),-LatLoad(1:1725)/1000,'--r','DisplayName', model_name)
+%     xlabel('Lateral Shear Displacement (mm)')
+%     ylabel('Lateral Load (kN)')
+%     xlim([-8 8])
+%     ylim([-1000 1000])
+%     title('Global Response SW-T2-S3-4: Test vs Model')
+%     legend('Location', 'NorthWest')
+%     grid on
+%     box on
+%     hold off
     
     figure()
     hold on
@@ -297,30 +297,65 @@
     hold off
     
     %% Comparacion Cuantitativa Test vs Modelo ----------------------------
-    % Test
-    avg_TotLatDisp_Test_0_02 = mean(LatDisp_Test(1:9091));
-    avg_TotLatDisp_Test_02_04 = mean(LatDisp_Test(9092:13190));
-    avg_TotLatDisp_Test_04_08 = mean(LatDisp_Test(13191:18249));
-    
-    avg_FlexDef_Test_0_02 = mean(DFlexure_Test(1:9091));
-    avg_FlexDef_Test_02_04 = mean(DFlexure_Test(9092:13190));
-    avg_FlexDef_Test_04_08 = mean(DFlexure_Test(13191:18249));
-    
-    LatDispSuma_Test = DFlexure_Test+DShear_Test;
-    avg_LatDispSuma_Test_0_02 = mean(LatDispSuma_Test(1:9091));
-    avg_LatDispSuma_Test_02_04 = mean(LatDispSuma_Test(9092:13190));
-    avg_LatDispSuma_Test_04_08 = mean(LatDispSuma_Test(13191:18249));
-    
-    % Se calculan los porcentajes del Test
-    avg_FlexDef_Test_0_02/avg_TotLatDisp_Test_0_02*100
-    avg_FlexDef_Test_02_04/avg_TotLatDisp_Test_02_04*100
-    avg_FlexDef_Test_04_08/avg_TotLatDisp_Test_04_08*100
-    
-    avg_LatDispSuma_Test_0_02/avg_TotLatDisp_Test_0_02*100
-    avg_LatDispSuma_Test_02_04/avg_TotLatDisp_Test_02_04*100
-    avg_LatDispSuma_Test_04_08/avg_TotLatDisp_Test_04_08*100
-    
-    
-    
-    % Modelo
+%     % Test ---------------------------------------------------------
+%     avg_TotLatDisp_Test_0_02 = mean(LatDisp_Test(1:9091));
+%     avg_TotLatDisp_Test_02_04 = mean(LatDisp_Test(9092:13190));
+%     avg_TotLatDisp_Test_04_08 = mean(LatDisp_Test(13191:18249));
+%     
+%     avg_FlexDef_Test_0_02 = mean(DFlexure_Test(1:9091));
+%     avg_FlexDef_Test_02_04 = mean(DFlexure_Test(9092:13190));
+%     avg_FlexDef_Test_04_08 = mean(DFlexure_Test(13191:18249));
+%     
+%     avg_ShearDef_Test_0_02 = mean(DShear_Test(1:9091));
+%     avg_ShearDef_Test_02_04 = mean(DShear_Test(9092:13190));
+%     avg_ShearDef_Test_04_08 = mean(DShear_Test(13191:18249));
+%     
+%     LatDispSuma_Test = DFlexure_Test+DShear_Test;
+%     avg_LatDispSuma_Test_0_02 = mean(LatDispSuma_Test(1:9091));
+%     avg_LatDispSuma_Test_02_04 = mean(LatDispSuma_Test(9092:13190));
+%     avg_LatDispSuma_Test_04_08 = mean(LatDispSuma_Test(13191:18249));
+%     
+%     % Se calculan los porcentajes del Test
+%     avgDefContribFlexTest_0_02 = avg_FlexDef_Test_0_02/avg_TotLatDisp_Test_0_02*100
+%     avgDefContribFlexTest_02_04 = avg_FlexDef_Test_02_04/avg_TotLatDisp_Test_02_04*100
+%     avgDefContribFlexTest_04_08 = avg_FlexDef_Test_04_08/avg_TotLatDisp_Test_04_08*100
+%     
+%     avgDefContribShearTest_0_02 = avg_ShearDef_Test_0_02/avg_TotLatDisp_Test_0_02*100
+%     avgDefContribShearTest_02_04 = avg_ShearDef_Test_02_04/avg_TotLatDisp_Test_02_04*100
+%     avgDefContribShearTest_04_08 = avg_ShearDef_Test_04_08/avg_TotLatDisp_Test_04_08*100
+%     
+%     avgDefContribFlexShearTest_0_02 = avg_LatDispSuma_Test_0_02/avg_TotLatDisp_Test_0_02*100
+%     avgDefContribFlexShearTest_02_04 = avg_LatDispSuma_Test_02_04/avg_TotLatDisp_Test_02_04*100
+%     avgDefContribFlexShearTest_04_08 = avg_LatDispSuma_Test_04_08/avg_TotLatDisp_Test_04_08*100
+%     
+%     % Modelo -------------------------------------------------------
+%     avg_TotLatDisp_Model_0_02 = mean(NodeLateralDisp(1+21:452));
+%     avg_TotLatDisp_Model_02_04 = mean(NodeLateralDisp(453:878));
+%     avg_TotLatDisp_Model_04_08 = mean(NodeLateralDisp(879:1725));
+%     
+%     avg_FlexDef_Model_0_02 = mean(Uf(1+21:452));
+%     avg_FlexDef_Model_02_04 = mean(Uf(453:878));
+%     avg_FlexDef_Model_04_08 = mean(Uf(879:1725));
+%     
+%     avg_ShearDef_Model_0_02 = mean(Us_Xcorrected(1+21:452));
+%     avg_ShearDef_Model_02_04 = mean(Us_Xcorrected(453:878));
+%     avg_ShearDef_Model_04_08 = mean(Us_Xcorrected(879:1725));
+%     
+%     LatDispSuma_Model = Uf+Us_Xcorrected;
+%     avg_LatDispSuma_Model_0_02 = mean(LatDispSuma_Model(1+21:452));
+%     avg_LatDispSuma_Model_02_04 = mean(LatDispSuma_Model(453:878));
+%     avg_LatDispSuma_Model_04_08 = mean(LatDispSuma_Model(879:1725));
+%     
+%     % Se calculan los porcentajes del Test
+%     avgDefContribFlexModel_0_02 = avg_FlexDef_Model_0_02/avg_TotLatDisp_Model_0_02*100
+%     avgDefContribFlexModel_02_04 = avg_FlexDef_Model_02_04/avg_TotLatDisp_Model_02_04*100
+%     avgDefContribFlexModel_04_08 = avg_FlexDef_Model_04_08/avg_TotLatDisp_Model_04_08*100
+%     
+%     avgDefContribShearModel_0_02 = avg_ShearDef_Model_0_02/avg_TotLatDisp_Model_0_02*100
+%     avgDefContribShearModel_02_04 = avg_ShearDef_Model_02_04/avg_TotLatDisp_Model_02_04*100
+%     avgDefContribShearModel_04_08 = avg_ShearDef_Model_04_08/avg_TotLatDisp_Model_04_08*100
+%     
+%     avgDefContribFlexShearModel_0_02 = avg_LatDispSuma_Model_0_02/avg_TotLatDisp_Model_0_02*100
+%     avgDefContribFlexShearModel_02_04 = avg_LatDispSuma_Model_02_04/avg_TotLatDisp_Model_02_04*100
+%     avgDefContribFlexShearModel_04_08 = avg_LatDispSuma_Model_04_08/avg_TotLatDisp_Model_04_08*100
 %end
