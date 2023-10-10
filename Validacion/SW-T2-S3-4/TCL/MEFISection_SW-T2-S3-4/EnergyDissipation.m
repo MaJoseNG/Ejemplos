@@ -1,9 +1,12 @@
 %% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %BORRAR 
 datafolder = 'MEFISection_SW-T2-S3-4_RCLMS01_Conc02_Steel02_NUEVO_recordersHeightvsHorStrain_v3';
-directoryTest = 'C:\repos\Ejemplos\Validacion\SW-T2-S3-4\Test\SW-T2-S3-4_Test.txt';          % PC Civil
+%directoryTest = 'C:\repos\Ejemplos\Validacion\SW-T2-S3-4\Test\SW-T2-S3-4_Test.txt';          % PC Civil
+directoryTest = 'C:\Users\maryj\Documents\GitHub\Ejemplos\Validacion\SW-T2-S3-4\Test\SW-T2-S3-4_Test.txt'; %Note
 model_name = 'RCLMS01C02S02';
-%% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% ========================================================================
+% Energia disipada: Modelo
+% =========================================================================
 % NodeCtrlDisp = importdata(fullfile(datafolder,'NODE_DISP.out'));        % Control node
 % NodeCtrlDispX = NodeCtrlDisp(:,2);  
 % 
@@ -45,10 +48,57 @@ drift = [0.05 0.1 0.15 0.2 0.3 0.4 0.6 0.8 1 1.2 1.4 1.6 1.8 2 2.4]; %[%]
 
 figure()
 hold on
-plot(drift,Edrift)
-plot(drift,Ecum_drift2)
+plot(drift,Edrift,'-o')
+plot(drift,Ecum_drift2,'-o')
 legend('Energía disipada por deriva','Energía disipada acumulada')
+title(['Energía disipada: Modelo ', model_name])
 xlabel('Deriva [%]')
 ylabel('Energía Disipada [kNmm]')
 box on
 grid on
+%% ========================================================================
+% Energia disipada: Test
+% =========================================================================
+% Se cargan los datos del test
+Test = load(directoryTest);
+% Se extraen los datos
+LatLoad_Test = Test(:, 1);
+LatDisp_Test = Test(:, 2);
+
+LoadStepsDrifts_Test = [2257 3863 5667 7421 9091 10847 13190 15915 18249 20816 23524 25768 27955 29735 31407 33198];
+n_Test = length(LoadStepsDrifts_Test);
+
+for i = 1:n_Test-1
+
+    Edrift_Test(i) = trapz(LatDisp_Test(LoadStepsDrifts_Test(i):LoadStepsDrifts_Test(i+1)),LatLoad_Test(LoadStepsDrifts_Test(i):LoadStepsDrifts_Test(i+1)));
+    
+end
+
+Ecum_drift_Test = cumsum(Edrift_Test);
+
+figure()
+hold on
+plot(drift,Edrift_Test,'-o')
+plot(drift,Ecum_drift_Test,'-o')
+legend('Energía disipada por deriva','Energía disipada acumulada')
+title('Energía disipada: Test')
+xlabel('Deriva [%]')
+ylabel('Energía Disipada [kNmm]')
+box on
+grid on
+
+% Comparacion Energia disipada Model vs Test ------------------------------
+figure()
+hold on
+plot(drift,Edrift,'--or')
+plot(drift,Ecum_drift2,'--ok')
+plot(drift,Edrift_Test,'-or','DisplayName','Energia disipada por deriva')
+plot(drift,Ecum_drift_Test,'-ok','DisplayName','Energía disipada acumulada')
+legend('Location', 'NorthWest')
+title(['Energía disipada: Modelo ', model_name])
+xlabel('Deriva [%]')
+ylabel('Energía Disipada [kNmm]')
+box on
+grid on
+
+
