@@ -1,8 +1,8 @@
 %% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %BORRAR 
 datafolder = 'MEFISection_SW-T2-S3-4_RCLMS01_Conc02_Steel02_NUEVO_recordersHeightvsHorStrain_v3';
-%directoryTest = 'C:\repos\Ejemplos\Validacion\SW-T2-S3-4\Test\SW-T2-S3-4_Test.txt';          % PC Civil
-directoryTest = 'C:\Users\maryj\Documents\GitHub\Ejemplos\Validacion\SW-T2-S3-4\Test\SW-T2-S3-4_Test.txt'; %Note
+directoryTest = 'C:\repos\Ejemplos\Validacion\SW-T2-S3-4\Test\SW-T2-S3-4_Test.txt';          % PC Civil
+%directoryTest = 'C:\Users\maryj\Documents\GitHub\Ejemplos\Validacion\SW-T2-S3-4\Test\SW-T2-S3-4_Test.txt'; %Note
 model_name = 'RCLMS01C02S02';
 %% ========================================================================
 % Energia disipada: Modelo
@@ -42,16 +42,16 @@ for i = 1:n-1
     
 end
 %Edrift = [0 Edrift]; 
-Ecum_drift2 = cumsum(Edrift);
+Ecum_drift = cumsum(Edrift);
 
 drift = [0.05 0.1 0.15 0.2 0.3 0.4 0.6 0.8 1 1.2 1.4 1.6 1.8 2 2.4]; %[%]
 
 figure()
 hold on
 plot(drift,Edrift,'-o')
-plot(drift,Ecum_drift2,'-o')
+plot(drift,Ecum_drift,'-o')
 legend('Energía disipada por deriva','Energía disipada acumulada')
-title(['Energía disipada: Modelo ', model_name])
+title(['Energía disipada SW-T2-S3-4: Modelo ', model_name])
 xlabel('Deriva [%]')
 ylabel('Energía Disipada [kNmm]')
 box on
@@ -81,7 +81,7 @@ hold on
 plot(drift,Edrift_Test,'-o')
 plot(drift,Ecum_drift_Test,'-o')
 legend('Energía disipada por deriva','Energía disipada acumulada')
-title('Energía disipada: Test')
+title('Energía disipada SW-T2-S3-4: Test')
 xlabel('Deriva [%]')
 ylabel('Energía Disipada [kNmm]')
 box on
@@ -90,15 +90,73 @@ grid on
 % Comparacion Energia disipada Model vs Test ------------------------------
 figure()
 hold on
-plot(drift,Edrift,'--or')
-plot(drift,Ecum_drift2,'--ok')
+plot(drift,Edrift,'--or','HandleVisibility','off')
+plot(drift,Ecum_drift2,'--ok','HandleVisibility','off')
 plot(drift,Edrift_Test,'-or','DisplayName','Energia disipada por deriva')
 plot(drift,Ecum_drift_Test,'-ok','DisplayName','Energía disipada acumulada')
+xticks([0 0.2 0.4 0.6 0.8 1 1.2 1.4 1.6 1.8 2 2.4]);
 legend('Location', 'NorthWest')
-title(['Energía disipada: Modelo ', model_name])
+title(['Energía disipada SW-T2-S3-4: Modelo ', model_name])
 xlabel('Deriva [%]')
 ylabel('Energía Disipada [kNmm]')
 box on
 grid on
 
+%%
+% Datos de ejemplo
+%desplazamiento = LatDisp_Test;
+desplazamiento = NodeLateralDisp;
+%carga = LatLoad_Test;
+carga = LatLoad;
+
+% Encontrar los índices donde cambia la dirección (carga positiva a carga negativa)
+indices_cambio = find(diff(sign(carga)) ~= 0);
+
+% Inicializar un vector para almacenar las áreas por ciclo
+areas_por_ciclo = zeros(1, numel(indices_cambio)-1);
+
+% Crear un gráfico para visualizar los ciclos histeréticos
+figure;
+subplot(2, 1, 1);
+plot(desplazamiento, carga, 'b');
+hold on;
+grid on;
+
+% Inicializar variables para el área total
+area_total = 0;
+
+% Recorrer los ciclos y calcular áreas
+for i = 1:numel(indices_cambio)-1
+    inicio = indices_cambio(i);
+    fin = indices_cambio(i+1);
+    
+    % Calcular el área del ciclo actual
+    area_ciclo = trapz(desplazamiento(inicio:fin), carga(inicio:fin));
+    
+    % Almacenar el área en el vector
+    areas_por_ciclo(i) = area_ciclo;
+    
+    % Dibujar un sombreado para el ciclo actual
+    fill(desplazamiento(inicio:fin), carga(inicio:fin), 'r', 'FaceAlpha', 0.3);
+    
+    % Sumar el área al área total
+    area_total = area_total + area_ciclo;
+end
+
+% Mostrar el vector de áreas por ciclo
+disp('Áreas por ciclo:');
+disp(areas_por_ciclo);
+
+% Configurar etiquetas y título
+xlabel('Desplazamiento Lateral');
+ylabel('Carga Lateral');
+title('Ciclos Histeréticos y Área Total');
+
+% Mostrar el área total en el gráfico
+subplot(2, 1, 2);
+text(0.5, 0.5, sprintf('Área Total: %.2f', area_total), 'FontSize', 14);
+axis off;
+
+% Ajustar el gráfico
+hold off;
 

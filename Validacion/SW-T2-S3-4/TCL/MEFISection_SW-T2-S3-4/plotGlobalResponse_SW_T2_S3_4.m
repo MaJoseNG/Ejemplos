@@ -2,8 +2,8 @@
     %% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
     %BORRAR 
     datafolder = 'MEFISection_SW-T2-S3-4_RCLMS01_Conc02_Steel02_NUEVO_recordersHeightvsHorStrain_v3';
-    %directoryTest = 'C:\repos\Ejemplos\Validacion\SW-T2-S3-4\Test\SW-T2-S3-4_Test.txt';          % PC Civil
-    directoryTest = 'C:\Users\maryj\Documents\GitHub\Ejemplos\Validacion\SW-T2-S3-4\Test\SW-T2-S3-4_Test.txt'; %Note
+    directoryTest = 'C:\repos\Ejemplos\Validacion\SW-T2-S3-4\Test\SW-T2-S3-4_Test.txt';          % PC Civil
+    %directoryTest = 'C:\Users\maryj\Documents\GitHub\Ejemplos\Validacion\SW-T2-S3-4\Test\SW-T2-S3-4_Test.txt'; %Note
     model_name = 'RCLMS01C02S02';
     %% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
     % Se cargan los datos del test
@@ -157,8 +157,8 @@
     Node18Disp = importdata(fullfile(datafolder,'NODE_DISP_18.out'));
 
     % Se extraen los desplazamientos en y
-    Node16_VertDisp = Node16Disp(:,3);                           %[mm]
-    Node18_VertDisp = Node18Disp(:,3);                           %[mm]
+    Node16_VertDisp = Node16Disp(:,3);                          %[mm]
+    Node18_VertDisp = Node18Disp(:,3);                          %[mm]
     % Se extraen los desplazamientos en x
     Node16_HorDisp = Node16Disp(:,2);                           %[mm]
     Node18_HorDisp = Node18Disp(:,2);                           %[mm]

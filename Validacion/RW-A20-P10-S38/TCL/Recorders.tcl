@@ -8,6 +8,7 @@ recorder Node -file $dataDir/NODE_DISP.out -time -node 17 -dof 1 2 3 disp
 # For local response
 for {set i 3} {$i <= 18} {incr i} {
     recorder Node -file $dataDir/NODE_DISPx_$i.out -time -node $i -dof 1 disp
+    recorder Node -file $dataDir/NODE_DISP_$i.out -time -node $i -dof 1 2 3 disp
 }
 
 # AREA ELEMENT Recorders:
