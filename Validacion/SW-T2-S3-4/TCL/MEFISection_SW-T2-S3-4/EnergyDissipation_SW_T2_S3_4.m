@@ -7,20 +7,6 @@ model_name = 'RCLMS01C02S02';
 %% ========================================================================
 % Energia disipada: Modelo
 % =========================================================================
-% NodeCtrlDisp = importdata(fullfile(datafolder,'NODE_DISP.out'));        % Control node
-% NodeCtrlDispX = NodeCtrlDisp(:,2);  
-% 
-% % Desplazamientos objetivos
-% PosDisp = [0.375 0.75 1.125 1.5 2.25 3 4.5 6 7.5 9 10.5 12 13.5 15 18];
-% NegDisp = -PosDisp;
-% 
-% % Se identifican los indices donde se alcanzan los 3 peaks para cada
-% % desplazamiento objetivo
-% for i = 1:length(PosDisp)
-%     LoadStepsMatrixPosCycle(i,:) = find(NodeCtrlDispX == PosDisp(i),3);
-%     LoadStepsMatrixNegCycle(i,:) = find(NodeCtrlDispX == NegDisp(i),3);
-% end
-    
 % Se cargan los datos para la respuesta global del modelo
 NodeDisp = importdata(fullfile(datafolder,'NODE_DISP.out'));
 Node1Reac = importdata(fullfile(datafolder,'REACTIONS_1.out'));
@@ -91,7 +77,7 @@ grid on
 figure()
 hold on
 plot(drift,Edrift,'--or','HandleVisibility','off')
-plot(drift,Ecum_drift2,'--ok','HandleVisibility','off')
+plot(drift,Ecum_drift,'--ok','HandleVisibility','off')
 plot(drift,Edrift_Test,'-or','DisplayName','Energia disipada por deriva')
 plot(drift,Ecum_drift_Test,'-ok','DisplayName','Energía disipada acumulada')
 xticks([0 0.2 0.4 0.6 0.8 1 1.2 1.4 1.6 1.8 2 2.4]);
@@ -102,8 +88,7 @@ ylabel('Energía Disipada [kNmm]')
 box on
 grid on
 
-%%
-% Datos de ejemplo
+%% Area total ciclo histeretico: Modelo
 %desplazamiento = LatDisp_Test;
 desplazamiento = NodeLateralDisp;
 %carga = LatLoad_Test;
@@ -113,11 +98,10 @@ carga = LatLoad;
 indices_cambio = find(diff(sign(carga)) ~= 0);
 
 % Inicializar un vector para almacenar las áreas por ciclo
-areas_por_ciclo = zeros(1, numel(indices_cambio)-1);
+%areas_por_ciclo = zeros(1, numel(indices_cambio)-1);
 
 % Crear un gráfico para visualizar los ciclos histeréticos
-figure;
-subplot(2, 1, 1);
+figure();
 plot(desplazamiento, carga, 'b');
 hold on;
 grid on;
@@ -134,7 +118,7 @@ for i = 1:numel(indices_cambio)-1
     area_ciclo = trapz(desplazamiento(inicio:fin), carga(inicio:fin));
     
     % Almacenar el área en el vector
-    areas_por_ciclo(i) = area_ciclo;
+    %areas_por_ciclo(i) = area_ciclo;
     
     % Dibujar un sombreado para el ciclo actual
     fill(desplazamiento(inicio:fin), carga(inicio:fin), 'r', 'FaceAlpha', 0.3);
@@ -143,20 +127,75 @@ for i = 1:numel(indices_cambio)-1
     area_total = area_total + area_ciclo;
 end
 
-% Mostrar el vector de áreas por ciclo
-disp('Áreas por ciclo:');
-disp(areas_por_ciclo);
+% % Mostrar el vector de áreas por ciclo
+% disp('Áreas por ciclo:');
+% disp(areas_por_ciclo);
 
 % Configurar etiquetas y título
-xlabel('Desplazamiento Lateral');
-ylabel('Carga Lateral');
-title('Ciclos Histeréticos y Área Total');
+xlabel('Desplazamiento Lateral [mm]');
+ylabel('Carga Lateral [kN]');
+title('Energía disipada SW-T2-S3-4: Modelo')
 
 % Mostrar el área total en el gráfico
-subplot(2, 1, 2);
-text(0.5, 0.5, sprintf('Área Total: %.2f', area_total), 'FontSize', 14);
-axis off;
+%subplot(2, 1, 2);
+%text(0.5, 0.5, sprintf('Área Total: %.2f', area_total), 'FontSize', 14);
+text(5, -600, sprintf('E_{D} = %.2f [kNmm]', area_total), 'FontSize', 11);
+%axis off;
 
 % Ajustar el gráfico
 hold off;
 
+%% Area total ciclo histeretico: Modelo
+desplazamiento = LatDisp_Test;
+carga = LatLoad_Test;
+
+% Encontrar los índices donde cambia la dirección (carga positiva a carga negativa)
+indices_cambio = find(diff(sign(carga)) ~= 0);
+
+% Inicializar un vector para almacenar las áreas por ciclo
+%areas_por_ciclo = zeros(1, numel(indices_cambio)-1);
+
+% Crear un gráfico para visualizar los ciclos histeréticos
+figure();
+plot(desplazamiento, carga, 'b');
+hold on;
+grid on;
+
+% Inicializar variables para el área total
+area_total = 0;
+
+% Recorrer los ciclos y calcular áreas
+for i = 1:numel(indices_cambio)-1
+    inicio = indices_cambio(i);
+    fin = indices_cambio(i+1);
+    
+    % Calcular el área del ciclo actual
+    area_ciclo = trapz(desplazamiento(inicio:fin), carga(inicio:fin));
+    
+    % Almacenar el área en el vector
+    %areas_por_ciclo(i) = area_ciclo;
+    
+    % Dibujar un sombreado para el ciclo actual
+    fill(desplazamiento(inicio:fin), carga(inicio:fin), 'r', 'FaceAlpha', 0.3);
+    
+    % Sumar el área al área total
+    area_total = area_total + area_ciclo;
+end
+
+% % Mostrar el vector de áreas por ciclo
+% disp('Áreas por ciclo:');
+% disp(areas_por_ciclo);
+
+% Configurar etiquetas y título
+xlabel('Desplazamiento Lateral [mm]');
+ylabel('Carga Lateral [kN]');
+title('Energía disipada SW-T2-S3-4: Test')
+
+% Mostrar el área total en el gráfico
+%subplot(2, 1, 2);
+%text(0.5, 0.5, sprintf('Área Total: %.2f', area_total), 'FontSize', 14);
+text(5, -600, sprintf('E_{D} = %.2f [kNmm]', area_total), 'FontSize', 11);
+%axis off;
+
+% Ajustar el gráfico
+hold off;
