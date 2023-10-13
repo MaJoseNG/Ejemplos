@@ -44,20 +44,24 @@ set Ecc [expr 36542.37*$MPa];                        # Young's modulus
 
 # ===================================== CONCRETE02 =======================================
 # Build concrete materials
-uniaxialMaterial Concrete02 4 $fpc $ec0 [expr 0.0*$fpc] -0.037 0.1 $ft [expr 0.05*$Ec]; # unconfined concrete
-uniaxialMaterial Concrete02 5 $fpcc $ec0c [expr 0.2*$fpc] -0.047 0.1 $ft [expr 0.05*$Ecc]; # confined concrete
+#uniaxialMaterial Concrete02 4 $fpc $ec0 [expr 0.0*$fpc] -0.037 0.1 $ft [expr 0.05*$Ec]; # unconfined concrete
+#uniaxialMaterial Concrete02 5 $fpcc $ec0c [expr 0.2*$fpc] -0.047 0.1 $ft [expr 0.05*$Ecc]; # confined concrete
 # ================================== FIN CONCRETE02 ======================================
 
 # ===================================== CONCRETE06 =======================================
-#set n 2.5;
-#set k 0.75;
-#set AlphaC 0.32;
-#set AlphaT 0.08;
-#set B 0.4;
-## Build concrete materials
-##uniaxialMaterial Concrete06 $matTag $fc $e0 $n $k $alpha1 $fcr $ecr $b $alpha2
-#uniaxialMaterial Concrete06 4 $fpc  $ec0  $n $k $AlphaC $ft $et $B $AlphaT; # unconfined concrete
-#uniaxialMaterial Concrete06 5 $fpcc $ec0c $n $k $AlphaC $ft $et $B $AlphaT; # confined concrete
+set n 2.5;
+set k 0.75;
+
+#set n 
+
+
+set AlphaC 0.32;
+set AlphaT 0.08;
+set B 0.4;
+# Build concrete materials
+#uniaxialMaterial Concrete06 $matTag $fc $e0 $n $k $alpha1 $fcr $ecr $b $alpha2
+uniaxialMaterial Concrete06 4 $fpc  $ec0  $n $k $AlphaC $ft $et $B $AlphaT; # unconfined concrete
+uniaxialMaterial Concrete06 5 $fpcc $ec0c $n $k $AlphaC $ft $et $B $AlphaT; # confined concrete
 # ================================== FIN CONCRETE06 ======================================
 
 # ----------------------------------------------------------------------------------------
@@ -82,6 +86,18 @@ set rouYb 0.0323;   # Y boundary
 #
 #nDMaterial FSAM 6  0.0  1   2   4  $rouXw $rouYw  $nu  $alfadow; # Web (unconfined concrete)
 #nDMaterial FSAM 7  0.0  1   3   5  $rouXb $rouYb  $nu  $alfadow; # Boundary (confined concrete)
+#
+## ----------------------------------------------------------------------------------------
+## Define ReinforcedConcreteLayerMembraneSection02 section
+## ----------------------------------------------------------------------------------------
+#set tw   [expr 152.4*$mm];    # Wall thickness
+#set tb   [expr 304.8*$mm];    # Loading tranfer beam thickness
+#
+## section ReinforcedConcreteLayerMembraneSection02 $secTag $matTag $Thickness
+#section ReinforcedConcreteLayerMembraneSection02 10 6 $tw;     # Wall web
+#section ReinforcedConcreteLayerMembraneSection02 11 7 $tw;     # Wall boundary
+#section ReinforcedConcreteLayerMembraneSection02 12 6 $tb;     # Loading tranfer beam web
+#section ReinforcedConcreteLayerMembraneSection02 13 7 $tb;     # Loading tranfer beam boundary
 # ================================= FIN FSAM =============================================
 
 # ================================= NUEVAS CLASES ========================================

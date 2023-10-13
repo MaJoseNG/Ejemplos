@@ -1,9 +1,10 @@
+function EnergyDissipation_RW_A20_P10_S38(datafolder,directoryTest)
 %% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %BORRAR
-directoryTest = 'C:\repos\Ejemplos\Validacion\RW-A20-P10-S38\Test\RW-A20-P10-S38_Test.txt';     % PC Civil
+%directoryTest = 'C:\repos\Ejemplos\Validacion\RW-A20-P10-S38\Test\RW-A20-P10-S38_Test.txt';     % PC Civil
 %directoryTest = 'C:\Users\maryj\Documents\GitHub\Ejemplos\Validacion\RW-A20-P10-S38\Test\RW-A20-P10-S38_Test.txt';     % Note
-datafolder = 'MEFISection-Concrete02';
-
+%datafolder = 'MEFISection-Concrete02';
+%datafolder = 'RCLMS02C02S02';
 %% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %% ========================================================================
 % Energia disipada: Modelo
@@ -21,7 +22,8 @@ plot(NodeLateralDisp)
 ylabel('Lateral Displacement [mm]')
 xlabel('Load Step')
 
-LoadStepsDrifts = [1 435 993 1815 2913 4527 6717 8961 11980];
+%LoadStepsDrifts = [1 435 993 1815 2913 4527 6717 8961 11980];      % dos ciclos para el ultimo drift
+LoadStepsDrifts = [1 435 993 1815 2913 4527 6717 8961 10450];       % un ciclo para el ultimo drift
 n = length(LoadStepsDrifts);
 
 for i = 1:n-1
@@ -141,8 +143,9 @@ end
 % Configurar etiquetas y título
 xlabel('Desplazamiento Lateral [mm]');
 ylabel('Carga Lateral [kN]');
-title('Energía disipada RW-A20-P10-S38: Modelo')
-
+title(['Energía disipada RW-A20-P10-S38: Modelo ', datafolder])
+xlim([-100 100])
+ylim([-600 600])
 % Mostrar el área total en el gráfico
 %subplot(2, 1, 2);
 %text(0.5, 0.5, sprintf('Área Total: %.2f', area_total), 'FontSize', 14);
@@ -152,7 +155,7 @@ text(20, -300, sprintf('E_{D} = %.2f [kNmm]', area_total), 'FontSize', 11);
 % Ajustar el gráfico
 hold off;
 
-%% Area total ciclo histeretico: Modelo
+%% Area total ciclo histeretico: Test
 desplazamiento = LatDisp_Test;
 carga = LatLoad_Test;
 
@@ -197,7 +200,8 @@ end
 xlabel('Desplazamiento Lateral [mm]');
 ylabel('Carga Lateral [kN]');
 title('Energía disipada RW-A20-P10-S38: Test')
-
+xlim([-100 100])
+ylim([-600 600])
 % Mostrar el área total en el gráfico
 %subplot(2, 1, 2);
 %text(0.5, 0.5, sprintf('Área Total: %.2f', area_total), 'FontSize', 14);
@@ -206,3 +210,4 @@ text(20, -300, sprintf('E_{D} = %.2f [kNmm]', area_total), 'FontSize', 11);
 
 % Ajustar el gráfico
 hold off;
+end
