@@ -27,6 +27,11 @@ for i = 1:length(PosDisp)
 end
 
 %% Test --------------------------------------------------------------------
+folderToAdd_Note = 'C:\Users\maryj\Documents\GitHub\Ejemplos\Validacion\SW-T2-S3-4\Documentation'; % Ruta de la carpeta a agregar - Note
+folderToAdd_PCcivil = 'C:\repos\Ejemplos\Validacion\SW-T2-S3-4\Documentation'; % Ruta de la carpeta a agregar - PC Civil
+addpath(folderToAdd_Note);
+addpath(folderToAdd_PCcivil);
+
 filename = 'Documentacion SW-T2-S3-4.xlsx';
 sheet = 'Resp local exp y analitica ';
 xlRange_PosCycle = 'C32:K36';
@@ -48,6 +53,7 @@ title('Local Response SW-T2-S3-4: Test - Positive Cycle')
 xlabel('Horizontal Strain')
 ylabel('Height (mm)')
 legend('0.05%','0.10%','0.15%','0.20%', '0.30%', '0.40%', '0.60%', '0.80%', '1%')
+text(0.0015, 700,datafolder, 'FontSize', 14);
 xlim([-1e-4 0.005])
 ylim([0 800])
 xticks([0 0.001 0.002 0.003 0.004 0.005]);
@@ -69,6 +75,7 @@ title('Local Response SW-T2-S3-4: Test - Negative Cycle')
 xlabel('Horizontal Strain')
 ylabel('Height (mm)')
 legend('0.05%','0.10%','0.15%','0.20%', '0.30%', '0.40%', '0.60%', '0.80%', '1%')
+text(0.0015, 700,datafolder, 'FontSize', 14);
 xlim([-1e-4 0.005])
 ylim([0 800])
 xticks([0 0.001 0.002 0.003 0.004 0.005]);
@@ -129,6 +136,7 @@ for i = 1:length(PosDisp)
     hold on
 end
 legend('Location', 'NorthEast')
+text(0.0015, 700,datafolder, 'FontSize', 14);
 title('Local Response SW-T2-S3-4 (Nodes): Model - Positive Cycle')
 xlabel('Horizontal Strain')
 ylabel('Height(mm)')
@@ -149,6 +157,7 @@ for i = 1:length(PosDisp)
     hold on
 end
 legend('Location', 'NorthEast')
+text(0.0015, 700,datafolder, 'FontSize', 14);
 title('Local Response SW-T2-S3-4 (Nodes): Model - Negative Cycle')
 xlabel('Horizontal Strain')
 ylabel('Height(mm)')
@@ -174,10 +183,11 @@ figure()    % Ciclo Positivo
 hold on
 for i = 1:length(PosDisp)
     drift = PosDisp(i)/Hw*100;
-    plot(-NodeHorStrain_PosCycle(:,i),Height,'Marker',getprop(markers,i),'color',getprop(colors,i),'linestyle','--', 'DisplayName',['Model - ', num2str(drift), '%'])
+    plot(-NodeHorStrain_PosCycle(:,i),Height,'Marker',getprop(markers,i),'color',getprop(colors,i),'linestyle','--','HandleVisibility','off')
     plot(RespLocalTest_PosCycle(:,i),RespLocalTest_Height,'Marker',getprop(markers,i),'color',getprop(colors,i),'linestyle','-', 'DisplayName',['Test - ', num2str(drift), '%'])
 end
 legend('Location', 'NorthEast')
+text(0.0015, 700,datafolder, 'FontSize', 14);
 title('Local Response SW-T2-S3-4 (Nodes): Test vs Model - Positive Cycle')
 xlabel('Horizontal Strain')
 ylabel('Height (mm)')
@@ -194,10 +204,11 @@ figure()    % Ciclo Negativo
 hold on
 for i = 1:length(PosDisp)
     drift = PosDisp(i)/Hw*100;
-    plot(-NodeHorStrain_NegCycle(:,i),Height,'Marker',getprop(markers,i),'color',getprop(colors,i),'linestyle','--', 'DisplayName',['Model - ', num2str(drift), '%'])
+    plot(-NodeHorStrain_NegCycle(:,i),Height,'Marker',getprop(markers,i),'color',getprop(colors,i),'linestyle','--', 'HandleVisibility','off')
     plot(RespLocalTest_NegCycle(:,i),RespLocalTest_Height,'Marker',getprop(markers,i),'color',getprop(colors,i),'linestyle','-', 'DisplayName',['Test - ', num2str(drift), '%'])
 end
 legend('Location', 'NorthEast')
+text(0.0015, 700,datafolder, 'FontSize', 14);
 title('Local Response SW-T2-S3-4 (Nodes): Test vs Model - Negative Cycle')
 xlabel('Horizontal Strain')
 ylabel('Height (mm)')
@@ -264,6 +275,7 @@ for i = 1:length(PosDisp)
     hold on
 end
 legend('Location', 'NorthEast')
+text(0.0015, 700,datafolder, 'FontSize', 14);
 title('Local Response SW-T2-S3-4: Model - Positive Cycle')
 xlabel('Horizontal Strain')
 ylabel('Height(mm)')
@@ -284,6 +296,7 @@ for i = 1:length(PosDisp)
     hold on
 end
 legend('Location', 'NorthEast')
+text(0.0015, 700,datafolder, 'FontSize', 14);
 title('Local Response SW-T2-S3-4: Model - Negative Cycle')
 xlabel('Horizontal Strain')
 ylabel('Height(mm)')
@@ -309,10 +322,11 @@ figure()    % Ciclo Positivo
 hold on
 for i = 1:length(PosDisp)
     drift = PosDisp(i)/Hw*100;
-    plot(eps_xx_height_PosCycle(:,i),height,'Marker',getprop(markers,i),'color',getprop(colors,i),'linestyle','--', 'DisplayName',['Model - ', num2str(drift), '%'])
+    plot(eps_xx_height_PosCycle(:,i),height,'Marker',getprop(markers,i),'color',getprop(colors,i),'linestyle','--','HandleVisibility','off')
     plot(RespLocalTest_PosCycle(:,i),RespLocalTest_Height,'Marker',getprop(markers,i),'color',getprop(colors,i),'linestyle','-', 'DisplayName',['Test - ', num2str(drift), '%'])
 end
 legend('Location', 'NorthEast')
+text(0.0015, 700,datafolder, 'FontSize', 14);
 title('Local Response SW-T2-S3-4: Test vs Model - Positive Cycle')
 xlabel('Horizontal Strain')
 ylabel('Height (mm)')
@@ -329,10 +343,11 @@ figure()    % Ciclo Negativo
 hold on
 for i = 1:length(PosDisp)
     drift = PosDisp(i)/Hw*100;
-    plot(eps_xx_height_NegCycle(:,i),height,'Marker',getprop(markers,i),'color',getprop(colors,i),'linestyle','--', 'DisplayName',['Model - ', num2str(drift), '%'])
+    plot(eps_xx_height_NegCycle(:,i),height,'Marker',getprop(markers,i),'color',getprop(colors,i),'linestyle','--', 'HandleVisibility','off')
     plot(RespLocalTest_NegCycle(:,i),RespLocalTest_Height,'Marker',getprop(markers,i),'color',getprop(colors,i),'linestyle','-', 'DisplayName',['Test - ', num2str(drift), '%'])
 end
 legend('Location', 'NorthEast')
+text(0.0015, 700,datafolder, 'FontSize', 14);
 title('Local Response SW-T2-S3-4: Test vs Model - Negative Cycle')
 xlabel('Horizontal Strain')
 ylabel('Height (mm)')
@@ -354,6 +369,7 @@ for i = 1:length(PosDisp)
     plot(eps_xx_height_PosCycle(:,i),height,'Marker',getprop(markers,i),'color',getprop(colors,i),'linestyle','--', 'DisplayName',['Model (Panels) - ', num2str(drift), '%'])
 end
 legend('Location', 'NorthEast')
+text(0.0015, 700,datafolder, 'FontSize', 14);
 title('Local Response SW-T2-S3-4 Model: Nodes vs Panels - Positive Cycle')
 xlabel('Horizontal Strain')
 ylabel('Height (mm)')
@@ -374,6 +390,7 @@ for i = 1:length(PosDisp)
     plot(eps_xx_height_NegCycle(:,i),height,'Marker',getprop(markers,i),'color',getprop(colors,i),'linestyle','--', 'DisplayName',['Model (Panels) - ', num2str(drift), '%'])
 end
 legend('Location', 'NorthEast')
+text(0.0015, 700,datafolder, 'FontSize', 14);
 title('Local Response SW-T2-S3-4 Model: Nodes vs Panels - Negative Cycle')
 xlabel('Horizontal Strain')
 ylabel('Height (mm)')

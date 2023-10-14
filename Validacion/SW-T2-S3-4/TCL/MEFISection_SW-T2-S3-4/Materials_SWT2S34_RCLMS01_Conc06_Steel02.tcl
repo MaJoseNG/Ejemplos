@@ -45,12 +45,12 @@ set AlphaT 0.08;
 #set n 2.5;
 #set BB 0.6;                 # o 0.4
 
-set K 0.95;
+set K 0.8;
 set n 2.5;
 set BB 0.6;   
 
 #uniaxialMaterial Concrete06 $matTag  $fc    $e0      $n $k $alpha1 $fcr     $ecr     $b  $alpha2
-#uniaxialMaterial Concrete06    10     $Fc  $strainAtFc_conf  $n $K $AlphaC $Fcr $strainAtFcr $BB $AlphaT;      #concrete boundary
+uniaxialMaterial Concrete06    10     $Fc  $strainAtFc_conf  $n $K $AlphaC $Fcr $strainAtFcr $BB $AlphaT;      #concrete boundary
 uniaxialMaterial Concrete06    11     $Fc  $strainAtFc       $n $K $AlphaC $Fcr $strainAtFcr $BB $AlphaT;      #concrete web
 # -----------------------------------------
 # Define and build concrete nD material
@@ -62,7 +62,7 @@ set damageConstant_1 0.175;
 set damageConstant_2 0.5;
 
 # nDMaterial OrthotropicRotatingAngleConcreteT2DMaterial01 $matTag $conc     $ecr          $ec           $rho <-damageCte1 $DamageCte1> <-damageCte1 $DamageCte1>
-#nDMaterial OrthotropicRotatingAngleConcreteT2DMaterial01      21     10   $strainAtFcr  $strainAtFc_conf  $rhoConcreteMaterial -damageCte1 $damageConstant_1 -damageCte2 $damageConstant_2;   # concrete boundary
+nDMaterial OrthotropicRotatingAngleConcreteT2DMaterial01      21     10   $strainAtFcr  $strainAtFc_conf  $rhoConcreteMaterial -damageCte1 $damageConstant_1 -damageCte2 $damageConstant_2;   # concrete boundary
 nDMaterial OrthotropicRotatingAngleConcreteT2DMaterial01      23     11   $strainAtFcr  $strainAtFc       $rhoConcreteMaterial -damageCte1 $damageConstant_1 -damageCte2 $damageConstant_2;   # concrete web
 # ----------------------------------------------------------------------------------------
 # Define ReinforcedConcreteLayerMembraneSection01 section
@@ -71,7 +71,7 @@ set wallThickness 120;          # [mm]
 set BeamThickness 400;          # [mm]
 
 #section ReinforcedConcreteLayerMembraneSection01 $secTag $nSteelLayer $nConcLayer -reinfSteel{RSteelAtEachLayer} –conc{concAtEachLayer} -concThick{concThicknessesAtEachLayer} <-epscr $ecr> <-epsc $ec>
-section ReinforcedConcreteLayerMembraneSection01 30 1 1 -reinfSteel 20 -conc 23 -concThick $wallThickness -epscr $strainAtFcr -epsc $strainAtFc;     # Wall boundary
+section ReinforcedConcreteLayerMembraneSection01 30 1 1 -reinfSteel 20 -conc 21 -concThick $wallThickness -epscr $strainAtFcr -epsc $strainAtFc;     # Wall boundary
 section ReinforcedConcreteLayerMembraneSection01 31 1 1 -reinfSteel 22 -conc 23 -concThick $wallThickness -epscr $strainAtFcr -epsc $strainAtFc;     # Wall web
-section ReinforcedConcreteLayerMembraneSection01 32 1 1 -reinfSteel 20 -conc 23 -concThick $BeamThickness -epscr $strainAtFcr -epsc $strainAtFc;     # Loading tranfer beam boundary
+section ReinforcedConcreteLayerMembraneSection01 32 1 1 -reinfSteel 20 -conc 21 -concThick $BeamThickness -epscr $strainAtFcr -epsc $strainAtFc;     # Loading tranfer beam boundary
 section ReinforcedConcreteLayerMembraneSection01 33 1 1 -reinfSteel 22 -conc 23 -concThick $BeamThickness -epscr $strainAtFcr -epsc $strainAtFc;     # Loading tranfer beam web

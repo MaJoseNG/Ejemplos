@@ -45,6 +45,7 @@ foreach Dmax $iDmax {
             if {$ok != 0} {
                 # if analysis fails, we try some other stuff
                 # performance is slower inside this loop    global maxNumIterStatic;# max no. of iterations performed before "failure to converge" is ret'd
+                # ============================ FORMA N°1 ==========================================
                 #if {$ok != 0} {
                 #    puts "Trying 2 times smaller timestep .. "
                 #    integrator DisplacementControl  $IDctrlNode $IDctrlDOF [expr $Dincr/2]
@@ -80,6 +81,9 @@ foreach Dmax $iDmax {
                 #    test $TestType [expr $Tol*100] $maxNumIter 0
                 #    set ok [analyze 1]
                 #}
+                # ============================ FIN FORMA N°1 ==========================================
+                # ============================ FORMA N°2 ==============================================
+                # Funciona con Concrete02 y Concrete06
                 if {$ok != 0} {
                     puts "Trying Newton with Current Tangent .."
                     test NormDispIncr $Tol 1000 0
@@ -111,6 +115,50 @@ foreach Dmax $iDmax {
                     set ok [analyze 1 ]
                     algorithm $algorithmType
                 }
+                # ============================ FIN FORMA N°2 ===========================================
+                #=============================== FORMA N°3 =============================================
+                #if {$ok != 0} {
+                #    puts "Trying Krylonv with 10 times greater tolerance ..  "
+                #    test $TestType [expr $Tol*10] $maxNumIter 0
+                #    set ok [analyze 1]
+                #}
+                #if {$ok != 0} {
+                #    puts "Trying Krylov with 100 times greater tolerance .."
+                #    test $TestType [expr $Tol*100] $maxNumIter 0
+                #    set ok [analyze 1]
+                #}
+                #if {$ok != 0} {
+                #    puts "Trying Newton with Current Tangent .."
+                #    test NormDispIncr $Tol 1000 0
+                #    algorithm Newton
+                #    set ok [analyze 1]
+                #    test $TestType $Tol $maxNumIter 0
+                #    algorithm $algorithmType
+                #}
+                #if {$ok != 0} {
+                #    puts "Trying Newton with Initial Tangent .."
+                #    test NormDispIncr 0.01 2000 0
+                #    algorithm Newton -initial
+                #    set reSolution [expr $reSolution + 1]
+                #    set ok [analyze 1]
+                #    test $TestType $Tol $maxNumIter 0
+                #    algorithm $algorithmType 
+                #}
+                #if {$ok != 0} {
+                #    puts "Trying Modified Newton .."
+                #    test NormDispIncr 0.01 2000 0
+                #    algorithm ModifiedNewton
+                #    set ok [analyze 1]
+                #    test $TestType $Tol $maxNumIter 0
+                #    algorithm $algorithmType 
+                #}
+                #if {$ok != 0} {
+                #    puts "Trying Broyden .."
+                #    algorithm Broyden 500
+                #    set ok [analyze 1 ]
+                #    algorithm $algorithmType
+                #}
+                # ============================ FIN FORMA N°3 ===========================================
                 if {$ok != 0} {
                     set putout [format $fmt1 "PROBLEM" $IDctrlNode $IDctrlDOF [nodeDisp $IDctrlNode $IDctrlDOF] $LunitTXT]
                     puts $putout

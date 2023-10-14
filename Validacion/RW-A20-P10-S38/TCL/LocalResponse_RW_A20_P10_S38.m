@@ -27,8 +27,10 @@ for i = 1:length(PosDisp)
 end
 
 %% Test --------------------------------------------------------------------
-folderToAdd = 'C:\Users\maryj\Documents\GitHub\Ejemplos\Validacion\RW-A20-P10-S38\Documentation'; % Ruta de la carpeta a agregar - Note
-addpath(folderToAdd);
+folderToAdd_Note = 'C:\Users\maryj\Documents\GitHub\Ejemplos\Validacion\RW-A20-P10-S38\Documentation'; % Ruta de la carpeta a agregar - Note
+folderToAdd_PCcivil = 'C:\repos\Ejemplos\Validacion\RW-A20-P10-S38\Documentation'; % Ruta de la carpeta a agregar - PC Civil
+addpath(folderToAdd_Note);
+addpath(folderToAdd_PCcivil);
 
 filename = 'Documentacion RW-A20-P10-S38.xlsx';
 sheet = 'Resp local exp y analitica';

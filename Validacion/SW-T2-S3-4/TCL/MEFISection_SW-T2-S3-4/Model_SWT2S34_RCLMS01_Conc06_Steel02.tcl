@@ -6,8 +6,9 @@ source LibUnits.tcl
 # --------------------------------------------------------
 # Start of model generation (Units: N, mm)
 # --------------------------------------------------------
-set dataDir MEFISection_SW-T2-S3-4_RCLMS01_Conc06_Steel02_NUEVO
+#set dataDir MEFISection_SW-T2-S3-4_RCLMS01_Conc06_Steel02_NUEVO
 #set dataDir MEFISection_SW-T2-S3-4_RCLMS01_Conc06_Steel02_Monotonico_1_89
+set dataDir RCLMS01C06S02
 file mkdir $dataDir;
 
 # Create ModelBuilder for 2D element (with two-dimensions and 3 DOF/node)

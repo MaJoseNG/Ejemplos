@@ -1,10 +1,10 @@
-%function [LatLoad_Test, LatDisp_Test, DFlexure_Test, DShear_Test, LatLoad, NodeLateralDisp] = plotGlobalResponse_SW_T2_S3_4(datafolder, directoryTest, model_name)
+function [LatLoad_Test, LatDisp_Test, DFlexure_Test, DShear_Test, LatLoad, NodeLateralDisp] = plotGlobalResponse_SW_T2_S3_4(datafolder, directoryTest, model_name)
     %% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
     %BORRAR 
-    datafolder = 'MEFISection_SW-T2-S3-4_RCLMS01_Conc02_Steel02_NUEVO_recordersHeightvsHorStrain_v3';
-    directoryTest = 'C:\repos\Ejemplos\Validacion\SW-T2-S3-4\Test\SW-T2-S3-4_Test.txt';          % PC Civil
+    %datafolder = 'MEFISection_SW-T2-S3-4_RCLMS01_Conc02_Steel02_NUEVO_recordersHeightvsHorStrain_v3';
+    %directoryTest = 'C:\repos\Ejemplos\Validacion\SW-T2-S3-4\Test\SW-T2-S3-4_Test.txt';          % PC Civil
     %directoryTest = 'C:\Users\maryj\Documents\GitHub\Ejemplos\Validacion\SW-T2-S3-4\Test\SW-T2-S3-4_Test.txt'; %Note
-    model_name = 'RCLMS01C02S02';
+    %model_name = 'RCLMS01C02S02';
     %% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
     % Se cargan los datos del test
     Test = load(directoryTest);
@@ -13,20 +13,14 @@
     LatDisp_Test = Test(:, 2);
     DFlexure_Test = Test(:, 3);
     DShear_Test = Test(:, 4);
-
-    figure()
-    plot(LatDisp_Test)
-    xlabel('Número de mediciones')
-    ylabel('Lateral Displacement (mm)')
-    title('Global Response SW-T2-S3-4: Test')
-    grid on
-    box on
     
     figure()
     plot(LatDisp_Test,LatLoad_Test)
     xlabel('Lateral Displacement (mm)')
     ylabel('Lateral Load (kN)')
     title('Global Response SW-T2-S3-4: Test')
+    xlim([-20 20])
+    ylim([-1000 1000])
     grid on
     box on
     
@@ -50,17 +44,21 @@
     grid on
     box on
     
-%     Uslid_Test = LatDisp_Test - (DFlexure_Test + DShear_Test);
-%     figure()
-%     plot(Uslid_Test(1:18249),LatLoad_Test(1:18249))
-%     xlabel('Lateral Shear Sliding Displacement (mm)')
-%     ylabel('Lateral Load (kN)')
-%     xlim([-8 8])
-%     ylim([-1000 1000])
-%     title('Global Response SW-T2-S3-4: Test')
-%     grid on
-%     box on
-
+    LatDispSuma_Test = DFlexure_Test + DShear_Test;
+    figure()
+    hold on
+    plot(LatDisp_Test,LatLoad_Test)
+    plot(LatDispSuma_Test,LatLoad_Test)
+    xlabel('Lateral Displacement (mm)')
+    ylabel('Lateral Load (kN)')
+    title('Global Response SW-T2-S3-4: Test')
+    legend('Total lateral displacement','Lateral flexural+shear displacement')
+    xlim([-20 20])
+    ylim([-1000 1000])
+    grid on
+    box on
+    hold off
+    
     % Se cargan los datos para la respuesta global del modelo
     NodeDisp = importdata(fullfile(datafolder,'NODE_DISP.out'));
     Node1Reac = importdata(fullfile(datafolder,'REACTIONS_1.out'));
@@ -78,8 +76,25 @@
     ylabel('Lateral Load (kN)')
     title('Global Response SW-T2-S3-4: Model')
     legend('Location', 'NorthWest')
+    xlim([-20 20])
+    ylim([-1000 1000])
     grid on
     box on
+    
+    % Comparacion Test vs Modelo
+    figure()
+    hold on
+    plot(LatDisp_Test,LatLoad_Test,'-k', 'DisplayName', 'Test')
+    plot(NodeLateralDisp,-LatLoad/1000,'--r','DisplayName', model_name)
+    xlim([-20 20])
+    ylim([-1000 1000])
+    xlabel('Lateral Displacement (mm)')
+    ylabel('Lateral Load (kN)')
+    title('Global Response SW-T2-S3-4: Test vs Model')
+    legend('Location', 'NorthWest')
+    grid on
+    box on
+    hold off
     
     %% Flexural deformations component ------------------------------------
     % =====================================================================
@@ -174,9 +189,10 @@
     
     Uf = alpha*rot*hw;
     figure()
-    plot(Uf(1:1725),-LatLoad(1:1725)/1000)
+    plot(Uf(1:1725),-LatLoad(1:1725)/1000,'DisplayName',model_name)
     xlabel('Lateral Flexural Displacement (mm)')
     ylabel('Lateral Load (kN)')
+    legend('Location', 'NorthWest')
     xlim([-8 8])
     ylim([-1000 1000])
     title('Global Response SW-T2-S3-4: Model')
@@ -190,16 +206,17 @@
     % FORMA 1
     % =====================================================================
     % Shear deformations component: Ushear = Utotal - Uf
-    Us_resta = NodeLateralDisp-Uf';
-    figure()
-    plot(Us_resta(1:1725),-LatLoad(1:1725)/1000)
-    xlabel('Lateral Shear Displacement (mm)')
-    ylabel('Lateral Load (kN)')
-    xlim([-8 8])
-    ylim([-1000 1000])
-    title('Global Response SW-T2-S3-4: Model')
-    grid on
-    box on
+%     Us_resta = NodeLateralDisp-Uf';
+%     figure()
+%     plot(Us_resta(1:1725),-LatLoad(1:1725)/1000,'DisplayName',model_name)
+%     xlabel('Lateral Shear Displacement (mm)')
+%     ylabel('Lateral Load (kN)')
+%     legend('Location', 'NorthWest')
+%     xlim([-8 8])
+%     ylim([-1000 1000])
+%     title('Global Response SW-T2-S3-4: Model')
+%     grid on
+%     box on
     
     %% ====================================================================
     % FORMA 2
@@ -217,14 +234,12 @@
     end
     
     figure()
-    hold on
-    plot(Us_Xcorrected(1:1725),-LatLoad(1:1725)/1000)
-    plot(Us_resta(1:1725),-LatLoad(1:1725)/1000)
+    plot(Us_Xcorrected(1:1725),-LatLoad(1:1725)/1000,'DisplayName',model_name)
     xlabel('Lateral Shear Displacement (mm)')
     ylabel('Lateral Load (kN)')
+    legend('Location', 'NorthWest')
     xlim([-8 8])
     ylim([-1000 1000])
-    legend('Us corrected','Us resta')
     title('Global Response SW-T2-S3-4: Model')
     grid on
     box on
@@ -243,17 +258,17 @@
 %     box on
     
     %% Comparacion Test vs Modelo ------------------------------------------
-    figure()
-    hold on
-    plot(LatDisp_Test,LatLoad_Test,'-k', 'DisplayName', 'Test')
-    plot(NodeLateralDisp,-LatLoad/1000,'--r','DisplayName', model_name)
-    xlabel('Lateral Displacement (mm)')
-    ylabel('Lateral Load (kN)')
-    title('Global Response SW-T2-S3-4: Test vs Model')
-    legend('Location', 'NorthWest')
-    grid on
-    box on
-    hold off
+%     figure()
+%     hold on
+%     plot(LatDisp_Test,LatLoad_Test,'-k', 'DisplayName', 'Test')
+%     plot(NodeLateralDisp,-LatLoad/1000,'--r','DisplayName', model_name)
+%     xlabel('Lateral Displacement (mm)')
+%     ylabel('Lateral Load (kN)')
+%     title('Global Response SW-T2-S3-4: Test vs Model')
+%     legend('Location', 'NorthWest')
+%     grid on
+%     box on
+%     hold off
     
     figure()
     hold on
@@ -359,4 +374,4 @@
 %     avgDefContribFlexShearModel_0_02 = avg_LatDispSuma_Model_0_02/avg_TotLatDisp_Model_0_02*100
 %     avgDefContribFlexShearModel_02_04 = avg_LatDispSuma_Model_02_04/avg_TotLatDisp_Model_02_04*100
 %     avgDefContribFlexShearModel_04_08 = avg_LatDispSuma_Model_04_08/avg_TotLatDisp_Model_04_08*100
-%end
+end
