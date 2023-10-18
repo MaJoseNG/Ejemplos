@@ -1,19 +1,33 @@
 function LocalResponse_RW_A20_P10_S38(datafolder)
 
-NodeCtrlDisp = importdata(fullfile(datafolder,'NODE_DISP.out'));        % Control node
-NodeCtrlDispX = NodeCtrlDisp(:,2);             
+% We define the name of the directory to store the figures in
+dir_name = 'Figuras modelos';
 
-% Identificacion de load step correspondiente a 1er  ciclo de cada drift
-% de interes
-figure()
-plot(NodeCtrlDispX)
-grid on
-xlabel('Load Step')
-ylabel('Lateral Displacement (mm)')
-box on
+NodeCtrlDisp = importdata(fullfile(datafolder,'NODE_DISP.out'));        % Control node
+NodeCtrlDispX = NodeCtrlDisp(:,2);    
 
 Hw = 2438.4;        % Altura del muro [mm]
 Lw  = 1220;         % Largo del muro [mm]
+deriva = NodeCtrlDispX/Hw*100;
+% Identificacion de load step correspondiente a 1er  ciclo de cada drift
+% de interes
+figure()
+% [ax,h1,h2] = plotyy(22:length(NodeCtrlDispX),NodeCtrlDispX,NodeCtrlDispX,deriva);
+% xlabel(ax(1), 'Pasos de Carga');
+% ylabel(ax(1), 'Desplazamiento Lateral [mm]');
+% ylabel(ax(2), 'Deriva [%]');
+
+plot(NodeCtrlDispX)
+xlabel('Pasos de Carga')
+ylabel('Desplazamiento Lateral (mm)')
+title('Protocolo de Carga')
+grid on
+box on
+% We define the name for the results figure to be saved
+figureName = 'Wall-RWA20P10S38_LoadingProtocol-Model';
+% We save the figure
+print(fullfile(dir_name,figureName),'-dpng')
+
 % Desplazamientos objetivos
 %PosDisp = [2.4 7.2 12 17 24.2 36.4 53.6 75.4];
 PosDisp = [6.8 9.2 13.6 18.2 26.8 36.4 56 75.4];
@@ -191,11 +205,11 @@ hold on
 for i = 1:length(PosDisp)
     drift = [0.28 0.38 0.56 0.75 1.1 1.5 2.3 3.1];
     plot(-NodeHorStrain_PosCycle(:,i),Height,'Marker',getprop(markers,i),'color',getprop(colors,i),'linestyle','--', 'HandleVisibility','off')
-    plot(RespLocalTest_PosCycle(:,i),RespLocalTest_Height,'Marker',getprop(markers,i),'color',getprop(colors,i),'linestyle','-', 'DisplayName',[num2str(drift(i)), '%'])
+    plot(RespLocalTest_PosCycle(:,i),RespLocalTest_Height,'Marker',getprop(markers,i),'color',getprop(colors,i),'linestyle','-', 'HandleVisibility','off')
 end
 legend('Location', 'NorthEast')
-text(2e-3, 2300, datafolder, 'FontSize', 14);
-title('Local Response RW-A20-P10-S38 (Nodes): Test vs Model - Positive Cycle')
+%text(2e-3, 2300, datafolder, 'FontSize', 14);
+%title('Local Response RW-A20-P10-S38 (Nodes): Test vs Model - Positive Cycle')
 xlabel('Horizontal Strain')
 ylabel('Height (mm)')
 %xlim([-1e-4 0.005])
@@ -206,26 +220,30 @@ ylabel('Height (mm)')
 box on
 grid on
 
-figure()    % Ciclo Negativo
-hold on
+%figure()    % Ciclo Negativo
+%hold on
 for i = 1:length(PosDisp)
     drift = [0.28 0.38 0.56 0.75 1.1 1.5 2.3 3.1];
-    plot(-NodeHorStrain_NegCycle(:,i),Height,'Marker',getprop(markers,i),'color',getprop(colors,i),'linestyle','--','HandleVisibility','off')
-    plot(RespLocalTest_NegCycle(:,i),RespLocalTest_Height,'Marker',getprop(markers,i),'color',getprop(colors,i),'linestyle','-', 'DisplayName',[num2str(drift(i)), '%'])
+    plot(-1*(-NodeHorStrain_NegCycle(:,i)),Height,'Marker',getprop(markers,i),'color',getprop(colors,i),'linestyle','--','HandleVisibility','off')
+    plot(-1*(RespLocalTest_NegCycle(:,i)),RespLocalTest_Height,'Marker',getprop(markers,i),'color',getprop(colors,i),'linestyle','-', 'DisplayName',[num2str(drift(i)), '%'])
 end
 legend('Location', 'NorthEast')
-text(2e-3, 2300, datafolder, 'FontSize', 14);
-title('Local Response RW-A20-P10-S38 (Nodes): Test vs Model - Negative Cycle')
-xlabel('Horizontal Strain')
-ylabel('Height (mm)')
-%xlim([-1e-4 0.005])
+text(-7e-3, 2300, datafolder, 'FontSize', 14);
+title('Respuesta Local RW-A20-P10-S38 (Nodos): Test vs Modelo')
+xlabel('Deformación Horizontal')
+ylabel('Altura (mm)')
+xlim([-8e-3 8e-3])
 %ylim([0 800])
 %xticks([0 0.001 0.002 0.003 0.004 0.005]);
 %yticks([0 100 200 300 400 500 600 700 800]);
 %xticklabels({'0', ' ', '0.002', ' ', '0.004', ' '});
 box on
 grid on
-
+hold off
+% We define the name for the results figure to be saved
+figureName = [datafolder '-HeightvsHorStrain_Nodes_ModelvsTest'];
+% We save the figure
+print(fullfile(dir_name,figureName),'-dpng')
 %% ====================================================================
 % FORMA N°2
 % =====================================================================
@@ -328,13 +346,13 @@ hold on
 for i = 1:length(PosDisp)
     drift = [0.28 0.38 0.56 0.75 1.1 1.5 2.3 3.1];
     plot(eps_xx_height_PosCycle(:,i),height,'Marker',getprop(markers,i),'color',getprop(colors,i),'linestyle','--', 'HandleVisibility','off')
-    plot(RespLocalTest_PosCycle(:,i),RespLocalTest_Height,'Marker',getprop(markers,i),'color',getprop(colors,i),'linestyle','-', 'DisplayName',[num2str(drift(i)), '%'])
+    plot(RespLocalTest_PosCycle(:,i),RespLocalTest_Height,'Marker',getprop(markers,i),'color',getprop(colors,i),'linestyle','-', 'HandleVisibility','off')
 end
 legend('Location', 'NorthEast')
-text(2e-3, 2300, datafolder, 'FontSize', 14);
-title('Local Response RW-A20-P10-S38: Test vs Model - Positive Cycle')
-xlabel('Horizontal Strain')
-ylabel('Height (mm)')
+%text(2e-3, 2300, datafolder, 'FontSize', 14);
+title('Respuesta Local RW-A20-P10-S38: Test vs Modelo')
+xlabel('Deformación Horizontal')
+ylabel('Altura (mm)')
 %legend('0.05%','0.10%','0.15%','0.20%', '0.30%', '0.40%', '0.60%', '0.80%', '1%')
 %xlim([-1e-4 0.005])
 %ylim([0 800])
@@ -344,26 +362,30 @@ ylabel('Height (mm)')
 box on
 grid on
 
-figure()    % Ciclo Negativo
-hold on
+%figure()    % Ciclo Negativo
+%hold on
 for i = 1:length(PosDisp)
     drift = [0.28 0.38 0.56 0.75 1.1 1.5 2.3 3.1];
-    plot(eps_xx_height_NegCycle(:,i),height,'Marker',getprop(markers,i),'color',getprop(colors,i),'linestyle','--', 'HandleVisibility','off')
-    plot(RespLocalTest_NegCycle(:,i),RespLocalTest_Height,'Marker',getprop(markers,i),'color',getprop(colors,i),'linestyle','-', 'DisplayName',[num2str(drift(i)), '%'])
+    plot(-1*(eps_xx_height_NegCycle(:,i)),height,'Marker',getprop(markers,i),'color',getprop(colors,i),'linestyle','--', 'HandleVisibility','off')
+    plot(-1*(RespLocalTest_NegCycle(:,i)),RespLocalTest_Height,'Marker',getprop(markers,i),'color',getprop(colors,i),'linestyle','-', 'DisplayName',[num2str(drift(i)), '%'])
 end
 legend('Location', 'NorthEast')
-text(2e-3, 2300, datafolder, 'FontSize', 14);
-title('Local Response RW-A20-P10-S38: Test vs Model - Negative Cycle')
-xlabel('Horizontal Strain')
-ylabel('Height (mm)')
-%xlim([-1e-4 0.005])
+text(-7e-3, 2300, datafolder, 'FontSize', 14);
+%title('Local Response RW-A20-P10-S38: Test vs Model - Negative Cycle')
+%xlabel('Horizontal Strain')
+%ylabel('Height (mm)')
+xlim([-8e-3 8e-3])
 %ylim([0 800])
 %xticks([0 0.001 0.002 0.003 0.004 0.005]);
 %yticks([0 100 200 300 400 500 600 700 800]);
 %xticklabels({'0', ' ', '0.002', ' ', '0.004', ' '});
 grid on 
 box on
-
+hold off
+% We define the name for the results figure to be saved
+figureName = [datafolder '-HeightvsHorStrain_Panels_ModelvsTest'];
+% We save the figure
+print(fullfile(dir_name,figureName),'-dpng')
 % Comparacion: Modelo Nodos vs Modelo paneles -----------------------------
 
 figure()    % Ciclo Positivo

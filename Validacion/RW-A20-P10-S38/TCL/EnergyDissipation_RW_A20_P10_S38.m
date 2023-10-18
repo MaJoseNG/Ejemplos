@@ -6,6 +6,8 @@ function EnergyDissipation_RW_A20_P10_S38(datafolder,directoryTest)
 %datafolder = 'MEFISection-Concrete02';
 %datafolder = 'RCLMS02C02S02';
 %% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% We define the name of the directory to store the figures in
+dir_name = 'Figuras modelos';
 %% ========================================================================
 % Energia disipada: Modelo
 % =========================================================================
@@ -57,8 +59,14 @@ LatDisp_Test = Test(:, 2);
 
 figure()
 plot(LatDisp_Test)
-ylabel('Lateral Displacement [mm]')
-xlabel('Number of measurements')
+ylabel('Desplazamiento Lateral (mm)')
+xlabel('Número de Mediciones')
+grid on
+box on
+% We define the name for the results figure to be saved
+figureName = 'Wall-RWA20P10S38_LoadingProtocol-Test';
+% We save the figure
+print(fullfile(dir_name,figureName),'-dpng')
 
 LoadStepsDrifts_Test = [4100 5629 6462 7456 8155 9136 9890 10903 11610];
 n_Test = length(LoadStepsDrifts_Test);
@@ -91,11 +99,15 @@ plot(drift,Edrift_Test,'-or','DisplayName','Energia disipada por deriva')
 plot(drift,Ecum_drift_Test,'-ok','DisplayName','Energía disipada acumulada')
 %xticks([0.28 0.38 0.56 0.75 1.1 1.5 2.3 3.1]);
 legend('Location', 'NorthWest')
-title(['Energía disipada RW-A20-P10-S38: Modelo ', datafolder])
-xlabel('Deriva [%]')
-ylabel('Energía Disipada [kNmm]')
+title(['RW-A20-P10-S38: Modelo ', datafolder])
+xlabel('Deriva (%)')
+ylabel('Energía Disipada (kNmm)')
 box on
 grid on
+% We define the name for the results figure to be saved
+figureName = [datafolder '-EnergiaDisipadavsDeriva_ModelvsTest'];
+% We save the figure
+print(fullfile(dir_name,figureName),'-dpng')
 
 %% Area total ciclo histeretico: Modelo
 %desplazamiento = LatDisp_Test;
@@ -141,8 +153,8 @@ end
 % disp(areas_por_ciclo);
 
 % Configurar etiquetas y título
-xlabel('Desplazamiento Lateral [mm]');
-ylabel('Carga Lateral [kN]');
+xlabel('Desplazamiento Lateral (mm)');
+ylabel('Carga Lateral (kN)');
 title(['Energía disipada RW-A20-P10-S38: Modelo ', datafolder])
 xlim([-100 100])
 ylim([-600 600])
@@ -154,7 +166,10 @@ text(20, -300, sprintf('E_{D} = %.2f [kNmm]', area_total), 'FontSize', 11);
 
 % Ajustar el gráfico
 hold off;
-
+% We define the name for the results figure to be saved
+figureName = [datafolder '-EnergiaDisipadaTotal_Model'];
+% We save the figure
+print(fullfile(dir_name,figureName),'-dpng')
 %% Area total ciclo histeretico: Test
 desplazamiento = LatDisp_Test;
 carga = LatLoad_Test;
@@ -197,8 +212,8 @@ end
 % disp(areas_por_ciclo);
 
 % Configurar etiquetas y título
-xlabel('Desplazamiento Lateral [mm]');
-ylabel('Carga Lateral [kN]');
+xlabel('Desplazamiento Lateral (mm)');
+ylabel('Carga Lateral (kN)');
 title('Energía disipada RW-A20-P10-S38: Test')
 xlim([-100 100])
 ylim([-600 600])
@@ -210,4 +225,8 @@ text(20, -300, sprintf('E_{D} = %.2f [kNmm]', area_total), 'FontSize', 11);
 
 % Ajustar el gráfico
 hold off;
+% We define the name for the results figure to be saved
+figureName = 'Wall-RWA20P10S38_EnergiaDisipadaTotal-Test';
+% We save the figure
+print(fullfile(dir_name,figureName),'-dpng')
 end

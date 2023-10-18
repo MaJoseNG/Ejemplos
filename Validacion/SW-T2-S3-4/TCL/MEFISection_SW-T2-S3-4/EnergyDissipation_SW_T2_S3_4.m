@@ -5,6 +5,9 @@ function EnergyDissipation_SW_T2_S3_4(datafolder,directoryTest)
 % directoryTest = 'C:\repos\Ejemplos\Validacion\SW-T2-S3-4\Test\SW-T2-S3-4_Test.txt';          % PC Civil
 % %directoryTest = 'C:\Users\maryj\Documents\GitHub\Ejemplos\Validacion\SW-T2-S3-4\Test\SW-T2-S3-4_Test.txt'; %Note
 % model_name = 'RCLMS01C02S02';
+
+% We define the name of the directory to store the figures in
+dir_name = 'Figuras modelos';
 %% ========================================================================
 % Energia disipada: Modelo
 % =========================================================================
@@ -54,8 +57,14 @@ LatDisp_Test = Test(:, 2);
 
 figure()
 plot(LatDisp_Test)
-ylabel('Lateral Displacement [mm]')
-xlabel('Number of measurements')
+ylabel('Desplazamiento Lateral (mm)')
+xlabel('Número de Mediciones')
+grid on
+box on
+% We define the name for the results figure to be saved
+figureName = 'Wall-SWT2S34_LoadingProtocol-Test';
+% We save the figure
+print(fullfile(dir_name,figureName),'-dpng')
 
 LoadStepsDrifts_Test = [2257 3863 5667 7421 9091 10847 13190 15915 18249 20816 23524 25768 27955 29735 31407 33198];
 n_Test = length(LoadStepsDrifts_Test);
@@ -88,12 +97,15 @@ plot(drift,Edrift_Test,'-or','DisplayName','Energia disipada por deriva')
 plot(drift,Ecum_drift_Test,'-ok','DisplayName','Energía disipada acumulada')
 xticks([0 0.2 0.4 0.6 0.8 1 1.2 1.4 1.6 1.8 2 2.4]);
 legend('Location', 'NorthWest')
-title(['Energía disipada SW-T2-S3-4: Modelo ', datafolder])
-xlabel('Deriva [%]')
-ylabel('Energía Disipada [kNmm]')
+title(['SW-T2-S3-4: Modelo ', datafolder])
+xlabel('Deriva (%)')
+ylabel('Energía Disipada (kNmm)')
 box on
 grid on
-
+% We define the name for the results figure to be saved
+figureName = [datafolder '-EnergiaDisipadavsDeriva_ModelvsTest'];
+% We save the figure
+print(fullfile(dir_name,figureName),'-dpng')
 %% Area total ciclo histeretico: Modelo
 %desplazamiento = LatDisp_Test;
 desplazamiento = NodeLateralDisp;
@@ -138,8 +150,8 @@ end
 % disp(areas_por_ciclo);
 
 % Configurar etiquetas y título
-xlabel('Desplazamiento Lateral [mm]');
-ylabel('Carga Lateral [kN]');
+xlabel('Desplazamiento Lateral (mm)');
+ylabel('Carga Lateral (kN)');
 title(['Energía disipada SW-T2-S3-4: Modelo', datafolder])
 
 % Mostrar el área total en el gráfico
@@ -150,7 +162,10 @@ text(5, -600, sprintf('E_{D} = %.2f [kNmm]', area_total), 'FontSize', 11);
 
 % Ajustar el gráfico
 hold off;
-
+% We define the name for the results figure to be saved
+figureName = [datafolder '-EnergiaDisipadaTotal_Model'];
+% We save the figure
+print(fullfile(dir_name,figureName),'-dpng')
 %% Area total ciclo histeretico: Test
 desplazamiento = LatDisp_Test;
 carga = LatLoad_Test;
@@ -193,8 +208,8 @@ end
 % disp(areas_por_ciclo);
 
 % Configurar etiquetas y título
-xlabel('Desplazamiento Lateral [mm]');
-ylabel('Carga Lateral [kN]');
+xlabel('Desplazamiento Lateral (mm)');
+ylabel('Carga Lateral (kN)');
 title('Energía disipada SW-T2-S3-4: Test')
 
 % Mostrar el área total en el gráfico
@@ -205,3 +220,8 @@ text(5, -600, sprintf('E_{D} = %.2f [kNmm]', area_total), 'FontSize', 11);
 
 % Ajustar el gráfico
 hold off;
+% We define the name for the results figure to be saved
+figureName = 'Wall-SWT2S34_EnergiaDisipadaTotal-Test';
+% We save the figure
+print(fullfile(dir_name,figureName),'-dpng')
+end

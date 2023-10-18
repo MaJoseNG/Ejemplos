@@ -5,7 +5,8 @@ function [LatLoad_Test, LatDisp_Test, DFlexure_Test, DShear_Test, LatLoad, NodeL
     %directoryTest = 'C:\Users\maryj\Documents\GitHub\Ejemplos\Validacion\RW-A20-P10-S38\Test\RW-A20-P10-S38_Test.txt';     % Note
     %datafolder = 'MEFISection-Concrete02';
     %datafolder = 'RCLMS02C02S02';
-    
+    % We define the name of the directory to store the figures in
+    dir_name = 'Figuras modelos';
     %% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
     % Se cargan los datos del test
     Test = load(directoryTest);
@@ -17,9 +18,9 @@ function [LatLoad_Test, LatDisp_Test, DFlexure_Test, DShear_Test, LatLoad, NodeL
 
     figure()
     plot(LatDisp_Test,LatLoad_Test)
-    xlabel('Lateral Displacement (mm)')
-    ylabel('Lateral Load (kN)')
-    title('Global Response RW-A20-P10-S38: Test')
+    xlabel('Desplazamiento Lateral (mm)')
+    ylabel('Carga Lateral (kN)')
+    title('Respuesta Global RW-A20-P10-S38: Test')
     xlim([-100 100])
     ylim([-600 600])
     grid on
@@ -27,21 +28,21 @@ function [LatLoad_Test, LatDisp_Test, DFlexure_Test, DShear_Test, LatLoad, NodeL
     
     figure()
     plot(DShear_Test,LatLoad_Test)
-    xlabel('Lateral Shear Displacement (mm)')
-    ylabel('Lateral Load (kN)')
+    xlabel('Desplazamiento Lateral por Corte (mm)')
+    ylabel('Carga Lateral (kN)')
     xlim([-100 100])
     ylim([-600 600])
-    title('Global Response RW-A20-P10-S38: Test')
+    title('Respuesta Global RW-A20-P10-S38: Test')
     grid on
     box on
 
     figure()
     plot(DFlexure_Test,LatLoad_Test)
-    xlabel('Lateral Flexural Displacement (mm)')
-    ylabel('Lateral Load (kN)')
+    xlabel('Desplazamiento Lateral por Flexión (mm)')
+    ylabel('Carga Lateral (kN)')
     xlim([-100 100])
     ylim([-600 600])
-    title('Global Response RW-A20-P10-S38: Test')
+    title('Respuesta Global RW-A20-P10-S38: Test')
     grid on
     box on
     
@@ -50,10 +51,10 @@ function [LatLoad_Test, LatDisp_Test, DFlexure_Test, DShear_Test, LatLoad, NodeL
     hold on
     plot(LatDisp_Test,LatLoad_Test)
     plot(LatDispSuma_Test,LatLoad_Test)
-    xlabel('Lateral Displacement (mm)')
-    ylabel('Lateral Load (kN)')
-    title('Global Response RW-A20-P10-S38: Test')
-    legend('Total lateral displacement','Lateral flexural+shear displacement')
+    xlabel('Desplazamiento Lateral (mm)')
+    ylabel('Carga Lateral (kN)')
+    title('Respuesta Global RW-A20-P10-S38: Test')
+    legend('Desplazamiento lateral total','Desplazamiento lateral por corte+flexión')
     xlim([-100 100])
     ylim([-600 600])
     grid on
@@ -72,9 +73,9 @@ function [LatLoad_Test, LatDisp_Test, DFlexure_Test, DShear_Test, LatLoad, NodeL
     % Se grafica la respuesta global del modelo
     figure()
     plot(NodeLateralDisp,-LatLoad/1000,'DisplayName',datafolder)
-    xlabel('Lateral Displacement (mm)')
-    ylabel('Lateral Load (kN)')
-    title('Global Response RW-A20-P10-S38: Model')
+    xlabel('Desplazamiento Lateral (mm)')
+    ylabel('Carga Lateral (kN)')
+    title('Respuesta Global RW-A20-P10-S38: Model')
     legend('Location', 'NorthWest')
     xlim([-100 100])
     ylim([-600 600])
@@ -88,13 +89,17 @@ function [LatLoad_Test, LatDisp_Test, DFlexure_Test, DShear_Test, LatLoad, NodeL
     plot(NodeLateralDisp,-LatLoad/1000,'--r','DisplayName', datafolder)
     xlim([-100 100])
     ylim([-600 600])
-    xlabel('Lateral Displacement (mm)')
-    ylabel('Lateral Load (kN)')
-    title('Global Response RW-A20-P10-S38: Test vs Model')
+    xlabel('Desplazamiento Lateral (mm)')
+    ylabel('Carga Lateral (kN)')
+    title('Respuesta Global RW-A20-P10-S38: Test vs Modelo')
     legend('Location', 'NorthWest')
     grid on
     box on
     hold off
+    % We define the name for the results figure to be saved
+    figureName = [datafolder '-LatLoadvsLatDisp_ModelvsTest'];
+    % We save the figure
+    print(fullfile(dir_name,figureName),'-dpng')
     
 %     %% Flexural deformations component ------------------------------------
 %     % ====================================================================
@@ -383,28 +388,36 @@ function [LatLoad_Test, LatDisp_Test, DFlexure_Test, DShear_Test, LatLoad, NodeL
     hold on
     plot(DShear_Test,LatLoad_Test,'-k', 'DisplayName', 'Test')
     plot(Us_resta,-LatLoad/1000,'--r','DisplayName', datafolder)
-    xlabel('Lateral Shear Displacement (mm)')
-    ylabel('Lateral Load (kN)')
+    xlabel('Desplazamiento Lateral por Corte (mm)')
+    ylabel('Carga Lateral (kN)')
     xlim([-100 100])
     ylim([-600 600])
-    title('Global Response RW-A20-P10-S38: Test vs Model')
+    title('Respuesta Global RW-A20-P10-S38: Test vs Modelo')
     legend('Location', 'NorthWest')
     grid on
     box on
     hold off
+    % We define the name for the results figure to be saved
+    figureName = [datafolder '-LatLoadvsLatShearDisp_ModelvsTest'];
+    % We save the figure
+    print(fullfile(dir_name,figureName),'-dpng')
     
     figure()
     hold on
     plot(DFlexure_Test,LatLoad_Test,'-k','DisplayName','Test')
     plot(Uf_total,-LatLoad/1000,'--r','DisplayName',datafolder)
-    xlabel('Lateral Flexural Displacement (mm)')
-    ylabel('Lateral Load (kN)')
+    xlabel('Desplazamiento Lateral por Flexión (mm)')
+    ylabel('Carga Lateral (kN)')
     xlim([-100 100])
     ylim([-600 600])
-    title('Global Response RW-A20-P10-S38: Test vs Model')
+    title('Respuesta Global RW-A20-P10-S38: Test vs Modelo')
     legend('Location', 'NorthWest')
     grid on
     box on
     hold off
+    % We define the name for the results figure to be saved
+    figureName = [datafolder '-LatLoadvsLatFlexuralDisp_ModelvsTest'];
+    % We save the figure
+    print(fullfile(dir_name,figureName),'-dpng')
     
 end

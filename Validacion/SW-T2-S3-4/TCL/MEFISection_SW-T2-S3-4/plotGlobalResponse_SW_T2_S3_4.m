@@ -5,6 +5,7 @@ function [LatLoad_Test, LatDisp_Test, DFlexure_Test, DShear_Test, LatLoad, NodeL
     %directoryTest = 'C:\repos\Ejemplos\Validacion\SW-T2-S3-4\Test\SW-T2-S3-4_Test.txt';          % PC Civil
     %directoryTest = 'C:\Users\maryj\Documents\GitHub\Ejemplos\Validacion\SW-T2-S3-4\Test\SW-T2-S3-4_Test.txt'; %Note
     %model_name = 'RCLMS01C02S02';
+    dir_name = 'Figuras modelos';
     %% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
     % Se cargan los datos del test
     Test = load(directoryTest);
@@ -88,13 +89,17 @@ function [LatLoad_Test, LatDisp_Test, DFlexure_Test, DShear_Test, LatLoad, NodeL
     plot(NodeLateralDisp,-LatLoad/1000,'--r','DisplayName', model_name)
     xlim([-20 20])
     ylim([-1000 1000])
-    xlabel('Lateral Displacement (mm)')
-    ylabel('Lateral Load (kN)')
-    title('Global Response SW-T2-S3-4: Test vs Model')
+    xlabel('Desplazamiento Lateral (mm)')
+    ylabel('Carga Lateral (kN)')
+    title('Respuesta Global SW-T2-S3-4: Test vs Modelo')
     legend('Location', 'NorthWest')
     grid on
     box on
     hold off
+    % We define the name for the results figure to be saved
+    figureName = [datafolder '-LatLoadvsLatDisp_ModelvsTest'];
+    % We save the figure
+    print(fullfile(dir_name,figureName),'-dpng')
     
     %% Flexural deformations component ------------------------------------
     % =====================================================================
@@ -274,15 +279,19 @@ function [LatLoad_Test, LatDisp_Test, DFlexure_Test, DShear_Test, LatLoad, NodeL
     hold on
     plot(DFlexure_Test(1:18249),LatLoad_Test(1:18249),'-k', 'DisplayName', 'Test')
     plot(Uf(1:1725),-LatLoad(1:1725)/1000,'--r','DisplayName', model_name)
-    xlabel('Lateral Flexural Displacement (mm)')
-    ylabel('Lateral Load (kN)')
+    xlabel('Desplazamiento Lateral por Flexión (mm)')
+    ylabel('Carga Lateral (kN)')
     xlim([-8 8])
     ylim([-1000 1000])
-    title('Global Response SW-T2-S3-4: Test vs Model')
+    title('Respuesta Global SW-T2-S3-4: Test vs Modelo')
     legend('Location', 'NorthWest')
     grid on
     box on
     hold off
+    % We define the name for the results figure to be saved
+    figureName = [datafolder '-LatLoadvsLatFlexuralDisp_ModelvsTest'];
+    % We save the figure
+    print(fullfile(dir_name,figureName),'-dpng')
     
 %     figure()
 %     hold on
@@ -302,15 +311,19 @@ function [LatLoad_Test, LatDisp_Test, DFlexure_Test, DShear_Test, LatLoad, NodeL
     hold on
     plot(DShear_Test(1:18249),LatLoad_Test(1:18249),'-k', 'DisplayName', 'Test')
     plot(Us_Xcorrected(1:1725),-LatLoad(1:1725)/1000,'--r','DisplayName', model_name)
-    xlabel('Lateral Shear Displacement (mm)')
-    ylabel('Lateral Load (kN)')
+    xlabel('Desplazamiento Lateral por Corte (mm)')
+    ylabel('Carga Lateral (kN)')
     xlim([-8 8])
     ylim([-1000 1000])
-    title('Global Response SW-T2-S3-4: Test vs Model')
+    title('Respuesta Global SW-T2-S3-4: Test vs Modelo')
     legend('Location', 'NorthWest')
     grid on
     box on
     hold off
+    % We define the name for the results figure to be saved
+    figureName = [datafolder '-LatLoadvsLatShearDisp_ModelvsTest'];
+    % We save the figure
+    print(fullfile(dir_name,figureName),'-dpng')
     
     %% Comparacion Cuantitativa Test vs Modelo ----------------------------
 %     % Test ---------------------------------------------------------
