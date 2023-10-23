@@ -14,8 +14,9 @@ deriva = NodeCtrlDispX/Hw*100;
 figure()
 plot(NodeCtrlDispX)
 grid on
-xlabel('Load Step')
-ylabel('Lateral Displacement (mm)')
+xlabel('Pasos de Carga')
+ylabel('Desplazamiento Lateral (mm)')
+title('Protocolo de Carga')
 box on
 % We define the name for the results figure to be saved
 figureName = 'Wall-SWT2S34_LoadingProtocol-Model';
@@ -187,14 +188,17 @@ colors = {'b','g','r','k','c','m'};
 getFirst = @(v)v{1}; 
 getprop = @(options, idx)getFirst(circshift(options,-idx+1));
 
+%PosDisp = [0.375 0.75 1.125 1.5 2.25 3 4.5 6 7.5];
+PosDispReducido = [1.125 1.5 3 6];       % Asi no se grafican todas las curvas
+index = [3 4 6 8];                      % Indices de los desplazamientos objetivos segun vector PosDisp
+
 figure()    % Ciclo Positivo
 hold on
-for i = 1:length(PosDisp)
-    drift = PosDisp(i)/Hw*100;
-    plot(-NodeHorStrain_PosCycle(:,i),Height,'Marker',getprop(markers,i),'color',getprop(colors,i),'linestyle','--','HandleVisibility','off')
-    plot(RespLocalTest_PosCycle(:,i),RespLocalTest_Height,'Marker',getprop(markers,i),'color',getprop(colors,i),'linestyle','-','HandleVisibility','off')
+for i = 1:length(PosDispReducido)
+    plot(-NodeHorStrain_PosCycle(:,index(i)),Height,'Marker',getprop(markers,i),'color',getprop(colors,i),'linestyle','--','HandleVisibility','off')
+    plot(RespLocalTest_PosCycle(:,index(i)),RespLocalTest_Height,'Marker',getprop(markers,i),'color',getprop(colors,i),'linestyle','-','HandleVisibility','off')
 end
-legend('Location', 'NorthEast')
+legend('Location', 'NorthEastOutside')
 %text(0.0015, 700,datafolder, 'FontSize', 14);
 %title('Local Response SW-T2-S3-4 (Nodes): Test vs Model - Positive Cycle')
 xlabel('Horizontal Strain')
@@ -210,25 +214,28 @@ grid on
 
 %figure()    % Ciclo Negativo
 %hold on
-for i = 1:length(PosDisp)
-    drift = PosDisp(i)/Hw*100;
-    plot(-1*(-NodeHorStrain_NegCycle(:,i)),Height,'Marker',getprop(markers,i),'color',getprop(colors,i),'linestyle','--', 'HandleVisibility','off')
-    plot(-1*(RespLocalTest_NegCycle(:,i)),RespLocalTest_Height,'Marker',getprop(markers,i),'color',getprop(colors,i),'linestyle','-', 'DisplayName',[num2str(drift), '%'])
+for i = 1:length(PosDispReducido)
+    drift = PosDispReducido(i)/Hw*100;
+    plot(-1*(-NodeHorStrain_NegCycle(:,index(i))),Height,'Marker',getprop(markers,i),'color',getprop(colors,i),'linestyle','--', 'HandleVisibility','off')
+    plot(-1*(RespLocalTest_NegCycle(:,index(i))),RespLocalTest_Height,'Marker',getprop(markers,i),'color',getprop(colors,i),'linestyle','-', 'DisplayName',[num2str(drift), '%'])
 end
-legend('Location', 'NorthEast')
+legend('Location', 'NorthEastOutside')
 %text(0.0015, 700,datafolder, 'FontSize', 14);
-text(-0.0028, 700,datafolder, 'FontSize', 12);
+text(-0.0028, 750,datafolder, 'FontSize', 12);
 title('Respuesta Local SW-T2-S3-4 (Nodos): Test vs Modelo')
 xlabel('Deformación Horizontal')
 ylabel('Altura (mm)')
-%xlim([-1e-4 0.005])
+xlim([-3e-3 3e-3])
 %ylim([0 800])
 %xticks([0 0.001 0.002 0.003 0.004 0.005]);
 %yticks([0 100 200 300 400 500 600 700 800]);
 %xticklabels({'0', ' ', '0.002', ' ', '0.004', ' '});
+xticks(-3e-3:1e-3:3e-3);  % Establece las ubicaciones de las etiquetas
+xticklabels({'0.003', '0.002', '0.001','0', '0.001', '0.002', '0.003'});  % Etiquetas personalizadas
 box on
 grid on
 hold off
+
 % We define the name for the results figure to be saved
 figureName = [datafolder '-HeightvsHorStrain_Nodes_ModelvsTest'];
 % We save the figure
@@ -331,12 +338,15 @@ colors = {'b','g','r','k','c','m'};
 getFirst = @(v)v{1}; 
 getprop = @(options, idx)getFirst(circshift(options,-idx+1));
 
+%PosDisp = [0.375 0.75 1.125 1.5 2.25 3 4.5 6 7.5];
+PosDispReducido = [1.125 1.5 3 6];       % Asi no se grafican todas las curvas
+index = [3 4 6 8];                      % Indices de los desplazamientos objetivos segun vector PosDisp
+
 figure()    % Ciclo Positivo
 hold on
-for i = 1:length(PosDisp)
-    drift = PosDisp(i)/Hw*100;
-    plot(eps_xx_height_PosCycle(:,i),height,'Marker',getprop(markers,i),'color',getprop(colors,i),'linestyle','--','HandleVisibility','off')
-    plot(RespLocalTest_PosCycle(:,i),RespLocalTest_Height,'Marker',getprop(markers,i),'color',getprop(colors,i),'linestyle','-','HandleVisibility','off')
+for i = 1:length(PosDispReducido)
+    plot(eps_xx_height_PosCycle(:,index(i)),height,'Marker',getprop(markers,i),'color',getprop(colors,i),'linestyle','--','HandleVisibility','off')
+    plot(RespLocalTest_PosCycle(:,index(i)),RespLocalTest_Height,'Marker',getprop(markers,i),'color',getprop(colors,i),'linestyle','-','HandleVisibility','off')
 end
 legend('Location', 'NorthEast')
 %text(0.0015, 700,datafolder, 'FontSize', 14);
@@ -354,25 +364,28 @@ grid on
 
 %figure()    % Ciclo Negativo
 %hold on
-for i = 1:length(PosDisp)
-    drift = PosDisp(i)/Hw*100;
-    plot(-1*(eps_xx_height_NegCycle(:,i)),height,'Marker',getprop(markers,i),'color',getprop(colors,i),'linestyle','--', 'HandleVisibility','off')
-    plot(-1*(RespLocalTest_NegCycle(:,i)),RespLocalTest_Height,'Marker',getprop(markers,i),'color',getprop(colors,i),'linestyle','-', 'DisplayName',[num2str(drift), '%'])
+for i = 1:length(PosDispReducido)
+    drift = PosDispReducido(i)/Hw*100;
+    plot(-1*(eps_xx_height_NegCycle(:,index(i))),height,'Marker',getprop(markers,i),'color',getprop(colors,i),'linestyle','--', 'HandleVisibility','off')
+    plot(-1*(RespLocalTest_NegCycle(:,index(i))),RespLocalTest_Height,'Marker',getprop(markers,i),'color',getprop(colors,i),'linestyle','-', 'DisplayName',[num2str(drift), '%'])
 end
-legend('Location', 'NorthEast')
+legend('Location', 'NorthEastOutside')
 %text(0.0015, 700,datafolder, 'FontSize', 14);
-text(-0.0028, 700,datafolder, 'FontSize', 12);
+text(-0.0028, 750,datafolder, 'FontSize', 12);
 %title('Local Response SW-T2-S3-4: Test vs Model - Negative Cycle')
 %xlabel('Horizontal Strain')
 %ylabel('Height (mm)')
-%xlim([-1e-4 0.005])
+xlim([-3e-3 3e-3])
 ylim([0 800])
 %xticks([0 0.001 0.002 0.003 0.004 0.005]);
 %yticks([0 100 200 300 400 500 600 700 800]);
 %xticklabels({'0', ' ', '0.002', ' ', '0.004', ' '});
+xticks(-3e-3:1e-3:3e-3);  % Establece las ubicaciones de las etiquetas
+xticklabels({'0.003', '0.002', '0.001','0', '0.001', '0.002', '0.003'});  % Etiquetas personalizadas
 grid on 
 box on
 hold off
+
 % We define the name for the results figure to be saved
 figureName = [datafolder '-HeightvsHorStrain_Panels_ModelvsTest'];
 % We save the figure
