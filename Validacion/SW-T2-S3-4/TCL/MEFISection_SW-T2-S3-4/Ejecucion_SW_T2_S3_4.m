@@ -12,7 +12,7 @@ datafolder_RCLMS01C02S02 = 'RCLMS01C02S02';
 datafolder_RCLMS01C06S02 = 'RCLMS01C06S02';
 
 modelname = 'RCLMS01C02S02';
-
+%%
 [~, ~, ~, ~, ~, ~] = plotGlobalResponse_SW_T2_S3_4(datafolder_RCLMS01C02S02, directoryTest, datafolder_RCLMS01C02S02);
 [~, ~, ~, ~, ~, ~] = plotGlobalResponse_SW_T2_S3_4(datafolder_RCLMS01C06S02, directoryTest, datafolder_RCLMS01C06S02);
 

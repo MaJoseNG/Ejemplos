@@ -200,14 +200,15 @@ colors = {'b','g','r','k','c','m'};
 getFirst = @(v)v{1}; 
 getprop = @(options, idx)getFirst(circshift(options,-idx+1));
 
+PosDispReducido = [6.8 13.6 26.8 56];   % Asi no se grafican todas las curvas
+
 figure()    % Ciclo Positivo
 hold on
-for i = 1:length(PosDisp)
-    drift = [0.28 0.38 0.56 0.75 1.1 1.5 2.3 3.1];
+for i = 1:length(PosDispReducido)
     plot(-NodeHorStrain_PosCycle(:,i),Height,'Marker',getprop(markers,i),'color',getprop(colors,i),'linestyle','--', 'HandleVisibility','off')
     plot(RespLocalTest_PosCycle(:,i),RespLocalTest_Height,'Marker',getprop(markers,i),'color',getprop(colors,i),'linestyle','-', 'HandleVisibility','off')
 end
-legend('Location', 'NorthEast')
+legend('Location', 'NorthEastOutside')
 %text(2e-3, 2300, datafolder, 'FontSize', 14);
 %title('Local Response RW-A20-P10-S38 (Nodes): Test vs Model - Positive Cycle')
 xlabel('Horizontal Strain')
@@ -222,21 +223,23 @@ grid on
 
 %figure()    % Ciclo Negativo
 %hold on
-for i = 1:length(PosDisp)
-    drift = [0.28 0.38 0.56 0.75 1.1 1.5 2.3 3.1];
+for i = 1:length(PosDispReducido)
+    drift = [0.28 0.56 1.1 2.3];
     plot(-1*(-NodeHorStrain_NegCycle(:,i)),Height,'Marker',getprop(markers,i),'color',getprop(colors,i),'linestyle','--','HandleVisibility','off')
     plot(-1*(RespLocalTest_NegCycle(:,i)),RespLocalTest_Height,'Marker',getprop(markers,i),'color',getprop(colors,i),'linestyle','-', 'DisplayName',[num2str(drift(i)), '%'])
 end
-legend('Location', 'NorthEast')
-text(-7e-3, 2300, datafolder, 'FontSize', 14);
+legend('Location', 'NorthEastOutside')
+text(-2.8e-3, 2300, datafolder, 'FontSize', 12);
 title('Respuesta Local RW-A20-P10-S38 (Nodos): Test vs Modelo')
 xlabel('Deformación Horizontal')
 ylabel('Altura (mm)')
-xlim([-8e-3 8e-3])
+xlim([-3e-3 3e-3])
 %ylim([0 800])
 %xticks([0 0.001 0.002 0.003 0.004 0.005]);
 %yticks([0 100 200 300 400 500 600 700 800]);
 %xticklabels({'0', ' ', '0.002', ' ', '0.004', ' '});
+xticks(-3e-3:1e-3:3e-3);  % Establece las ubicaciones de las etiquetas
+xticklabels({'0.003', '0.002', '0.001','0', '0.001', '0.002', '0.003'});  % Etiquetas personalizadas
 box on
 grid on
 hold off
@@ -343,12 +346,11 @@ getprop = @(options, idx)getFirst(circshift(options,-idx+1));
 
 figure()    % Ciclo Positivo
 hold on
-for i = 1:length(PosDisp)
-    drift = [0.28 0.38 0.56 0.75 1.1 1.5 2.3 3.1];
+for i = 1:length(PosDispReducido)
     plot(eps_xx_height_PosCycle(:,i),height,'Marker',getprop(markers,i),'color',getprop(colors,i),'linestyle','--', 'HandleVisibility','off')
     plot(RespLocalTest_PosCycle(:,i),RespLocalTest_Height,'Marker',getprop(markers,i),'color',getprop(colors,i),'linestyle','-', 'HandleVisibility','off')
 end
-legend('Location', 'NorthEast')
+legend('Location', 'NorthEastOutside')
 %text(2e-3, 2300, datafolder, 'FontSize', 14);
 title('Respuesta Local RW-A20-P10-S38: Test vs Modelo')
 xlabel('Deformación Horizontal')
@@ -364,21 +366,23 @@ grid on
 
 %figure()    % Ciclo Negativo
 %hold on
-for i = 1:length(PosDisp)
-    drift = [0.28 0.38 0.56 0.75 1.1 1.5 2.3 3.1];
+for i = 1:length(PosDispReducido)
+    drift = [0.28 0.56 1.1 2.3];
     plot(-1*(eps_xx_height_NegCycle(:,i)),height,'Marker',getprop(markers,i),'color',getprop(colors,i),'linestyle','--', 'HandleVisibility','off')
     plot(-1*(RespLocalTest_NegCycle(:,i)),RespLocalTest_Height,'Marker',getprop(markers,i),'color',getprop(colors,i),'linestyle','-', 'DisplayName',[num2str(drift(i)), '%'])
 end
-legend('Location', 'NorthEast')
-text(-7e-3, 2300, datafolder, 'FontSize', 14);
+legend('Location', 'NorthEastOutside')
+text(-2.8e-3, 2300, datafolder, 'FontSize', 12);
 %title('Local Response RW-A20-P10-S38: Test vs Model - Negative Cycle')
 %xlabel('Horizontal Strain')
 %ylabel('Height (mm)')
-xlim([-8e-3 8e-3])
+xlim([-3e-3 3e-3])
 %ylim([0 800])
 %xticks([0 0.001 0.002 0.003 0.004 0.005]);
 %yticks([0 100 200 300 400 500 600 700 800]);
 %xticklabels({'0', ' ', '0.002', ' ', '0.004', ' '});
+xticks(-3e-3:1e-3:3e-3);  % Establece las ubicaciones de las etiquetas
+xticklabels({'0.003', '0.002', '0.001','0', '0.001', '0.002', '0.003'});  % Etiquetas personalizadas
 grid on 
 box on
 hold off
