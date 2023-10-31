@@ -21,7 +21,6 @@ element MEFISection 3 5 6 8 7 $m_fibers -width $db $dw $dw $dw $dw $dw $dw $db -
 element MEFISection 4 7 8 10 9 $m_fibers -width $db $dw $dw $dw $dw $dw $dw $db -section 11 10 10 10 10 10 10 11;
 element MEFISection 5 9 10 12 11 $m_fibers -width $db $dw $dw $dw $dw $dw $dw $db -section 11 10 10 10 10 10 10 11;
 element MEFISection 6 11 12 14 13 $m_fibers -width $db $dw $dw $dw $dw $dw $dw $db -section 11 10 10 10 10 10 10 11;
-element MEFISection 7 13 14 16 15 $m_fibers -width $db $dw $dw $dw $dw $dw $dw $db -section 11 10 10 10 10 10 10 11;
+element MEFISection 7 13 14 16 15 $m_fibers -width $db $dw $dw $dw $dw $dw $dw $db -section 13 12 12 12 12 12 12 13;
 element MEFISection 8 15 16 18 17 $m_fibers -width $db $dw $dw $dw $dw $dw $dw $db -section 13 12 12 12 12 12 12 13;
-element MEFISection 9 17 18 20 19 $m_fibers -width $db $dw $dw $dw $dw $dw $dw $db -section 13 12 12 12 12 12 12 13;
 # ======================================== FIN MEFISECTION ============================================================

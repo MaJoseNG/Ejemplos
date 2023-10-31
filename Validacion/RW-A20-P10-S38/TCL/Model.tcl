@@ -23,10 +23,10 @@ source LibUnits.tcl
 # Datos para push para maximo drift
 #set dataDir RCLMS02C02S02-Push
 #set dataDir RCLMS01C02S02-Push
-#set dataDir RCLMS01C06S02-Push
+set dataDir RCLMS01C06S02-Push
 
 # Datos para push para maximo drift - Regularizacion de la respuesta segun largo de rotula plastica
-set dataDir RCLMS02C02S02-PushLp
+#set dataDir RCLMS02C02S02-PushLp
 #set dataDir RCLMS01C02S02-PushLp
 #set dataDir RCLMS01C06S02-PushLp
 
@@ -36,8 +36,8 @@ model BasicBuilder -ndm 2 -ndf 3;
 # --------------------------------------------
 # Set geometry, nodes, boundary conditions
 # --------------------------------------------
-#source Nodes.tcl;
-source Nodes_Lp.tcl;
+source Nodes.tcl;
+#source Nodes_Lp.tcl;
 # ------------------------------
 # Define materials
 # ------------------------------
