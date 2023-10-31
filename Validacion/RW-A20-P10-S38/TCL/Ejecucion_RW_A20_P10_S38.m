@@ -2,8 +2,8 @@ clc;clear all;
 %% ========================================================================
 % Global Response
 % =========================================================================
-directoryTest = 'C:\repos\Ejemplos\Validacion\RW-A20-P10-S38\Test\RW-A20-P10-S38_Test.txt';                           % PC Civil
-%directoryTest = 'C:\Users\maryj\Documents\GitHub\Ejemplos\Validacion\RW-A20-P10-S38\Test\RW-A20-P10-S38_Test.txt';     % Note
+%directoryTest = 'C:\repos\Ejemplos\Validacion\RW-A20-P10-S38\Test\RW-A20-P10-S38_Test.txt';                           % PC Civil
+directoryTest = 'C:\Users\maryj\Documents\GitHub\Ejemplos\Validacion\RW-A20-P10-S38\Test\RW-A20-P10-S38_Test.txt';     % Note
 
 datafolder_RCLMS02C02S02 = 'RCLMS02C02S02';    
 datafolder_RCLMS01C02S02 = 'RCLMS01C02S02';
