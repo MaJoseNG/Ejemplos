@@ -10,9 +10,9 @@ source LibUnits.tcl
 #set dataDir MEFISection-Concrete02
 #set dataDir MEFISection-Concrete06
 
-#set dataDir RCLMS02C02S02
-#set dataDir RCLMS01C02S02
-set dataDir RCLMS01C06S02
+set dataDir RCLMS02C02S02-2
+#set dataDir RCLMS01C02S02-2
+#set dataDir RCLMS01C06S02-2
 
 file mkdir $dataDir;# Create ModelBuilder for 3D element (with three-dimensions and 6 DOF/node)
 model BasicBuilder -ndm 2 -ndf 3;

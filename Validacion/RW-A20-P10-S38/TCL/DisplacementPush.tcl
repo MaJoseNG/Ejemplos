@@ -24,6 +24,7 @@ test $TestType $Tol $maxNumIter $printFlag
 algorithm $algorithmType;       
 analysis Static
 
+logFile "$dataDir.log"
 #################################################
 ## Define procedure for convergence control (recursive bisection)
 #proc analyzeStep {DispInc {epsilon 1e-4}} {
@@ -198,27 +199,43 @@ foreach Dmax $iDmax cycles $Ncycles {
                     set ok [analyze 1]
                 }
                 
+                if {$ok != 0} {
+                    puts "Trying Newton with Current Tangent .."
+                    test NormDispIncr $Tol 1000 0
+                    algorithm Newton
+                    set ok [analyze 1]
+                    test $TestType $Tol $maxNumIter 0
+                    algorithm $algorithmType
+                }
+                if {$ok != 0} {
+                    puts "Trying Newton with Initial Tangent .."
+                    test NormDispIncr 1.e-3 1000 0
+                    algorithm Newton -initial
+                    set reSolution [expr $reSolution + 1]
+                    set ok [analyze 1]
+                    test $TestType $Tol $maxNumIter 0
+                    algorithm $algorithmType 
+                }
                 #if {$ok != 0} {
-                #    puts "Trying Newton with Current Tangent .."
-                #    test NormDispIncr $Tol 1000 0
-                #    algorithm Newton
-                #    set ok [analyze 1]
-                #    test $TestType $Tol $maxNumIter 0
-                #    algorithm $algorithmType
-                #}
-                #if {$ok != 0} {
-                #    puts "Trying Newton with Initial Tangent .."
-                #    test NormDispIncr 0.01 2000 0
-                #    algorithm Newton -initial
-                #    set reSolution [expr $reSolution + 1]
+                #    puts "Trying Krylov .."
+                #    test NormDispIncr 1.e-4 1000 0
+                #    algorithm KrylovNewton
                 #    set ok [analyze 1]
                 #    test $TestType $Tol $maxNumIter 0
                 #    algorithm $algorithmType 
                 #}
                 #if {$ok != 0} {
-                #    puts "Trying Modified Newton .."
-                #    test NormDispIncr 0.01 2000 0
-                #    algorithm ModifiedNewton
+                #    puts "Trying Krylov with 10 times greater tolerance.."
+                #    test NormDispIncr 1.e-3 1000 0
+                #    algorithm KrylovNewton
+                #    set ok [analyze 1]
+                #    test $TestType $Tol $maxNumIter 0
+                #    algorithm $algorithmType 
+                #}
+                #if {$ok != 0} {
+                #    puts "Trying Krylov with 100 times greater tolerance.."
+                #    test NormDispIncr 1.e-2 1000 0
+                #    algorithm KrylovNewton
                 #    set ok [analyze 1]
                 #    test $TestType $Tol $maxNumIter 0
                 #    algorithm $algorithmType 
