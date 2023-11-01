@@ -6,7 +6,7 @@ function [LatLoad_Test, LatDisp_Test, DFlexure_Test, DShear_Test, LatLoad, NodeL
     %datafolder = 'MEFISection-Concrete02';
     %datafolder = 'RCLMS02C02S02';
     % We define the name of the directory to store the figures in
-    dir_name = 'Figuras';
+    dir_name = 'Figuras Regularizadas por largo de rot plast';
     %% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
     % Se cargan los datos del test
     Test = load(directoryTest);

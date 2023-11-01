@@ -9,12 +9,12 @@ source LP_LATERAL_Load_Pattern.tcl
 
 # ------------------------------
 set Tol 1.e-4;                          # Convergence Test: tolerance
-#set maxNumIter 1000;                    # Convergence Test: maximum number of iterations that will be performed before "failure to converge" is returned
-set maxNumIter 500;                    # Convergence Test: maximum number of iterations that will be performed before "failure to converge" is returned
+set maxNumIter 1000;                    # Convergence Test: maximum number of iterations that will be performed before "failure to converge" is returned
+#set maxNumIter 500;                    # Convergence Test: maximum number of iterations that will be performed before "failure to converge" is returned
 set printFlag 0;                        # Convergence Test: flag used to print information on convergence (optional)        # 1: print information on each step; 
 set TestType NormDispIncr;              # Convergence-test type
-#set algorithmType KrylovNewton;         # Algorithm type
-set algorithmType Newton;               # Algorithm type
+set algorithmType KrylovNewton;         # Algorithm type
+#set algorithmType Newton;               # Algorithm type
 
 constraints Transformation; 
 numberer RCM
@@ -22,6 +22,8 @@ system BandGeneral
 test $TestType $Tol $maxNumIter $printFlag
 algorithm $algorithmType;       
 analysis Static
+
+logFile "$dataDir.log"
 
 set fmt1 "%s Cyclic analysis: CtrlNode %.3i, dof %.1i, Disp=%.4f %s";   # format for screen/file output of DONE/PROBLEM analysis
 
@@ -97,48 +99,48 @@ foreach Dmax $iDmax cycles $Ncycles {
                 #    test $TestType $Tol $maxNumIter 0
                 #    algorithm $algorithmType 
                 #}
-                if {$ok != 0} {
-                    puts "Trying Newton with Initial Tangent .."
-                    #test NormDispIncr 0.01 2000 0
-                    test NormDispIncr 1.e-3 1000 0
-                    algorithm Newton -initial
-                    set reSolution [expr $reSolution + 1]
-                    set ok [analyze 1]
-                    test $TestType $Tol $maxNumIter 0
-                    algorithm $algorithmType 
-                }
                 #if {$ok != 0} {
-                #    puts "Trying Modified Newton .."
+                #    puts "Trying Newton with Initial Tangent .."
+                #    #test NormDispIncr 0.01 2000 0
                 #    test NormDispIncr 1.e-3 1000 0
-                #    algorithm ModifiedNewton
+                #    algorithm Newton -initial
+                #    set reSolution [expr $reSolution + 1]
                 #    set ok [analyze 1]
                 #    test $TestType $Tol $maxNumIter 0
                 #    algorithm $algorithmType 
                 #}
-                if {$ok != 0} {
-                    puts "Trying Krylov .."
-                    test NormDispIncr 1.e-4 1000 0
-                    algorithm KrylovNewton
-                    set ok [analyze 1]
-                    test $TestType $Tol $maxNumIter 0
-                    algorithm $algorithmType 
-                }
-                if {$ok != 0} {
-                puts "Trying Krylov with 10 times greater tolerance .."
-                    test NormDispIncr 1.e-3 1000 0
-                    algorithm KrylovNewton
-                    set ok [analyze 1]
-                    test $TestType $Tol $maxNumIter 0
-                    algorithm $algorithmType 
-                }
-                if {$ok != 0} {
-                puts "Trying Krylov with 100 times greater tolerance .."
-                    test NormDispIncr 1.e-2 1000 0
-                    algorithm KrylovNewton
-                    set ok [analyze 1]
-                    test $TestType $Tol $maxNumIter 0
-                    algorithm $algorithmType 
-                }
+                ##if {$ok != 0} {
+                ##    puts "Trying Modified Newton .."
+                ##    test NormDispIncr 1.e-3 1000 0
+                ##    algorithm ModifiedNewton
+                ##    set ok [analyze 1]
+                ##    test $TestType $Tol $maxNumIter 0
+                ##    algorithm $algorithmType 
+                ##}
+                #if {$ok != 0} {
+                #    puts "Trying Krylov .."
+                #    test NormDispIncr 1.e-4 1000 0
+                #    algorithm KrylovNewton
+                #    set ok [analyze 1]
+                #    test $TestType $Tol $maxNumIter 0
+                #    algorithm $algorithmType 
+                #}
+                #if {$ok != 0} {
+                #puts "Trying Krylov with 10 times greater tolerance .."
+                #    test NormDispIncr 1.e-3 1000 0
+                #    algorithm KrylovNewton
+                #    set ok [analyze 1]
+                #    test $TestType $Tol $maxNumIter 0
+                #    algorithm $algorithmType 
+                #}
+                #if {$ok != 0} {
+                #puts "Trying Krylov with 100 times greater tolerance .."
+                #    test NormDispIncr 1.e-2 1000 0
+                #    algorithm KrylovNewton
+                #    set ok [analyze 1]
+                #    test $TestType $Tol $maxNumIter 0
+                #    algorithm $algorithmType 
+                #}
 
                 ######### FORMA N°3 #####################################
                 #if {$ok != 0} {
@@ -189,34 +191,34 @@ foreach Dmax $iDmax cycles $Ncycles {
                 #}
                 ######### FIN FORMA N°3 ################################
                 ######### FORMA N°4 ####################################
-                #if {$ok != 0} {
-                #    puts "Trying Krylonv with 10 times greater tolerance ..  "
-                #    test $TestType [expr $Tol*10] $maxNumIter 0
-                #    set ok [analyze 1]
-                #}
-                #if {$ok != 0} {
-                #    puts "Trying Krylov with 100 times greater tolerance .."
-                #    test $TestType [expr $Tol*100] $maxNumIter 0
-                #    set ok [analyze 1]
-                #}
-                #
-                #if {$ok != 0} {
-                #    puts "Trying Newton with Current Tangent .."
-                #    test NormDispIncr $Tol 1000 0
-                #    algorithm Newton
-                #    set ok [analyze 1]
-                #    test $TestType $Tol $maxNumIter 0
-                #    algorithm $algorithmType
-                #}
-                #if {$ok != 0} {
-                #    puts "Trying Newton with Initial Tangent .."
-                #    test NormDispIncr 0.01 2000 0
-                #    algorithm Newton -initial
-                #    set reSolution [expr $reSolution + 1]
-                #    set ok [analyze 1]
-                #    test $TestType $Tol $maxNumIter 0
-                #    algorithm $algorithmType 
-                #}
+                if {$ok != 0} {
+                    puts "Trying Krylov with 10 times greater tolerance ..  "
+                    test $TestType [expr $Tol*10] $maxNumIter 0
+                    set ok [analyze 1]
+                }
+                if {$ok != 0} {
+                    puts "Trying Krylov with 100 times greater tolerance .."
+                    test $TestType [expr $Tol*100] $maxNumIter 0
+                    set ok [analyze 1]
+                }
+                
+                if {$ok != 0} {
+                    puts "Trying Newton with Current Tangent .."
+                    test NormDispIncr $Tol 1000 0
+                    algorithm Newton
+                    set ok [analyze 1]
+                    test $TestType $Tol $maxNumIter 0
+                    algorithm $algorithmType
+                }
+                if {$ok != 0} {
+                    puts "Trying Newton with Initial Tangent .."
+                    test NormDispIncr 1.e-3 1000 0
+                    algorithm Newton -initial
+                    set reSolution [expr $reSolution + 1]
+                    set ok [analyze 1]
+                    test $TestType $Tol $maxNumIter 0
+                    algorithm $algorithmType 
+                }
                 #if {$ok != 0} {
                 #    puts "Trying Modified Newton .."
                 #    test NormDispIncr 0.01 2000 0

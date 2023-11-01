@@ -7,7 +7,7 @@ function EnergyDissipation_RW_A20_P10_S38(datafolder,directoryTest)
 %datafolder = 'RCLMS02C02S02';
 %% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % We define the name of the directory to store the figures in
-dir_name = 'Figuras modelos';
+dir_name = 'Figuras dos eltos por largo de rot plast';
 %% ========================================================================
 % Energia disipada: Modelo
 % =========================================================================

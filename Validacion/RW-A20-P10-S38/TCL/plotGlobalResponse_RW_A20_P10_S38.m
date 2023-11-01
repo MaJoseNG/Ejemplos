@@ -6,7 +6,7 @@ function [LatLoad_Test, LatDisp_Test, DFlexure_Test, DShear_Test, LatLoad, NodeL
     %datafolder = 'MEFISection-Concrete02';
     %datafolder = 'RCLMS02C02S02';
     % We define the name of the directory to store the figures in
-    dir_name = 'Figuras modelos';
+    dir_name = 'Figuras dos eltos por largo de rot plast';
     %% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
     % Se cargan los datos del test
     Test = load(directoryTest);
@@ -339,7 +339,8 @@ function [LatLoad_Test, LatDisp_Test, DFlexure_Test, DShear_Test, LatLoad, NodeL
     nLevels = size(VertDisp,2)/2;
     lw = 1220;
   
-    x = [315.69,315.69,315.69,315.69,315.69,315.69,315.69,228.6];
+    %x = [315.69,315.69,315.69,315.69,315.69,315.69,315.69,228.6];
+    x = [305,305,319.96,319.96,319.96,319.96,319.96,228.6];
     h1 = sum(x);
     
     for i = 1:nSteps

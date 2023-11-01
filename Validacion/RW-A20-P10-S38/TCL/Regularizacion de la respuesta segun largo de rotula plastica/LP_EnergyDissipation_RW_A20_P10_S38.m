@@ -1,4 +1,4 @@
-function EnergyDissipation_RW_A20_P10_S38(datafolder,directoryTest)
+function LP_EnergyDissipation_RW_A20_P10_S38(datafolder,directoryTest)
 %% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %BORRAR
 %directoryTest = 'C:\repos\Ejemplos\Validacion\RW-A20-P10-S38\Test\RW-A20-P10-S38_Test.txt';     % PC Civil
@@ -7,7 +7,7 @@ function EnergyDissipation_RW_A20_P10_S38(datafolder,directoryTest)
 %datafolder = 'RCLMS02C02S02';
 %% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % We define the name of the directory to store the figures in
-dir_name = 'Figuras modelos';
+dir_name = 'Figuras Regularizadas por largo de rot plast';
 %% ========================================================================
 % Energia disipada: Modelo
 % =========================================================================

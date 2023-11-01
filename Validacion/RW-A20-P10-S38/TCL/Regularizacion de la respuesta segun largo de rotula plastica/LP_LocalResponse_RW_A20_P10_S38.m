@@ -1,7 +1,7 @@
-function LocalResponse_RW_A20_P10_S38(datafolder)
+function LP_LocalResponse_RW_A20_P10_S38(datafolder)
 
 % We define the name of the directory to store the figures in
-dir_name = 'Figuras modelos';
+dir_name = 'Figuras Regularizadas por largo de rot plast';
 
 NodeCtrlDisp = importdata(fullfile(datafolder,'NODE_DISP.out'));        % Control node
 NodeCtrlDispX = NodeCtrlDisp(:,2);    
@@ -107,7 +107,7 @@ hold off
 % =========================================================================
 % Inicializacion de estructura para almacenamiento de variables
 node_HorDisp = struct();
-for i = 3:18        % 18 nodos
+for i = 3:16        % 18 nodos
     % Se importa la informacion
     nombre = ['NodeDisp_x_' num2str(i)];
     file = ['NODE_DISPx_' num2str(i) '.out'];
@@ -123,7 +123,7 @@ for i = 1:numel(NodesDispx)
 end
 
 % Calculo de deformaciones a la altura de los nodos 
-nLevels = 8;
+nLevels = 7;
 nSteps = size(HorDisp, 1);
 
 for i = 1:nSteps
@@ -143,7 +143,7 @@ for i = 1:length(PosDisp)
     NodeHorStrain_NegCycle(:,i) = NodeHorStrain(:,LoadStepsMatrixNegCycle(i,1)); % Se identifican los LoadSteps para cada drift para el ciclo 1
 end
 
-Height = [315.69 631.37 947.06 1262.74 1578.43 1894.11 2209.8 2438.4]; 
+Height = [610 929.96 1249.92 1569.88 1889.84 2209.8 2438.4]; 
 
 figure()
 for i = 1:length(PosDisp)
@@ -231,7 +231,7 @@ for i = 1:length(PosDispReducido)
     plot(-1*(RespLocalTest_NegCycle(:,index(i))),RespLocalTest_Height,'Marker',getprop(markers,i),'color',getprop(colors,i),'linestyle','-', 'DisplayName',[num2str(drift(i)), '%'])
 end
 legend('Location', 'NorthEastOutside')
-text(-5.5e-3, 2300, datafolder, 'FontSize', 12);
+text(-5.8e-3, 2300, datafolder, 'FontSize', 11);
 title('Respuesta Local RW-A20-P10-S38 (Nodos): Test vs Modelo')
 xlabel('Deformación Horizontal')
 ylabel('Altura (mm)')
@@ -254,7 +254,7 @@ print(fullfile(dir_name,figureName),'-dpng')
 % =====================================================================
 % Iniacializacion de estructura para almacenamiento de variables
 panel_strain = struct();
-for i = 1:8         % 8 elementos
+for i = 1:7         % 7 elementos
     for j = 1:8     % 8 paneles
         % Se importa la informacion
         nombre = ['epsE' num2str(i) 'P' num2str(j)];
@@ -273,7 +273,7 @@ end
 
 % Se suman(?) las deformaciones horizontales por piso
 nSteps = size(eps_xx, 1);
-nLevels = 8;
+nLevels = 7;
 
 for i = 1:nSteps
     for j = 1:nLevels
@@ -294,7 +294,7 @@ for i = 1:length(PosDisp)
     eps_xx_height_NegCycle(:,i) = eps_xx_height(:,LoadStepsMatrixNegCycle(i,1)); % Se identifican los LoadSteps para cada drift para el ciclo 1
 end
 
-height = [157.85 473.53 789.22 1104.90 1420.59 1736.27 2051.96 2324.10];
+height = [305 769.98 1089.94 1409.9 1729.86 2049.82 2324.1];
 
 figure()
 for i = 1:length(PosDisp)
@@ -374,7 +374,7 @@ for i = 1:length(PosDispReducido)
     plot(-1*(RespLocalTest_NegCycle(:,index(i))),RespLocalTest_Height,'Marker',getprop(markers,i),'color',getprop(colors,i),'linestyle','-', 'DisplayName',[num2str(drift(i)), '%'])
 end
 legend('Location', 'NorthEastOutside')
-text(-5.5e-3, 2300, datafolder, 'FontSize', 12);
+text(-5.8e-3, 2300, datafolder, 'FontSize', 11);
 %title('Local Response RW-A20-P10-S38: Test vs Model - Negative Cycle')
 %xlabel('Horizontal Strain')
 %ylabel('Height (mm)')
