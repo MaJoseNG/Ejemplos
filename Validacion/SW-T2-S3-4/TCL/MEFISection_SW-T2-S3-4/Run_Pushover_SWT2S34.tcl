@@ -9,9 +9,9 @@
 set startTime [clock clicks -milliseconds]
 
 # Run gravity analysis and generate the model
-#source Model_SWT2S34_RCLMS01_Conc02_Steel02.tcl;
+source Model_SWT2S34_RCLMS01_Conc02_Steel02.tcl;
 #source Model_SWT2S34_RCLMS01_Conc06_Steel02.tcl;
-source Model_SWT2S34_RCLMS02_FSAM_Conc02_Steel02.tcl;
+#source Model_SWT2S34_RCLMS02_FSAM_Conc02_Steel02.tcl;
 source SW_S34_StaticVerticalAnalysis.tcl;
 puts "Model generated and gravity load applied successfully"
 
@@ -29,8 +29,8 @@ set iDmax "0.05 0.1 0.15 0.2 0.3 0.4 0.6 0.8 1.0 1.2 1.4 1.6 1.8 2.0 2.4";
 #set iDmax "2.4";
 set Dincr 0.15;                 # Paso para Concrete02
 #set Dincr 0.10;                 # Paso para FSAM
-#set Ncycles 3;                  # specify the number of cycles at each peak
-set Ncycles 1;                  # specify the number of cycles at each peak
+set Ncycles 3;                  # specify the number of cycles at each peak
+#set Ncycles 1;                  # specify the number of cycles at each peak
 set CycleType Full;             # type of cyclic analysis: Full / Push / Half 
 #set CycleType Push;             # type of cyclic analysis: Full / Push / Half 
 ##set Fact [expr 950.0/100];      # scale drift ratio by storey height for displacement cycles

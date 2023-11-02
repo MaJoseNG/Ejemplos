@@ -1,0 +1,138 @@
+Load Step: 1
+Load Step: 2
+Load Step: 3
+Load Step: 4
+Load Step: 5
+Load Step: 6
+Load Step: 7
+Load Step: 8
+Load Step: 9
+Load Step: 10
+Load Step: 11
+Load Step: 12
+Load Step: 13
+Load Step: 14
+Load Step: 15
+Load Step: 16
+Load Step: 17
+Load Step: 18
+Load Step: 19
+Load Step: 20
+Load Step: 21
+Load Step: 22
+Load Step: 23
+Load Step: 24
+Load Step: 25
+Load Step: 26
+Load Step: 27
+Load Step: 28
+Load Step: 29
+Load Step: 30
+Load Step: 31
+Load Step: 32
+Load Step: 33
+Load Step: 34
+Load Step: 35
+Load Step: 36
+Load Step: 37
+Load Step: 38
+Load Step: 39
+Load Step: 40
+Load Step: 41
+Load Step: 42
+Load Step: 43
+Load Step: 44
+Load Step: 45
+Load Step: 46
+Load Step: 47
+Load Step: 48
+Load Step: 49
+Load Step: 50
+Load Step: 51
+Load Step: 52
+Load Step: 53
+Load Step: 54
+Load Step: 55
+Load Step: 56
+Load Step: 57
+Load Step: 58
+Load Step: 59
+Load Step: 60
+Load Step: 61
+Load Step: 62
+Load Step: 63
+Load Step: 64
+Load Step: 65
+Load Step: 66
+Load Step: 67
+Load Step: 68
+Load Step: 69
+Load Step: 70
+Load Step: 71
+Load Step: 72
+Load Step: 73
+Load Step: 74
+Load Step: 75
+Load Step: 76
+Load Step: 77
+Load Step: 78
+Load Step: 79
+Load Step: 80
+Load Step: 81
+Load Step: 82
+Load Step: 83
+Load Step: 84
+Load Step: 85
+Load Step: 86
+Load Step: 87
+Load Step: 88
+Load Step: 89
+Load Step: 90
+Load Step: 91
+Load Step: 92
+Load Step: 93
+Load Step: 94
+Load Step: 95
+Load Step: 96
+Load Step: 97
+Load Step: 98
+Load Step: 99
+Load Step: 100
+Load Step: 101
+Load Step: 102
+Load Step: 103
+Load Step: 104
+Load Step: 105
+Load Step: 106
+Load Step: 107
+Load Step: 108
+Load Step: 109
+Load Step: 110
+Load Step: 111
+Load Step: 112
+Load Step: 113
+Load Step: 114
+Load Step: 115
+Load Step: 116
+Load Step: 117
+Load Step: 118
+Load Step: 119
+Load Step: 120
+Load Step: 121
+DONE Cyclic analysis: CtrlNode 016, dof 1, Disp=18.0000 mm
+
+ Node: 16
+	Coordinates  : 0 750 
+	Disps: 18 7.8644 -0.00584601 
+	 unbalanced Load: 40258.5 0 0 
+	 reaction: -2829.66 -0.000348802 -0.0437121 
+	ID : 18 19 20 
+
+
+----------------------------------
+
+
+TOTAL TIME TAKEN 0:0:2
+Initial stiffness used 0 times
+
+----------------------------------

@@ -8,10 +8,10 @@ set Fy_b  473.0;                            # [MPa]
 
 set Es 200000.0;                            # [MPa]
 set OrientationEmbeddedSteel 0.0;
-#set R0  18.0;         #funciona mal pero funciona
-set R0  20.0;               
-#set CR1 0.9;     
-set CR1 0.925;                 
+set R0  18.0;         #funciona mal pero funciona
+#set R0  20.0;               
+set CR1 0.9;     
+#set CR1 0.925;                 
 set CR2 0.15;          
 set b   0.008;
           

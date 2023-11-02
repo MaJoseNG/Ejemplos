@@ -1,0 +1,64 @@
+Load Step: 1
+Load Step: 2
+Load Step: 3
+Load Step: 4
+Load Step: 5
+Load Step: 6
+Load Step: 7
+Load Step: 8
+Load Step: 9
+Load Step: 10
+WARNING: CTestNormDispIncr::test() - failed to converge 
+after: 1000 iterations  current Norm: 1.71217e+10 (max: 0.0001, Norm deltaR: 3.05309e+08)
+AcceleratedNewton::solveCurrentStep() -The ConvergenceTest object failed in test()
+StaticAnalysis::analyze() - the Algorithm failed at step: 0 with domain at load factor 7.02038
+OpenSees > analyze failed, returned: -3 error flag
+Trying Newton with Current Tangent ..
+WARNING BandGenLinLapackSolver::solve() -factorization failed, matrix singular U(i,i) = 0, i= 0
+WARNING BandGenLinLapackSolver::solve() -factorization failed, matrix singular U(i,i) = 0, i= 0
+WARNING BandGenLinLapackSolver::solve() -factorization failed, matrix singular U(i,i) = 0, i= 0
+WARNING BandGenLinLapackSolver::solve() -factorization failed, matrix singular U(i,i) = 0, i= 0
+WARNING BandGenLinLapackSolver::solve() -factorization failed, matrix singular U(i,i) = 0, i= 0
+WARNING BandGenLinLapackSolver::solve() -factorization failed, matrix singular U(i,i) = 0, i= 0
+WARNING BandGenLinLapackSolver::solve() -factorization failed, matrix singular U(i,i) = 0, i= 0
+WARNING BandGenLinLapackSolver::solve() -factorization failed, matrix singular U(i,i) = 0, i= 0
+WARNING BandGenLinLapackSolver::solve() -factorization failed, matrix singular U(i,i) = 0, i= 0
+WARNING BandGenLinLapackSolver::solve() -factorization failed, matrix singular U(i,i) = 0, i= 0
+WARNING BandGenLinLapackSolver::solve() -factorization failed, matrix singular U(i,i) = 0, i= 0
+WARNING BandGenLinLapackSolver::solve() -factorization failed, matrix singular U(i,i) = 0, i= 0
+WARNING BandGenLinLapackSolver::solve() -factorization failed, matrix singular U(i,i) = 0, i= 0
+WARNING BandGenLinLapackSolver::solve() -factorization failed, matrix singular U(i,i) = 0, i= 0
+WARNING BandGenLinLapackSolver::solve() -factorization failed, matrix singular U(i,i) = 0, i= 0
+WARNING BandGenLinLapackSolver::solve() -factorization failed, matrix singular U(i,i) = 0, i= 0
+WARNING BandGenLinLapackSolver::solve() -factorization failed, matrix singular U(i,i) = 0, i= 0
+WARNING BandGenLinLapackSolver::solve() -factorization failed, matrix singular U(i,i) = 0, i= 0
+WARNING BandGenLinLapackSolver::solve() -factorization failed, matrix singular U(i,i) = 0, i= 0
+WARNING BandGenLinLapackSolver::solve() -factorization failed, matrix singular U(i,i) = 0, i= 0
+WARNING: CTestNormDispIncr::test() - failed to converge 
+after: 139 iterations  current Norm: inf (max: 0.0001, Norm deltaR: inf)
+NewtonRaphson::solveCurrentStep() -the ConvergenceTest object failed in test()
+StaticAnalysis::analyze() - the Algorithm failed at step: 0 with domain at load factor 9.17397e+150
+OpenSees > analyze failed, returned: -3 error flag
+Trying Newton with Initial Tangent ..
+WARNING: CTestNormDispIncr::test() - failed to converge 
+after: 241 iterations  current Norm: inf (max: 0.001, Norm deltaR: inf)
+NewtonRaphson::solveCurrentStep() -the ConvergenceTest object failed in test()
+StaticAnalysis::analyze() - the Algorithm failed at step: 0 with domain at load factor -1.47124e+157
+OpenSees > analyze failed, returned: -3 error flag
+PROBLEM Cyclic analysis: CtrlNode 016, dof 1, Disp=0.0750 mm
+
+ Node: 16
+	Coordinates  : 0 750 
+	Disps: 0.075 0.0702315 -8.35448e-05 
+	 unbalanced Load: 6015.02 0 0 
+	 reaction: -5752.54 -1.21872e-10 -3.27127e-08 
+	ID : 18 19 20 
+
+
+----------------------------------
+
+
+TOTAL TIME TAKEN 0:0:3
+Initial stiffness used 1 times
+
+----------------------------------

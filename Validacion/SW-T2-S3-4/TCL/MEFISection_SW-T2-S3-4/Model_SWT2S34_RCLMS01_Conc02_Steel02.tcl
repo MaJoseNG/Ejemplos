@@ -11,7 +11,7 @@ source LibUnits.tcl
 #set dataDir MEFISection_SW-T2-S3-4_RCLMS01_Conc02_Steel02_ecu_003
 #set dataDir MEFISection_SW-T2-S3-4_RCLMS01_Conc02_Steel02_Monotonico_1_89_ecu_0041
 
-set dataDir RCLMS01C02S02
+set dataDir RCLMS01C02S02-3
 file mkdir $dataDir;
 
 # Create ModelBuilder for 2D element (with two-dimensions and 3 DOF/node)

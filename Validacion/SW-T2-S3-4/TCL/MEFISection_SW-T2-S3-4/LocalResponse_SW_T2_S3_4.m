@@ -1,4 +1,4 @@
-function LocalResponse_SW_T2_S3_4(datafolder)
+function LocalResponse_SW_T2_S3_4(datafolder, model_name)
 %datafolder = 'MEFISection_SW-T2-S3-4_RCLMS01_Conc02_Steel02_NUEVO_recordersHeightvsHorStrain_v2';
 % We define the name of the directory to store the figures in
 dir_name = 'Figuras modelos';
@@ -62,7 +62,7 @@ title('Local Response SW-T2-S3-4: Test - Positive Cycle')
 xlabel('Horizontal Strain')
 ylabel('Height (mm)')
 legend('0.05%','0.10%','0.15%','0.20%', '0.30%', '0.40%', '0.60%', '0.80%', '1%')
-text(0.0015, 700,datafolder, 'FontSize', 14);
+text(0.0015, 700,model_name, 'FontSize', 14);
 xlim([-1e-4 0.005])
 ylim([0 800])
 xticks([0 0.001 0.002 0.003 0.004 0.005]);
@@ -145,7 +145,7 @@ for i = 1:length(PosDisp)
     hold on
 end
 legend('Location', 'NorthEast')
-text(0.0015, 700,datafolder, 'FontSize', 14);
+text(0.0015, 700,model_name, 'FontSize', 14);
 title('Local Response SW-T2-S3-4 (Nodes): Model - Positive Cycle')
 xlabel('Horizontal Strain')
 ylabel('Height(mm)')
@@ -166,7 +166,7 @@ for i = 1:length(PosDisp)
     hold on
 end
 legend('Location', 'NorthEast')
-text(0.0015, 700,datafolder, 'FontSize', 14);
+text(0.0015, 700,model_name, 'FontSize', 14);
 title('Local Response SW-T2-S3-4 (Nodes): Model - Negative Cycle')
 xlabel('Horizontal Strain')
 ylabel('Height(mm)')
@@ -221,7 +221,7 @@ for i = 1:length(PosDispReducido)
 end
 legend('Location', 'NorthEastOutside')
 %text(0.0015, 700,datafolder, 'FontSize', 14);
-text(-0.0028, 750,datafolder, 'FontSize', 12);
+text(-0.0028, 750,model_name, 'FontSize', 12);
 title('Respuesta Local SW-T2-S3-4 (Nodos): Test vs Modelo')
 xlabel('Deformación Horizontal')
 ylabel('Altura (mm)')
@@ -295,7 +295,7 @@ for i = 1:length(PosDisp)
     hold on
 end
 legend('Location', 'NorthEast')
-text(0.0015, 700,datafolder, 'FontSize', 14);
+text(0.0015, 700,model_name, 'FontSize', 14);
 title('Local Response SW-T2-S3-4: Model - Positive Cycle')
 xlabel('Horizontal Strain')
 ylabel('Height(mm)')
@@ -316,7 +316,7 @@ for i = 1:length(PosDisp)
     hold on
 end
 legend('Location', 'NorthEast')
-text(0.0015, 700,datafolder, 'FontSize', 14);
+text(0.0015, 700,model_name, 'FontSize', 14);
 title('Local Response SW-T2-S3-4: Model - Negative Cycle')
 xlabel('Horizontal Strain')
 ylabel('Height(mm)')
@@ -371,7 +371,7 @@ for i = 1:length(PosDispReducido)
 end
 legend('Location', 'NorthEastOutside')
 %text(0.0015, 700,datafolder, 'FontSize', 14);
-text(-0.0028, 750,datafolder, 'FontSize', 12);
+text(-0.0028, 750,model_name, 'FontSize', 12);
 %title('Local Response SW-T2-S3-4: Test vs Model - Negative Cycle')
 %xlabel('Horizontal Strain')
 %ylabel('Height (mm)')
@@ -400,7 +400,7 @@ for i = 1:length(PosDisp)
     plot(eps_xx_height_PosCycle(:,i),height,'Marker',getprop(markers,i),'color',getprop(colors,i),'linestyle','--', 'DisplayName',['Model (Panels) - ', num2str(drift), '%'])
 end
 legend('Location', 'NorthEast')
-text(0.0015, 700,datafolder, 'FontSize', 14);
+text(0.0015, 700,model_name, 'FontSize', 14);
 title('Local Response SW-T2-S3-4 Model: Nodes vs Panels - Positive Cycle')
 xlabel('Horizontal Strain')
 ylabel('Height (mm)')
@@ -421,7 +421,7 @@ for i = 1:length(PosDisp)
     plot(eps_xx_height_NegCycle(:,i),height,'Marker',getprop(markers,i),'color',getprop(colors,i),'linestyle','--', 'DisplayName',['Model (Panels) - ', num2str(drift), '%'])
 end
 legend('Location', 'NorthEast')
-text(0.0015, 700,datafolder, 'FontSize', 14);
+text(0.0015, 700,model_name, 'FontSize', 14);
 title('Local Response SW-T2-S3-4 Model: Nodes vs Panels - Negative Cycle')
 xlabel('Horizontal Strain')
 ylabel('Height (mm)')

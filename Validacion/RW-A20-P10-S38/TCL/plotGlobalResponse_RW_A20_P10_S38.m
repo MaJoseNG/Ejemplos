@@ -1,4 +1,4 @@
-function [LatLoad_Test, LatDisp_Test, DFlexure_Test, DShear_Test, LatLoad, NodeLateralDisp] = plotGlobalResponse_RW_A20_P10_S38(datafolder, directoryTest)
+function [LatLoad_Test, LatDisp_Test, DFlexure_Test, DShear_Test, LatLoad, NodeLateralDisp] = plotGlobalResponse_RW_A20_P10_S38(datafolder, directoryTest, model_name)
     %% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
     %BORRAR
     %directoryTest = 'C:\repos\Ejemplos\Validacion\RW-A20-P10-S38\Test\RW-A20-P10-S38_Test.txt';     % PC Civil
@@ -72,7 +72,7 @@ function [LatLoad_Test, LatDisp_Test, DFlexure_Test, DShear_Test, LatLoad, NodeL
     
     % Se grafica la respuesta global del modelo
     figure()
-    plot(NodeLateralDisp,-LatLoad/1000,'DisplayName',datafolder)
+    plot(NodeLateralDisp,-LatLoad/1000,'DisplayName',model_name)
     xlabel('Desplazamiento Lateral (mm)')
     ylabel('Carga Lateral (kN)')
     title('Respuesta Global RW-A20-P10-S38: Model')
@@ -86,7 +86,7 @@ function [LatLoad_Test, LatDisp_Test, DFlexure_Test, DShear_Test, LatLoad, NodeL
     figure()
     hold on
     plot(LatDisp_Test,LatLoad_Test,'-k', 'DisplayName', 'Test')
-    plot(NodeLateralDisp,-LatLoad/1000,'--r','DisplayName', datafolder)
+    plot(NodeLateralDisp,-LatLoad/1000,'--r','DisplayName', model_name)
     xlim([-100 100])
     ylim([-600 600])
     xlabel('Desplazamiento Lateral (mm)')
@@ -357,7 +357,7 @@ function [LatLoad_Test, LatDisp_Test, DFlexure_Test, DShear_Test, LatLoad, NodeL
     Uf_total = sum(UfPiso,2);
     
     figure()
-    plot(Uf_total,-LatLoad/1000,'DisplayName',datafolder)
+    plot(Uf_total,-LatLoad/1000,'DisplayName',model_name)
     xlabel('Lateral Flexural Displacement (mm)')
     ylabel('Lateral Load (kN)')
     legend('Location', 'NorthWest')
@@ -374,7 +374,7 @@ function [LatLoad_Test, LatDisp_Test, DFlexure_Test, DShear_Test, LatLoad, NodeL
     % Shear deformations component: Ushear = Utotal - Uf
     Us_resta = NodeLateralDisp-Uf_total;
     figure()
-    plot(Us_resta,-LatLoad/1000,'DisplayName',datafolder)
+    plot(Us_resta,-LatLoad/1000,'DisplayName',model_name)
     xlabel('Lateral Shear Displacement (mm)')
     ylabel('Lateral Load (kN)')
     legend('Location', 'NorthWest')
@@ -388,7 +388,7 @@ function [LatLoad_Test, LatDisp_Test, DFlexure_Test, DShear_Test, LatLoad, NodeL
     figure()
     hold on
     plot(DShear_Test,LatLoad_Test,'-k', 'DisplayName', 'Test')
-    plot(Us_resta,-LatLoad/1000,'--r','DisplayName', datafolder)
+    plot(Us_resta,-LatLoad/1000,'--r','DisplayName', model_name)
     xlabel('Desplazamiento Lateral por Corte (mm)')
     ylabel('Carga Lateral (kN)')
     xlim([-100 100])
@@ -406,7 +406,7 @@ function [LatLoad_Test, LatDisp_Test, DFlexure_Test, DShear_Test, LatLoad, NodeL
     figure()
     hold on
     plot(DFlexure_Test,LatLoad_Test,'-k','DisplayName','Test')
-    plot(Uf_total,-LatLoad/1000,'--r','DisplayName',datafolder)
+    plot(Uf_total,-LatLoad/1000,'--r','DisplayName',model_name)
     xlabel('Desplazamiento Lateral por Flexión (mm)')
     ylabel('Carga Lateral (kN)')
     xlim([-100 100])

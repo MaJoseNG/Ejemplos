@@ -8,24 +8,28 @@ directoryTest = 'C:\Users\maryj\Documents\GitHub\Ejemplos\Validacion\RW-A20-P10-
 datafolder_RCLMS02C02S02 = 'RCLMS02C02S02-2Lp';    
 datafolder_RCLMS01C02S02 = 'RCLMS01C02S02-2Lp';
 datafolder_RCLMS01C06S02 = 'RCLMS01C06S02-2Lp';
+
+modelname_RCLMS02C02S02 = 'RCLMS02C02S02';
+modelname_RCLMS01C02S02 = 'RCLMS01C02S02';
+modelname_RCLMS01C06S02 = 'RCLMS01C06S02';
 %%
-[~, ~, ~, ~, ~, ~] = plotGlobalResponse_RW_A20_P10_S38(datafolder_RCLMS02C02S02, directoryTest);
-[~, ~, ~, ~, ~, ~] = plotGlobalResponse_RW_A20_P10_S38(datafolder_RCLMS01C02S02, directoryTest);
-[~, ~, ~, ~, ~, ~] = plotGlobalResponse_RW_A20_P10_S38(datafolder_RCLMS01C06S02, directoryTest);
+[~, ~, ~, ~, ~, ~] = plotGlobalResponse_RW_A20_P10_S38(datafolder_RCLMS02C02S02, directoryTest, modelname_RCLMS02C02S02);
+[~, ~, ~, ~, ~, ~] = plotGlobalResponse_RW_A20_P10_S38(datafolder_RCLMS01C02S02, directoryTest, modelname_RCLMS01C02S02);
+[~, ~, ~, ~, ~, ~] = plotGlobalResponse_RW_A20_P10_S38(datafolder_RCLMS01C06S02, directoryTest, modelname_RCLMS01C06S02);
 
 %% ========================================================================
 % Local Response
 % =========================================================================
-LocalResponse_RW_A20_P10_S38(datafolder_RCLMS02C02S02)
-LocalResponse_RW_A20_P10_S38(datafolder_RCLMS01C02S02)
-LocalResponse_RW_A20_P10_S38(datafolder_RCLMS01C06S02)
+LocalResponse_RW_A20_P10_S38(datafolder_RCLMS02C02S02, modelname_RCLMS02C02S02)
+LocalResponse_RW_A20_P10_S38(datafolder_RCLMS01C02S02, modelname_RCLMS01C02S02)
+LocalResponse_RW_A20_P10_S38(datafolder_RCLMS01C06S02, modelname_RCLMS01C06S02)
 
 %% ========================================================================
 % Energy dissipation
 % =========================================================================
-EnergyDissipation_RW_A20_P10_S38(datafolder_RCLMS02C02S02,directoryTest)
-EnergyDissipation_RW_A20_P10_S38(datafolder_RCLMS01C02S02,directoryTest)
-EnergyDissipation_RW_A20_P10_S38(datafolder_RCLMS01C06S02,directoryTest)
+EnergyDissipation_RW_A20_P10_S38(datafolder_RCLMS02C02S02,directoryTest, modelname_RCLMS02C02S02)
+EnergyDissipation_RW_A20_P10_S38(datafolder_RCLMS01C02S02,directoryTest, modelname_RCLMS01C02S02)
+EnergyDissipation_RW_A20_P10_S38(datafolder_RCLMS01C06S02,directoryTest, modelname_RCLMS01C06S02)
 
 %% Damage Factor: beta_d
 beta_d1 =@(x) 1/(1+0.1*x^0.5);        % pre-cracking

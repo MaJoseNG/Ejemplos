@@ -1,4 +1,4 @@
-function EnergyDissipation_SW_T2_S3_4(datafolder,directoryTest)
+function EnergyDissipation_SW_T2_S3_4(datafolder,directoryTest, model_name)
 %% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % %BORRAR 
 % datafolder = 'MEFISection_SW-T2-S3-4_RCLMS01_Conc02_Steel02_NUEVO_recordersHeightvsHorStrain_v3';
@@ -41,7 +41,7 @@ hold on
 plot(drift,Edrift,'-o')
 plot(drift,Ecum_drift,'-o')
 legend('Energía disipada por deriva','Energía disipada acumulada')
-title(['Energía disipada SW-T2-S3-4: Modelo ', datafolder])
+title(['Energía disipada SW-T2-S3-4: Modelo ', model_name])
 xlabel('Deriva [%]')
 ylabel('Energía Disipada [kNmm]')
 box on
@@ -97,7 +97,7 @@ plot(drift,Edrift_Test,'-or','DisplayName','Energia disipada por deriva')
 plot(drift,Ecum_drift_Test,'-ok','DisplayName','Energía disipada acumulada')
 xticks([0 0.2 0.4 0.6 0.8 1 1.2 1.4 1.6 1.8 2 2.4]);
 legend('Location', 'NorthWest')
-title(['SW-T2-S3-4: Modelo ', datafolder])
+title(['SW-T2-S3-4: Modelo ', model_name])
 xlabel('Deriva (%)')
 ylabel('Energía Disipada (kNmm)')
 box on
@@ -152,7 +152,7 @@ end
 % Configurar etiquetas y título
 xlabel('Desplazamiento Lateral (mm)');
 ylabel('Carga Lateral (kN)');
-title(['Energía disipada SW-T2-S3-4: Modelo', datafolder])
+title(['Energía disipada SW-T2-S3-4: Modelo', model_name])
 
 % Mostrar el área total en el gráfico
 %subplot(2, 1, 2);

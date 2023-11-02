@@ -1,4 +1,4 @@
-function LocalResponse_RW_A20_P10_S38(datafolder)
+function LocalResponse_RW_A20_P10_S38(datafolder, model_name)
 
 % We define the name of the directory to store the figures in
 dir_name = 'Figuras dos eltos por largo de rot plast';
@@ -68,7 +68,7 @@ title('Local Response RW-A20-P10-S38: Test - Positive Cycle')
 xlabel('Horizontal Strain')
 ylabel('Height (mm)')
 legend('0.28%','0.38%','0.56%','0.75%', '1.1%', '1.5%', '2.3%', '3.1%')
-text(2e-3, 2300,datafolder, 'FontSize', 14);
+text(2e-3, 2300,model_name, 'FontSize', 14);
 %xlim([-1e-4 0.005])
 %ylim([0 800])
 %xticks([0 0.001 0.002 0.003 0.004 0.005]);
@@ -91,7 +91,7 @@ title('Local Response RW-A20-P10-S38: Test - Negative Cycle')
 xlabel('Horizontal Strain')
 ylabel('Height (mm)')
 legend('0.28%','0.38%','0.56%','0.75%', '1.1%', '1.5%', '2.3%', '3.1%')
-text(2e-3, 2300, datafolder, 'FontSize', 14);
+text(2e-3, 2300, model_name, 'FontSize', 14);
 %xlim([-1e-4 0.005])
 %ylim([0 800])
 %xticks([0 0.001 0.002 0.003 0.004 0.005]);
@@ -154,7 +154,7 @@ for i = 1:length(PosDisp)
     hold on
 end
 legend('Location', 'NorthEast')
-text(2e-3, 2300, datafolder, 'FontSize', 14);
+text(2e-3, 2300, model_name, 'FontSize', 14);
 title('Local Response RW-A20-P10-S38 (Nodes): Model - Positive Cycle')
 xlabel('Horizontal Strain')
 ylabel('Height(mm)')
@@ -178,7 +178,7 @@ for i = 1:length(PosDisp)
     hold on
 end
 legend('Location', 'NorthEast')
-text(2e-3, 2300, datafolder, 'FontSize', 14);
+text(2e-3, 2300, model_name, 'FontSize', 14);
 title('Local Response RW-A20-P10-S38 (Nodes): Model - Negative Cycle')
 xlabel('Horizontal Strain')
 ylabel('Height(mm)')
@@ -232,7 +232,7 @@ for i = 1:length(PosDispReducido)
     plot(-1*(RespLocalTest_NegCycle(:,index(i))),RespLocalTest_Height,'Marker',getprop(markers,i),'color',getprop(colors,i),'linestyle','-', 'DisplayName',[num2str(drift(i)), '%'])
 end
 legend('Location', 'NorthEastOutside')
-text(-5.8e-3, 2300, datafolder, 'FontSize', 11);
+text(-5.8e-3, 2300, model_name, 'FontSize', 12);
 title('Respuesta Local RW-A20-P10-S38 (Nodos): Test vs Modelo')
 xlabel('Deformación Horizontal')
 ylabel('Altura (mm)')
@@ -305,7 +305,7 @@ for i = 1:length(PosDisp)
     hold on
 end
 legend('Location', 'NorthEast')
-text(2e-3, 2300, datafolder, 'FontSize', 14);
+text(2e-3, 2300, model_name, 'FontSize', 14);
 title('Local Response RW-A20-P10-S38: Model - Positive Cycle')
 xlabel('Horizontal Strain')
 ylabel('Height(mm)')
@@ -326,7 +326,7 @@ for i = 1:length(PosDisp)
     hold on
 end
 legend('Location', 'NorthEast')
-text(2e-3, 2300, datafolder, 'FontSize', 14);
+text(2e-3, 2300, model_name, 'FontSize', 14);
 title('Local Response RW-A20-P10-S38: Model - Negative Cycle')
 xlabel('Horizontal Strain')
 ylabel('Height(mm)')
@@ -376,7 +376,7 @@ for i = 1:length(PosDispReducido)
     plot(-1*(RespLocalTest_NegCycle(:,index(i))),RespLocalTest_Height,'Marker',getprop(markers,i),'color',getprop(colors,i),'linestyle','-', 'DisplayName',[num2str(drift(i)), '%'])
 end
 legend('Location', 'NorthEastOutside')
-text(-5.8e-3, 2300, datafolder, 'FontSize', 11);
+text(-5.8e-3, 2300, model_name, 'FontSize', 12);
 %title('Local Response RW-A20-P10-S38: Test vs Model - Negative Cycle')
 %xlabel('Horizontal Strain')
 %ylabel('Height (mm)')
@@ -404,7 +404,7 @@ for i = 1:length(PosDisp)
     plot(eps_xx_height_PosCycle(:,i),height,'Marker',getprop(markers,i),'color',getprop(colors,i),'linestyle','--', 'DisplayName',['Model (Panels) - ', num2str(drift(i)), '%'])
 end
 legend('Location', 'NorthEast')
-text(2e-3, 2300, datafolder, 'FontSize', 14);
+text(2e-3, 2300, model_name, 'FontSize', 14);
 title('Local Response RW-A20-P10-S38 Model: Nodes vs Panels - Positive Cycle')
 xlabel('Horizontal Strain')
 ylabel('Height (mm)')
@@ -425,7 +425,7 @@ for i = 1:length(PosDisp)
     plot(eps_xx_height_NegCycle(:,i),height,'Marker',getprop(markers,i),'color',getprop(colors,i),'linestyle','--', 'DisplayName',['Model (Panels) - ', num2str(drift(i)), '%'])
 end
 legend('Location', 'NorthEast')
-text(2e-3, 2300, datafolder, 'FontSize', 14);
+text(2e-3, 2300, model_name, 'FontSize', 14);
 title('Local Response RW-A20-P10-S38 Model: Nodes vs Panels - Negative Cycle')
 xlabel('Horizontal Strain')
 ylabel('Height (mm)')

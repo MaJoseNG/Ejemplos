@@ -1,4 +1,4 @@
-function EnergyDissipation_RW_A20_P10_S38(datafolder,directoryTest)
+function EnergyDissipation_RW_A20_P10_S38(datafolder,directoryTest, model_name)
 %% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %BORRAR
 %directoryTest = 'C:\repos\Ejemplos\Validacion\RW-A20-P10-S38\Test\RW-A20-P10-S38_Test.txt';     % PC Civil
@@ -43,7 +43,7 @@ hold on
 plot(drift,Edrift,'-o')
 plot(drift,Ecum_drift,'-o')
 legend('Energía disipada por deriva','Energía disipada acumulada')
-title(['Energía disipada RW-A20-P10-S38: Modelo ', datafolder])
+title(['Energía disipada RW-A20-P10-S38: Modelo ', model_name])
 xlabel('Deriva [%]')
 ylabel('Energía Disipada [kNmm]')
 box on
@@ -99,7 +99,7 @@ plot(drift,Edrift_Test,'-or','DisplayName','Energia disipada por deriva')
 plot(drift,Ecum_drift_Test,'-ok','DisplayName','Energía disipada acumulada')
 %xticks([0.28 0.38 0.56 0.75 1.1 1.5 2.3 3.1]);
 legend('Location', 'NorthWest')
-title(['RW-A20-P10-S38: Modelo ', datafolder])
+title(['RW-A20-P10-S38: Modelo ', model_name])
 xlabel('Deriva (%)')
 ylabel('Energía Disipada (kNmm)')
 box on
@@ -155,7 +155,7 @@ end
 % Configurar etiquetas y título
 xlabel('Desplazamiento Lateral (mm)');
 ylabel('Carga Lateral (kN)');
-title(['Energía disipada RW-A20-P10-S38: Modelo ', datafolder])
+title(['Energía disipada RW-A20-P10-S38: Modelo ', model_name])
 xlim([-100 100])
 ylim([-600 600])
 % Mostrar el área total en el gráfico

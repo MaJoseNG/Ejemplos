@@ -7,7 +7,7 @@ source LibUnits.tcl
 # Start of model generation (Units: N, mm)
 # --------------------------------------------------------
 #set dataDir MEFISection_SW-T2-S3-4_RCLMS02_Conc02_Steel02_NUEVO
-set dataDir RCLMS02C02S02
+set dataDir RCLMS02C02S02-3_Push2.4
 
 file mkdir $dataDir;
 
