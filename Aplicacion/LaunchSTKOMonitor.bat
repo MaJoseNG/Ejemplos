@@ -1,0 +1,1 @@
+.\STKOMonitor\STKOMonitor.bat

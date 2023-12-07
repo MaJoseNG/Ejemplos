@@ -1,0 +1,1 @@
+"C:\repos\OpenSees3.5.0-Oficial\Win64\bin\OpenSees.exe" ".\main.tcl"  & pause
